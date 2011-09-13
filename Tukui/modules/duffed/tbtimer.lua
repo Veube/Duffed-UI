@@ -1,4 +1,5 @@
-if dStuff.tbtimer ~= true then return end
+local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+if C["duffed"].tbtimer ~= false then return end
 
 -- TB Timer (show watchframe when entering tb)
 local function Update(self, event)

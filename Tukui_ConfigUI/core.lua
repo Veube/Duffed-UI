@@ -20,7 +20,7 @@ local ALLOWED_GROUPS = {
 	["error"]=1,
 	["invite"]=1,
 	["buffreminder"]=1,
-	["pvp"]=1,
+	["duffed"]=1,
 	["castbar"]=1,
 	["classtimer"]=1,
 	["skins"]=1,
@@ -101,13 +101,18 @@ local function Local(o)
 	if o == "TukuiConfigUIactionbarbutton2" then o = "Show or Hide the +/-Button at the bottom Datatextpanel" end
 	if o == "TukuiConfigUIactionbarlayout" then o = "Set Actionbarlayout" end
 	
-	if o == "TukuiConfigUIpvpdrinkannouncement"  then o = "Announce 'drinking' in  Arena" end
-	if o == "TukuiConfigUIpvpccannouncement"  then o = "Announce CC/Buffs/Debuffs" end
-	if o == "TukuiConfigUIpvpsayinterrupt"  then o = "Announce when u interrupt someone" end
-	if o == "TukuiConfigUIpvpdispelannouncement" then o = "Announce Dispels in a movable Frame (/duffed)" end
-	if o == "TukuiConfigUIpvparenaonly" then o = "Aura & Interrupt announcement in arena only." end
+	-- pvp
+	if o == "TukuiConfigUIduffed" then o = "Duffed" end
+	if o == "TukuiConfigUIduffeddrinkannouncement"  then o = "Announce 'drinking' in  Arena" end
+	if o == "TukuiConfigUIduffedccannouncement"  then o = "Announce CC/Buffs/Debuffs" end
+	if o == "TukuiConfigUIduffedsayinterrupt"  then o = "Announce when u interrupt someone" end
+	if o == "TukuiConfigUIduffeddispelannouncement" then o = "Announce Dispels" end
+	if o == "TukuiConfigUIduffedtbtimer" then o = "Enable Tol Barad-Timer in watchframe" end
+	if o == "TukuiConfigUIduffedpriest_sos" then o = "Enable display for Strength of Soul (Priests only)" end
+	if o == "TukuiConfigUIduffedarenaonly" then o = "Aura & Interrupt announcement in arena only." end
 	
 	if o == "TukuiConfigUIclasstimer" then o = "ClassTimer" end
+	if o == "TukuiConfigUIclasstimerenable" then o = "Enable Classtimer" end
 	if o == "TukuiConfigUIclasstimerplayercolor" then o = "Player-Bar Color" end
 	if o == "TukuiConfigUIclasstimertargetbuffcolor" then o = "Target-Buffs Color" end
 	if o == "TukuiConfigUIclasstimertargetdebuffcolor" then o = "Target-Debuffs Color" end
@@ -327,10 +332,6 @@ local function Local(o)
 	if o == "TukuiConfigUIarena" then o = TukuiL.option_arena end
 	if o == "TukuiConfigUIarenaspelltracker" then o = TukuiL.option_arena_st end
 	if o == "TukuiConfigUIarenaunitframes" then o = TukuiL.option_arena_uf end
-	
-	-- pvp
-	if o == "TukuiConfigUIpvp" then o = TukuiL.option_pvp end
-	if o == "TukuiConfigUIpvpinterrupt" then o = TukuiL.option_pvp_ii end
 	
 	-- cooldowns
 	if o == "TukuiConfigUIcooldown" then o = TukuiL.option_cooldown end

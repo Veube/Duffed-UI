@@ -1,20 +1,27 @@
-if dStuff.sayinterrupt ~= true then return end
+local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+if C["duffed"].sayinterrupt ~= true then return end
 
 -- Say interrupt
 local f = CreateFrame("Frame")
 local function Update(self, event, ...)
-	if not DuffedC.sayinterrupt then return end
+	if not C["duffed"].sayinterrupt then return end
 	
 	local pvpType = GetZonePVPInfo()
-	if dStuff.arenaonly then
+	if C["duffed"].arenaonly then
 		if pvpType ~= "arena" then return end
 	else
 		f:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 	end
 	
 	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-		if UnitInRaid("player") and GetNumRaidMembers() > 5 then channel = "PARTY" elseif GetNumPartyMembers() > 0 then channel = "PARTY" else return end
-		-- local channel = "SAY"
+		if UnitInRaid("player") and GetNumRaidMembers() > 5 then
+			channel = "RAID"
+		elseif GetNumPartyMembers() > 0 then
+			channel = "PARTY"
+		else
+			channel = "SAY"
+		end
+		
 		local timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellName, _, extraskillID, extraSkillName = ...
 		if eventType == "SPELL_INTERRUPT" and sourceName == UnitName("player") then
 			SendChatMessage("Interrupted => "..GetSpellLink(extraskillID).."!", channel)

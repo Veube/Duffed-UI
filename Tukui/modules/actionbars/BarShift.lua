@@ -91,14 +91,14 @@ bar:SetScript("OnEvent", function(self, event, ...)
 		end
 		T.TukuiShiftBarUpdate()
 		if C.actionbar.verticalshapeshift then
-			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing))+ T.buttonspacing, ShapeshiftButton1:GetHeight()*GetNumShapeshiftForms()+ 4*T.buttonspacing)
+			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing))+ T.buttonspacing, ShapeshiftButton1:GetHeight()*GetNumShapeshiftForms()+ (GetNumShapeshiftForms()+1)*T.buttonspacing)
 		else
 			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing)*GetNumShapeshiftForms() )+ T.buttonspacing, ShapeshiftButton1:GetHeight()+ 2*T.buttonspacing)
 		end
 	elseif event == "PLAYER_ENTERING_WORLD" then
 		T.StyleShift()
 		if C.actionbar.verticalshapeshift then
-			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing))+ T.buttonspacing, ShapeshiftButton1:GetHeight()*GetNumShapeshiftForms()+ 4*T.buttonspacing)
+			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing))+ T.buttonspacing, ShapeshiftButton1:GetHeight()*GetNumShapeshiftForms()+ (GetNumShapeshiftForms()+1)*T.buttonspacing)
 		else
 			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing)*GetNumShapeshiftForms() )+ T.buttonspacing, ShapeshiftButton1:GetHeight()+ 2*T.buttonspacing)
 		end

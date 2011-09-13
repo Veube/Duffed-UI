@@ -1,4 +1,5 @@
-if dStuff.priest_SoS ~= true or select(2, UnitClass("player")) ~= "PRIEST" then return end
+local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+if C["duffed"].priest_sos ~= true or select(2, UnitClass("player")) ~= "PRIEST" then return end
 
 local p = CreateFrame("Frame", "dPriest_Frame", UIParent)
 p:SetSize(40,40)

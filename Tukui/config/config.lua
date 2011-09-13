@@ -121,12 +121,13 @@ C["arena"] = {
 	["unitframes"] = true,                              -- enable tukz arena unitframes (requirement : tukui unitframes enabled)
 }
 
-C["pvp"] = {
+C["duffed"] = {
 	["drinkannouncement"] = true,						-- Drink announcement for arena
-	["ccannouncement"] = true,							-- Announce CC/Buffs/Debuffs (config in AddOns/Stuff/Config.lua)
+	["ccannouncement"] = true,							-- Announce CC/Buffs/Debuffs
 	["sayinterrupt"] = true,							-- Interrupt announce
-	["dispelannouncement"] = false,						-- Announce dispels in a movable frame (/duffed)
-	
+	["dispelannouncement"] = false,						-- Announce dispels in a movable frame
+	["tbtimer"] = false,								-- Enable Tol Barad-Timer in watchframe
+	["priest_sos"] = false,								-- Enable Strength of Souldisplay for priests
 	["arenaonly"] = true,								-- Aura and Interrupt announce in arena only
 }
 
@@ -164,11 +165,8 @@ C["skins"] = {
 	["itemborder"] = true, 								-- Enable Qualityborder for Items on Character / Inspectframe
 }
 
-C["sCombo"] = {
-	
-}
-
 C["classtimer"] = {
+	["enable"] = true,									-- enable classtimer
 	["targetdebuffs"] = false,							-- target debuffs above target (looks crappy imo)
 	["playercolor"] = {.2, .2, .2, 1 },
 	["targetbuffcolor"] = { 70/255, 150/255, 70/255, 1 },

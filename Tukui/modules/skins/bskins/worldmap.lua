@@ -27,6 +27,8 @@ local function LoadSkin()
 	T.SkinCheckBox(WorldMapTrackQuest)
 	T.SkinCheckBox(WorldMapQuestShowObjectives)
 	T.SkinCheckBox(WorldMapShowDigSites)
+	T.SkinScrollBar(WorldMapQuestScrollFrameScrollBar)
+	T.SkinScrollBar(WorldMapQuestDetailScrollFrameScrollBar)
 
 	--Mini
 	local function SmallSkin()

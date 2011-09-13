@@ -1,5 +1,5 @@
-local T, C, L = unpack(Tukui)
-if ( C == nil or C["unitframes"] == nil or not C["unitframes"]["enable"] ) then return end
+local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+if not C["unitframes"].enable == true and C["classtimer"].enable == true then return end
 
 --[[ Configuration functions - DO NOT TOUCH
 	id - spell id
@@ -8,40 +8,37 @@ if ( C == nil or C["unitframes"] == nil or not C["unitframes"]["enable"] ) then 
 	unitType - 0 all, 1 friendly, 2 enemy
 	castSpellId - fill only if you want to see line on bar that indicates if its safe to start casting spell and not clip the last tick, also note that this can be different from aura id 
 ]]--
+
 local CreateSpellEntry = function( id, castByAnyone, color, unitType, castSpellId )
 	return { id = id, castByAnyone = castByAnyone, color = color, unitType = unitType or 0, castSpellId = castSpellId };
 end
 
 -- Configuration starts here:
-local targetdebuffs = C.classtimer.targetdebuffs -- display target debuffs above target
-local BAR_HEIGHT = 15						-- Bar height
-local BAR_SPACING = 1						-- Distance between bars
-local SPARK = false							-- Show spark
-local CAST_SEPARATOR = true					-- Show cast separator
-local CAST_SEPARATOR_COLOR = { 0, 0, 0, .5 } -- Sets cast separator color
-local TEXT_MARGIN = 5						-- Sets distance between right edge of bar and name and left edge of bar and time left
+local targetdebuffs = C.classtimer.targetdebuffs 							-- display target debuffs above target
+local BAR_HEIGHT = 15														-- Bar height
+local BAR_SPACING = 1														-- Distance between bars
+local SPARK = false															-- Show spark
+local CAST_SEPARATOR = true													-- Show cast separator
+local CAST_SEPARATOR_COLOR = { 0, 0, 0, .5 } 								-- Sets cast separator color
+local TEXT_MARGIN = 5														-- Sets distance between right edge of bar and name and left edge of bar and time left
 
-MASTER_FONT = { C["media"].uffont, C.unitframes.fontsize }; -- Sets font for all texts
-STACKS_FONT = { C["media"].uffont, C.unitframes.fontsize , "THINOUTLINE"}; -- Sets font for stack count
+MASTER_FONT = { C["media"].uffont, C.unitframes.fontsize }; 				-- Sets font for all texts
+STACKS_FONT = { C["media"].uffont, C.unitframes.fontsize , "THINOUTLINE"}; 	-- Sets font for stack count
 
-local PERMANENT_AURA_VALUE = 1				-- Permanent aura bars 1 = filled 0 = empty
+local PERMANENT_AURA_VALUE = 1												-- Permanent aura bars 1 = filled 0 = empty
 
-local PLAYER_BAR_COLOR = C["classtimer"].playercolor -- Player bar color
-local PLAYER_DEBUFF_COLOR = nil -- Player debuff color
-local TARGET_BAR_COLOR = C["classtimer"].targetbuffcolor --Target bar color
-local TARGET_DEBUFF_COLOR = C["classtimer"].targetdebuffcolor --Target debuff color
-local TRINKET_BAR_COLOR = C["classtimer"].trinketcolor --Trinket bar color
+local PLAYER_BAR_COLOR = C["classtimer"].playercolor 						-- Player bar color
+local PLAYER_DEBUFF_COLOR = nil 											-- Player debuff color
+local TARGET_BAR_COLOR = C["classtimer"].targetbuffcolor 					-- Target bar color
+local TARGET_DEBUFF_COLOR = C["classtimer"].targetdebuffcolor 				-- Target debuff color
+local TRINKET_BAR_COLOR = C["classtimer"].trinketcolor 						-- Trinket bar color
 
-local SORT_DIRECTION = true -- Sort direction (true - descending, false - ascending)
-local TENTHS_TRESHOLD = 1 -- Timer tenths threshold - range from 1 to 60
+local SORT_DIRECTION = true 												-- Sort direction (true - descending, false - ascending)
+local TENTHS_TRESHOLD = 1 													-- Timer tenths threshold - range from 1 to 60
 
 -- Trinket filter - mostly for trinket procs, delete or wrap into comment block --[[  ]] if you dont want to track those
 local TRINKET_FILTER = {
-		
-		--Enchants
-		CreateSpellEntry( 74221 ), -- Hurricane
-		CreateSpellEntry( 74241 ), -- Power Torrent
-		
+				
 		--Proccs
 		CreateSpellEntry( 2825, true ), CreateSpellEntry( 32182, true ), CreateSpellEntry( 80353, true), -- Bloodlust/Heroism/Timewarp
 		CreateSpellEntry( 90355, true ), -- Ancient Hysteria, bloodlust from hunters pet
@@ -63,6 +60,10 @@ local TRINKET_FILTER = {
 		CreateSpellEntry( 33702 ), -- Blood Fury for Spell Power (Orc)
 		CreateSpellEntry( 33697 ), -- Blood Fury for Both (Orc)
 		
+		--Enchants
+		CreateSpellEntry( 74221 ), -- Hurricane
+		CreateSpellEntry( 74241 ), -- Power Torrent
+
 		--Baradin
 		CreateSpellEntry( 91047 ), -- Stump of Time
 		CreateSpellEntry( 91828 ), -- Thrill for Victory
@@ -103,9 +104,9 @@ local TRINKET_FILTER = {
 		--Molten Front
 		CreateSpellEntry( 100403 ), -- Moonwell Chalice
 		
-		---------------
-		--T-Set Procs--
-		---------------		
+		-----------------
+		-- T-Set Procs --
+		-----------------
 		--DeathKnight
 		CreateSpellEntry( 90507 ), -- DPS set T11
 		CreateSpellEntry( 98971 ), -- Smoldering Rune DPS set T12

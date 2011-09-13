@@ -67,7 +67,7 @@ end
 -- INFO LEFT (FOR STATS)
 local ileft = CreateFrame("Frame", "TukuiInfoLeft", TukuiBar1)
 if C["actionbar"].layout ~= 1 then
-	ileft:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 14, 3)
+	ileft:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 15, 3)
 else
 	ileft:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMRIGHT", UIParent, "BOTTOM", -12, 4)
 end
@@ -80,7 +80,7 @@ end
 -- INFO RIGHT (FOR STATS)
 local iright = CreateFrame("Frame", "TukuiInfoRight", TukuiBar1)
 if C["actionbar"].layout ~=1 then
-	iright:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -14, 3)
+	iright:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -15, 3)
 else
 	iright:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMLEFT", UIParent, "BOTTOM", 12, 4)
 end

@@ -1,4 +1,5 @@
-if dStuff.drinkannouncement ~= true then return end
+local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+if C["duffed"].drinkannouncement ~= true then return end
 
 -- Drink Announcement
 local function Update(self, event, ...)
