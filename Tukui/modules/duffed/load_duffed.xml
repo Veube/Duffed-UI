@@ -5,5 +5,6 @@
 	<Script file="hattrick.lua"/>
 	<Script file="priest.lua"/>
 	<Script file="sayinterrupt.lua"/>
+	<Script file="settings.lua"/>
 	<Script file="tbtimer.lua"/>
 </Ui>

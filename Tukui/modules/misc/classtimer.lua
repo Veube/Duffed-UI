@@ -1,5 +1,5 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
-if not C["unitframes"].enable == true and C["classtimer"].enable == true then return end
+if C["unitframes"].enable == false or C["classtimer"].enable == false then return end
 
 --[[ Configuration functions - DO NOT TOUCH
 	id - spell id
