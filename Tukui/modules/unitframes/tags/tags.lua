@@ -159,3 +159,13 @@ oUF.Tags['Tukui:afk'] = function(unit)
 		return CHAT_FLAG_AFK
 	end
 end
+
+oUF.TagEvents['Tukui:perchp'] = 'UNIT_HEALTH'
+oUF.Tags['Tukui:perchp'] = function(u)
+	local m = UnitHealthMax(u)
+	if(m == 0) then
+		return 0
+	else
+		return T.panelcolor..math.floor(UnitHealth(u)/m*100+.5).."%"
+	end
+end

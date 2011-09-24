@@ -19,6 +19,7 @@ C["unitframes"] = {
 	["layout"] = 2,										-- Layout 1 or 2
 	["outline"] = "NONE",								-- Set outlines
 	["totdebuff"] = 19.5,								-- Set size of Target of Target debuffs
+	["percent"] = false,								-- Shows Healtpercent at Unitframe
 	
 	["fontsize"] = 8,									-- Fontsize on Unitframes
 	["healthbarcolor"] = {.2, .2, .2, 1},				-- Healthbar color (if unicolor = true) 
@@ -106,6 +107,7 @@ C["actionbar"] = {
 	["petbaralwaysvisible"] = true,						-- Always show petbar even if rightbarsmouseover = true
 	["petbarhorizontal"] = false,						-- Petbar horizontal on top of Bar1/2
 	["button2"] = false,								-- TukuiBar2Button Show / Hide
+	["panels"] = false,									-- enable / disable actionbarpanels if you use an alternativ actionbarmod
 
 	["enable"] = true,                                  -- enable tukui action bars
 	["layout"] = 1,										-- layout testingstuff
@@ -129,6 +131,7 @@ C["duffed"] = {
 	["tbtimer"] = false,								-- Enable Tol Barad-Timer in watchframe
 	["priest_sos"] = false,								-- Enable Strength of Souldisplay for priests
 	["arenaonly"] = true,								-- Aura and Interrupt announce in arena only
+	["announcechannel"] = "SAY"							-- Set Announcechannel
 }
 
 C["misc"] = {
@@ -140,8 +143,9 @@ C["misc"] = {
 	["sescastbar"] = true,								-- Enable castbar @specswitcher
 	["npdebuff"] = true,								-- enable Debuffdisplay on nameplates
 	["rbf"] = true,										-- enable raidbuffreminder
-	["bossicons"] = true,								-- enable alternative Bossportraits
+	["rbfvertical"] = true,								-- Set RBF to vertical direction
 	["rbfmouseover"] = true,							-- enable mouseover for RaidBuff Reminder
+	["bossicons"] = true,								-- enable alternative Bossportraits
 	["swingtimerenable"] = false,						-- enable ouf_Swing Swingtimer Plugin (movable bar)
 	["swingtimerwidth"] = 210,							-- bar width
 	["swingtimerheight"] = 6,							-- bar height

@@ -99,7 +99,18 @@ local function Shared(self, unit)
 		-- health bar background
 		local healthBG = health:CreateTexture(nil, 'BORDER')
 		healthBG:SetAllPoints()
-	
+
+		if C["unitframes"].percent then
+			local percHP = T.SetFontString(health, C.media.font, 20, "THINOUTLINE")
+			if unit == "player" then
+                percHP:SetPoint("LEFT", health, "RIGHT", 5, 0)
+			elseif unit == "target" then
+				percHP:SetPoint("RIGHT", health, "LEFT", -5, 0)
+			end
+			self:Tag(percHP, "[Tukui:perchp]")
+			self.percHP = percHP
+		end
+		
 		health.value = T.SetFontString(health, font1, fontsize, fontflag)
 		if unit == "player" then
 			health.value:Point("RIGHT", health, "RIGHT", -4, 0)
@@ -1681,43 +1692,47 @@ end
 oUF:RegisterStyle('Tukui', Shared)
 
 -- player
+local player = oUF:Spawn('player', "TukuiPlayer")
 if C["actionbar"].layout == 2 then
-	local player = oUF:Spawn('player', "TukuiPlayer")
-	if T.lowversion then
+	if C["actionbar"].panels == false then
 		player:Point("BOTTOMLEFT", TukuiBar3Left, "TOPLEFT", -75,100)
 	else
-		player:Point("BOTTOMLEFT", TukuiBar3Left, "TOPLEFT", -75,100)
+		player:Point("BOTTOM", UIParent, "BOTTOM", -300, 225)
 	end
-	player:Size(playerwidth, 43)
 else
-	local player = oUF:Spawn('player', "TukuiPlayer")
-	if T.lowversion then
-		player:Point("BOTTOMLEFT", TukuiBar1, "TOPLEFT", -130,135)
+	if C["actionbar"].panels == false then
+		if T.lowversion then
+			player:Point("BOTTOMLEFT", TukuiBar1, "TOPLEFT", -130,135)
+		else
+			player:Point("BOTTOMLEFT", TukuiBar1, "TOPLEFT", 2,140)
+		end
 	else
-		player:Point("BOTTOMLEFT", TukuiBar1, "TOPLEFT", 2,140)
+		player:Point("BOTTOM", UIParent, "BOTTOM", -300, 225)
 	end
-	player:Size(playerwidth, 43)
 end
+player:Size(playerwidth, 43)
 
 
 -- target
+local target = oUF:Spawn('target', "TukuiTarget")
 if C["actionbar"].layout == 2 then
-	local target = oUF:Spawn('target', "TukuiTarget")
-	if T.lowversion then
-		target:Point("BOTTOMRIGHT", TukuiBar3Right, "TOPRIGHT", 75,100)
+	if C["actionbar"].panels == false then
+		target:Point("BOTTOMLEFT", TukuiBar3Left, "TOPLEFT", 75,100)
 	else
-		target:Point("BOTTOMRIGHT", TukuiBar3Right, "TOPRIGHT", 75,100)
+		target:Point("BOTTOM", UIParent, "BOTTOM", 300, 225)
 	end
-	target:Size(playerwidth, 43)
 else
-	local target = oUF:Spawn('target', "TukuiTarget")
-	if T.lowversion then
-		target:Point("BOTTOMRIGHT", TukuiBar1, "TOPRIGHT", 130,135)
+	if C["actionbar"].panels == false then
+		if T.lowversion then
+			target:Point("BOTTOMLEFT", TukuiBar1, "TOPLEFT", 130,135)
+		else
+			target:Point("BOTTOMLEFT", TukuiBar1, "TOPLEFT", -2,140)
+		end
 	else
-		target:Point("BOTTOMRIGHT", TukuiBar1, "TOPRIGHT", -2,140)
+		target:Point("BOTTOM", UIParent, "BOTTOM", 300, 225)
 	end
-	target:Size(playerwidth, 43)
 end
+target:Size(playerwidth, 43)
 
 -- tot
 local tot = oUF:Spawn('targettarget', "TukuiTargetTarget")

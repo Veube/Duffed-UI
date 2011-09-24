@@ -1,71 +1,74 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 
-local TukuiBar1 = CreateFrame("Frame", "TukuiBar1", UIParent, "SecureHandlerStateTemplate")
-if C["actionbar"].layout ~= 1 then
-	TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 67)
-	TukuiBar1:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
-	TukuiBar1:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
-	TukuiBar1:SetFrameStrata("BACKGROUND")
-	TukuiBar1:SetFrameLevel(1)
-else
-	TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 27)
-	if T.lowversion then
-		TukuiBar1:ClearAllPoints()
-		TukuiBar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 4)
+if C["actionbar"].panels ~= true then
+	local TukuiBar1 = CreateFrame("Frame", "TukuiBar1", UIParent, "SecureHandlerStateTemplate")
+	if C["actionbar"].layout ~= 1 then
+		TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 67)
 		TukuiBar1:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
 		TukuiBar1:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
+		TukuiBar1:SetFrameStrata("BACKGROUND")
+		TukuiBar1:SetFrameLevel(1)
 	else
-		TukuiBar1:SetWidth((T.buttonsize * 24) + (T.buttonspacing * 25))
-		TukuiBar1:SetHeight((T.buttonsize * 1) + (T.buttonspacing * 2))
+		TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 27)
+		if T.lowversion then
+			TukuiBar1:ClearAllPoints()
+			TukuiBar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 4)
+			TukuiBar1:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
+			TukuiBar1:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
+		else
+			TukuiBar1:SetWidth((T.buttonsize * 24) + (T.buttonspacing * 25))
+			TukuiBar1:SetHeight((T.buttonsize * 1) + (T.buttonspacing * 2))
+		end
 	end
-end
 
-if C["actionbar"].layout ~= 1 then
-	local TukuiBar2 = CreateFrame("Frame", "TukuiBar2", TukuiBar1)
-	if C["actionbar"].swapbar1and3 ~= true then
-		TukuiBar2:CreatePanel("Default", 1, 1, "BOTTOM", TukuiBar1, "BOTTOM", 0, 0)
+	if C["actionbar"].layout ~= 1 then
+		local TukuiBar2 = CreateFrame("Frame", "TukuiBar2", TukuiBar1)
+		if C["actionbar"].swapbar1and3 ~= true then
+			TukuiBar2:CreatePanel("Default", 1, 1, "BOTTOM", TukuiBar1, "BOTTOM", 0, 0)
+		else
+			TukuiBar2:CreatePanel("Default", 1, 1, "TOP", TukuiBar1, "TOP", 0, 0)
+		end
+		TukuiBar2:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
+		TukuiBar2:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
+		TukuiBar2:SetFrameStrata("BACKGROUND")
+		TukuiBar2:SetFrameLevel(2)
 	else
-		TukuiBar2:CreatePanel("Default", 1, 1, "TOP", TukuiBar1, "TOP", 0, 0)
+		local TukuiBar2 = CreateFrame("Frame", "TukuiBar2", UIParent, "SecureHandlerStateTemplate") -- Bar on top of Main bar (12)
+		TukuiBar2:CreatePanel("Default", 1, 1, "BOTTOM", TukuiBar1, "TOP", 0, 4)
+		TukuiBar2:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
+		TukuiBar2:SetHeight((T.buttonsize * 1) + (T.buttonspacing * 2))
 	end
-	TukuiBar2:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
-	TukuiBar2:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
-	TukuiBar2:SetFrameStrata("BACKGROUND")
-	TukuiBar2:SetFrameLevel(2)
-else
-	local TukuiBar2 = CreateFrame("Frame", "TukuiBar2", UIParent, "SecureHandlerStateTemplate") -- Bar on top of Main bar (12)
-	TukuiBar2:CreatePanel("Default", 1, 1, "BOTTOM", TukuiBar1, "TOP", 0, 4)
-	TukuiBar2:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
-	TukuiBar2:SetHeight((T.buttonsize * 1) + (T.buttonspacing * 2))
-end
 
-if C["actionbar"].layout ~= 1 then
-	local TukuiBar3Left = CreateFrame("Frame", "TukuiBar3Left", UIParent)
-	TukuiBar3Left:CreatePanel("Default", 1, 1, "BOTTOMRIGHT", TukuiBar1, "BOTTOMLEFT", -23, 0)
-	TukuiBar3Left:SetWidth((T.buttonsize * 3) + (T.buttonspacing * 4))
-	TukuiBar3Left:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
-	TukuiBar3Left:SetFrameStrata("BACKGROUND")
-	TukuiBar3Left:SetFrameLevel(2)
+	if C["actionbar"].layout ~= 1 then
+		local TukuiBar3Left = CreateFrame("Frame", "TukuiBar3Left", UIParent)
+		TukuiBar3Left:CreatePanel("Default", 1, 1, "BOTTOMRIGHT", TukuiBar1, "BOTTOMLEFT", -23, 0)
+		TukuiBar3Left:SetWidth((T.buttonsize * 3) + (T.buttonspacing * 4))
+		TukuiBar3Left:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
+		TukuiBar3Left:SetFrameStrata("BACKGROUND")
+		TukuiBar3Left:SetFrameLevel(2)
 
-	local TukuiBar3Right = CreateFrame("Frame", "TukuiBar3Right", UIParent)
-	TukuiBar3Right:CreatePanel("Default", 1, 1, "BOTTOMLEFT", TukuiBar1, "BOTTOMRIGHT", 23, 0)
-	TukuiBar3Right:SetWidth((T.buttonsize * 3) + (T.buttonspacing * 4))
-	TukuiBar3Right:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
-	TukuiBar3Right:SetFrameStrata("BACKGROUND")
-	TukuiBar3Right:SetFrameLevel(2)
+		local TukuiBar3Right = CreateFrame("Frame", "TukuiBar3Right", UIParent)
+		TukuiBar3Right:CreatePanel("Default", 1, 1, "BOTTOMLEFT", TukuiBar1, "BOTTOMRIGHT", 23, 0)
+		TukuiBar3Right:SetWidth((T.buttonsize * 3) + (T.buttonspacing * 4))
+		TukuiBar3Right:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
+		TukuiBar3Right:SetFrameStrata("BACKGROUND")
+		TukuiBar3Right:SetFrameLevel(2)
 	
-	local TukuiBar4 = CreateFrame("Frame", "TukuiBar4", UIParent) -- Rightbars
-	TukuiBar4:CreatePanel("Default", 1, 1, "RIGHT", UIParent, "RIGHT", -14, -14)
-	TukuiBar4:SetWidth((T.buttonsize * 2) + (T.buttonspacing * 3))
-	TukuiBar4:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
-else
-	local TukuiBar3 = CreateFrame("Frame", "TukuiBar3", UIParent) -- Rightbars
-	TukuiBar3:CreatePanel("Default", 1, 1, "RIGHT", UIParent, "RIGHT", -14, -14)
-	TukuiBar3:SetWidth((T.buttonsize * 2) + (T.buttonspacing * 3))
-	TukuiBar3:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
+		local TukuiBar4 = CreateFrame("Frame", "TukuiBar4", UIParent) -- Rightbars
+		TukuiBar4:CreatePanel("Default", 1, 1, "RIGHT", UIParent, "RIGHT", -14, -14)
+		TukuiBar4:SetWidth((T.buttonsize * 2) + (T.buttonspacing * 3))
+		TukuiBar4:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
+	else
+		local TukuiBar3 = CreateFrame("Frame", "TukuiBar3", UIParent) -- Rightbars
+		TukuiBar3:CreatePanel("Default", 1, 1, "RIGHT", UIParent, "RIGHT", -14, -14)
+		TukuiBar3:SetWidth((T.buttonsize * 2) + (T.buttonspacing * 3))
+		TukuiBar3:SetHeight((T.buttonsize * 12) + (T.buttonspacing * 13))
+	end
 end
 
 -- INFO LEFT (FOR STATS)
 local ileft = CreateFrame("Frame", "TukuiInfoLeft", TukuiBar1)
+if C["actionbar"].panels == true then ileft:SetScale(C["general"].uiscale) end
 if C["actionbar"].layout ~= 1 then
 	ileft:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 15, 3)
 else
@@ -79,6 +82,7 @@ end
 
 -- INFO RIGHT (FOR STATS)
 local iright = CreateFrame("Frame", "TukuiInfoRight", TukuiBar1)
+if C["actionbar"].panels == true then iright:SetScale(C["general"].uiscale) end
 if C["actionbar"].layout ~=1 then
 	iright:CreatePanel("Default", T.InfoLeftRightWidth, 19, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -15, 3)
 else
@@ -88,24 +92,26 @@ iright:SetFrameLevel(2)
 if T.lowversion then 
 	iright:ClearAllPoints() 
 	iright:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -11, 3)
-end		
+end
 
-if not T.lowversion then
-	-- HORIZONTAL LINE LEFT
-	local ltoabl = CreateFrame("Frame", "TukuiLineToABLeft", TukuiBar1)
-	ltoabl:CreatePanel("Default", 10, 2, "RIGHT", ileft, "LEFT", 0, 0)
+if C["actionbar"].panels ~= true then
+	if not T.lowversion then
+		-- HORIZONTAL LINE LEFT
+		local ltoabl = CreateFrame("Frame", "TukuiLineToABLeft", TukuiBar1)
+		ltoabl:CreatePanel("Default", 10, 2, "RIGHT", ileft, "LEFT", 0, 0)
 
-	-- HORIZONTAL LINE RIGHT
-	local ltoabr = CreateFrame("Frame", "TukuiLineToABRight", TukuiBar1)
-	ltoabr:CreatePanel("Default", 10, 2, "LEFT", iright, "RIGHT", 0, 0)
+		-- HORIZONTAL LINE RIGHT
+		local ltoabr = CreateFrame("Frame", "TukuiLineToABRight", TukuiBar1)
+		ltoabr:CreatePanel("Default", 10, 2, "LEFT", iright, "RIGHT", 0, 0)
 
-	-- LEFT VERTICAL LINE
-	local ileftlv = CreateFrame("Frame", "TukuiInfoLeftLineVertical", TukuiBar1)
-	ileftlv:CreatePanel("Default", 2, 13, "BOTTOM", ltoabl, "LEFT", 0, -1)
+		-- LEFT VERTICAL LINE
+		local ileftlv = CreateFrame("Frame", "TukuiInfoLeftLineVertical", TukuiBar1)
+		ileftlv:CreatePanel("Default", 2, 13, "BOTTOM", ltoabl, "LEFT", 0, -1)
 
-	-- RIGHT VERTICAL LINE
-	local irightlv = CreateFrame("Frame", "TukuiInfoRightLineVertical", TukuiBar1)
-	irightlv:CreatePanel("Default", 2, 13, "BOTTOM", ltoabr, "RIGHT", 0, -1)
+		-- RIGHT VERTICAL LINE
+		local irightlv = CreateFrame("Frame", "TukuiInfoRightLineVertical", TukuiBar1)
+		irightlv:CreatePanel("Default", 2, 13, "BOTTOM", ltoabr, "RIGHT", 0, -1)
+	end
 end
 
 --BATTLEGROUND STATS FRAME
@@ -119,16 +125,18 @@ if C["datatext"].battleground == true then
 end
 
 local petbg = CreateFrame("Frame", "TukuiPetBar", UIParent, "SecureHandlerStateTemplate")
-if C["actionbar"].petbarhorizontal == true then
-	petbg:CreatePanel("Default",(T.petbuttonsize * 10) + (T.petbuttonspacing * 11), T.petbuttonsize + (T.petbuttonspacing * 2), "BOTTOM", TukuiBar2, "TOP", 0, 4)
-else
-	petbg:CreatePanel("Default", T.petbuttonsize + (T.petbuttonspacing * 2), (T.petbuttonsize * 10) + (T.petbuttonspacing * 11), "RIGHT", TukuiBar3, "LEFT", -6, 0)
-end
+if C["actionbar"].panels ~= true then
+	if C["actionbar"].petbarhorizontal == true then
+		petbg:CreatePanel("Default",(T.petbuttonsize * 10) + (T.petbuttonspacing * 11), T.petbuttonsize + (T.petbuttonspacing * 2), "BOTTOM", TukuiBar2, "TOP", 0, 4)
+	else
+		petbg:CreatePanel("Default", T.petbuttonsize + (T.petbuttonspacing * 2), (T.petbuttonsize * 10) + (T.petbuttonspacing * 11), "RIGHT", TukuiBar3, "LEFT", -6, 0)
+	end
 
-local ltpetbg1 = CreateFrame("Frame", "TukuiLineToPetActionBarBackground", petbg)
-ltpetbg1:CreatePanel("Transparent", 24, 265, "LEFT", petbg, "RIGHT", 0, 0)
-ltpetbg1:SetFrameLevel(0)
-if C["actionbar"].petbarhorizontal == true then ltpetbg1:Hide() end
+	local ltpetbg1 = CreateFrame("Frame", "TukuiLineToPetActionBarBackground", petbg)
+	ltpetbg1:CreatePanel("Transparent", 24, 265, "LEFT", petbg, "RIGHT", 0, 0)
+	ltpetbg1:SetFrameLevel(0)
+	if C["actionbar"].petbarhorizontal == true then ltpetbg1:Hide() end
+end
 
 if C["chat"].leftchatbackground == true then
 	-- Chat 1 Background
@@ -235,21 +243,24 @@ bnet.text:SetText("Move BnetFrame")
 bnet:Hide()
 
 -- Shadows
-if C["actionbar"].layout ~=1 then
-	iright:CreateShadow("Default")
-	ileft:CreateShadow("Default")
-	TukuiBar3Left:CreateShadow("Default")
-	TukuiBar3Right:CreateShadow("Default")
-	TukuiBar4:CreateShadow("Default")
-else
-	iright:CreateShadow("Default")
-	ileft:CreateShadow("Default")
-	TukuiBar1:CreateShadow("Default")
-	TukuiBar3:CreateShadow("Default")
+if C["actionbar"].panels ~= true then
+	if C["actionbar"].layout ~=1 then
+		iright:CreateShadow("Default")
+		ileft:CreateShadow("Default")
+		TukuiBar3Left:CreateShadow("Default")
+		TukuiBar3Right:CreateShadow("Default")
+		TukuiBar4:CreateShadow("Default")
+	else
+		iright:CreateShadow("Default")
+		ileft:CreateShadow("Default")
+		TukuiBar1:CreateShadow("Default")
+		TukuiBar3:CreateShadow("Default")
+	end
+	TukuiBar2:CreateShadow("Default")
+	petbg:CreateShadow("Default")
 end
-TukuiBar2:CreateShadow("Default")
 BNToastFrame:CreateShadow("Default")
-petbg:CreateShadow("Default")
+
 
 -- Minimap Button Skinning [Credit Elv22 for the base code and Smelly for modification.]
 local function SkinButton(f)

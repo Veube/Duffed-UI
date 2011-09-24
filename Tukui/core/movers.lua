@@ -13,6 +13,7 @@ T.MoverFrames = {
 	TukuiGMFrameAnchor,
 	TukuiVehicleAnchor,
 	TukuiBnetHolder,
+	RaidBuffReminder,
 }
 
 -- used to exec various code if we enable or disable moving
@@ -93,11 +94,17 @@ local function exec(self, enable)
 		end
 	end
 	
-	if self == TukuiShiftBar then
+	if self == TukuiShiftBar or self == RaidBuffReminder then
 		if enable then
 			TukuiShapeShiftHolder:SetAlpha(1)
+			if C["misc"].rbf == true then
+				RaidBuffReminderHolder:SetAlpha(1)
+			end
 		else
 			TukuiShapeShiftHolder:SetAlpha(0)
+			if C["misc"].rbf == true then
+				RaidBuffReminderHolder:SetAlpha(0)
+			end
 			-- used for shaman totembar update
 			if T.myclass == "SHAMAN" and self.moving == false and HasMultiCastActionBar() then
 				T.TotemOrientationDown = T.TotemBarOrientation()

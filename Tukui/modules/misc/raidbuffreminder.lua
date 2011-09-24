@@ -277,7 +277,13 @@ local bsize = 20
 
 --Create the Main bar
 local raidbuff_reminder = CreateFrame("Frame", "RaidBuffReminder", UIParent)
-raidbuff_reminder:CreatePanel("Default", 153, bsize + 8, "TOPLEFT", UIParent, "TOPLEFT", 3, -3)
+if C["misc"].rbfvertical ~= true then
+	raidbuff_reminder:CreatePanel("Default", 153, bsize + 8, "TOPLEFT", UIParent, "TOPLEFT", 100, -100) -- 3, -3
+else
+	raidbuff_reminder:CreatePanel("Default", bsize + 8, 153, "TOPLEFT", UIParent, "TOPLEFT", 100, -100) -- 3, -3
+end
+raidbuff_reminder:SetMovable(true)
+raidbuff_reminder:SetClampedToScreen(true)
 raidbuff_reminder:CreateShadow("Default")
 raidbuff_reminder:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 raidbuff_reminder:RegisterEvent("UNIT_INVENTORY_CHANGED")
@@ -296,13 +302,32 @@ if C["misc"].rbfmouseover == true then
 	raidbuff_reminder:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
 end
 
+local rbfmover = CreateFrame("Frame", "RaidBuffReminderHolder", UIParent)
+rbfmover:SetAllPoints(RaidBuffReminder)
+rbfmover:SetTemplate("Transparent")
+rbfmover:SetFrameStrata("HIGH")
+rbfmover:SetBackdropColor(0,0,0,.5)
+rbfmover:SetBackdropBorderColor(1,0,0)
+rbfmover:SetAlpha(0)
+rbfmover.text = T.SetFontString(rbfmover, C.media.font, 12)
+rbfmover.text:SetPoint("CENTER")
+rbfmover.text:SetText("Move RaidBuff Reminder")
+
 --Function to create buttons
 local function CreateButton(name, relativeTo, firstbutton)
 	local button = CreateFrame("Frame", name, RaidBuffReminder)
-	if firstbutton == true then
-		button:CreatePanel("Default", bsize, bsize, "LEFT", relativeTo, "LEFT", 4, 0)
+	if C["misc"].rbfvertical ~= true then
+		if firstbutton == true then
+			button:CreatePanel("Default", bsize, bsize, "LEFT", relativeTo, "LEFT", 4, 0)
+		else
+			button:CreatePanel("Default", bsize, bsize, "LEFT", relativeTo, "RIGHT", 5, 0)
+		end
 	else
-		button:CreatePanel("Default", bsize, bsize, "LEFT", relativeTo, "RIGHT", 5, 0)
+		if firstbutton == true then
+			button:CreatePanel("Default", bsize, bsize, "TOP", relativeTo, "TOP", 0, -4)
+		else
+			button:CreatePanel("Default", bsize, bsize, "TOP", relativeTo, "BOTTOM", 0, -5)
+		end
 	end
 	button:SetFrameLevel(RaidBuffReminder:GetFrameLevel() + 2)
 	button.FrameBackdrop = CreateFrame("Frame", nil, button)

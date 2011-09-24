@@ -16,6 +16,7 @@ local function LoadSkin()
 	
 	T.SkinNextPrevButton(CalendarPrevMonthButton)
 	T.SkinNextPrevButton(CalendarNextMonthButton)
+	T.SkinScrollBar(CalendarCreateEventInviteListScrollFrameScrollBar)
 	
 	do --Handle drop down button, this one is differant than the others
 		local frame = CalendarFilterFrame

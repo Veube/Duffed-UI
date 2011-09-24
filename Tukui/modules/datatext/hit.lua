@@ -23,12 +23,12 @@ if not C["datatext"].hit == nil or C["datatext"].hit > 0 then
 			local Rbase, RposBuff, RnegBuff = UnitRangedAttackPower("player")
 			local Reffective = Rbase + RposBuff + RnegBuff
 
-			Rattackpwr = Reffective
-			spellpwr = GetSpellBonusDamage(7)
-			attackpwr = effective
-		
-			local cac = GetHitModifier()
-			local cast = GetSpellHitModifier()
+			local Rattackpwr = Reffective
+			local spellpwr = GetSpellBonusDamage(7)
+			local attackpwr = effective
+
+			local cac = GetHitModifier() or 0
+			local cast = GetSpellHitModifier() or 0
 		
 			if attackpwr > spellpwr and select(2, UnitClass("Player")) ~= "HUNTER" then
 				Text:SetText(format("%.2f", GetCombatRatingBonus(6)+cac).."%"..T.panelcolor.." Hit")

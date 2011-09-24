@@ -1,4 +1,5 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+if not C["actionbar"].panels == false then return end
 
 --[[
 	This is the file for our action bars settings in game via mouseover buttons around action bars.

@@ -3,7 +3,7 @@ local COMBAT_TEXT_LOCATIONS = COMBAT_TEXT_LOCATIONS
 
 -- ptr
 T.IsPTRVersion = function()
-	if T.toc > 40200 then
+	if T.toc > 40300 then
 		return true
 	else
 		return false
@@ -313,14 +313,16 @@ T.cbSize = function()
 
 	local x = 4
 	if C.castbar.cbicons then x = 32 end
-	if C["actionbar"].petbarhorizontal == true then
-		if TukuiPetBar:IsShown() then
-			TukuiPlayerCastBar:Width(TukuiPetBar:GetWidth() - x)
+	if C["actionbar"].panels ~= true then
+		if C["actionbar"].petbarhorizontal == true then
+			if TukuiPetBar:IsShown() then
+				TukuiPlayerCastBar:Width(TukuiPetBar:GetWidth() - x)
+			else
+				TukuiPlayerCastBar:Width(TukuiBar2:GetWidth() - x)
+			end
 		else
 			TukuiPlayerCastBar:Width(TukuiBar2:GetWidth() - x)
 		end
-	else
-		TukuiPlayerCastBar:Width(TukuiBar2:GetWidth() - x)
 	end
 end
 

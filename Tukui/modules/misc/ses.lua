@@ -279,18 +279,70 @@ dps:SetAttribute("macrotext", "/dps")
 		dps:SetBackdropColor(unpack(C.general.color))
 	end
 	
+------------------
+-- Addonmanager
+------------------
+local am = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
+am:CreatePanel("Default", 144, 19, "TOPLEFT", mui, "BOTTOMLEFT", 0, -2)
+am:CreateShadow("Default")
+
+am.t = am:CreateFontString(nil, "OVERLAY")
+am.t:SetPoint("CENTER", 0, -1)
+am.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+am.t:SetText("AddOnManager")
+
+am:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
+am:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+am:SetAttribute("type", "macro")
+am:SetAttribute("macrotext", "/am")
+
+------------------
+-- ReloadUI
+------------------
+local rl = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
+rl:CreatePanel("Default", 70, 19, "TOPLEFT", am, "BOTTOMLEFT", 0, -2)
+rl:CreateShadow("Default")
+
+rl.t = rl:CreateFontString(nil, "OVERLAY")
+rl.t:SetPoint("CENTER", 0, -1)
+rl.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+rl.t:SetText("Reload UI")
+
+rl:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
+rl:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+rl:SetAttribute("type", "macro")
+rl:SetAttribute("macrotext", "/rl")
+
+------------------
+-- ConfigUI
+------------------
+local cui = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
+cui:CreatePanel("Default", 71, 19, "LEFT", rl, "RIGHT", 3, 0)
+cui:CreateShadow("Default")
+
+cui.t = cui:CreateFontString(nil, "OVERLAY")
+cui.t:SetPoint("CENTER", 0, -1)
+cui.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+cui.t:SetText("Config UI")
+
+cui:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
+cui:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+cui:SetAttribute("type", "macro")
+cui:SetAttribute("macrotext", "/tc")
+
+	
 ------------------		
 -- Gear switching
 ------------------
 if Enablegear == true then
 	local gearSets = CreateFrame("Frame", nil, dps)	
 	for i = 1, 10 do
-			gearSets[i] = CreateFrame("Button", nil, dps)
-			gearSets[i]:CreatePanel("Default", 19, 19, "CENTER", dps, "CENTER", 0, 0)
+			gearSets[i] = CreateFrame("Button", nil, cui)
+			gearSets[i]:CreatePanel("Default", 19, 19, "CENTER", cui, "CENTER", 0, 0)
 			gearSets[i]:CreateShadow("Default")
 
 			if i == 1 then
-				gearSets[i]:Point("TOPRIGHT", dps, "BOTTOMRIGHT", 0, -2)
+				gearSets[i]:Point("TOPRIGHT", cui, "BOTTOMRIGHT", 0, -2)
 			else
 				gearSets[i]:SetPoint("BOTTOMRIGHT", gearSets[i-1], "BOTTOMLEFT", -3, 0)
 			end

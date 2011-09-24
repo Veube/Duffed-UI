@@ -15,9 +15,9 @@ local function Update(self, event, ...)
 	
 	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		if UnitInRaid("player") and GetNumRaidMembers() > 5 then
-			channel = "RAID"
+			channel = C["duffed"].announcechannel
 		elseif GetNumPartyMembers() > 0 then
-			channel = "PARTY"
+			channel = C["duffed"].announcechannel
 		else
 			channel = "SAY"
 		end

@@ -37,128 +37,132 @@ local function Local(o)
 	local T, C, L = unpack(Tukui)
 	
 	-- Duffed UI config entrys (english)
-	if o == "TukuiConfigUIgeneralblizzardsct" then o = "Skin Blizzard SCT" end
-	if o == "TukuiConfigUIgeneralnormalfont" then o = "Use the Normal/Old Font instead of pixelfont." end
-	if o == "TukuiConfigUIgeneraloverridehightolow" then o = "Use Low-res Version on High-res (Experimental)" end
-	if o == "TukuiConfigUIgeneralbordercolor" then o = "Bordercolor (Tukui Panels)" end
-	if o == "TukuiConfigUIgeneralbackdropcolor" then o = "Backdropcolor (Tukui Panels)" end
-	if o == "TukuiConfigUIgeneralclasscoloredborder" then o = "Tukui-Panel-Border classcolored" end
+	if o == "TukuiConfigUIgeneralblizzardsct" then o = TukuiL.option_general_blizzardsct end
+	if o == "TukuiConfigUIgeneralnormalfont" then o = TukuiL.option_general_normalfont end
+	if o == "TukuiConfigUIgeneraloverridehightolow" then o = TukuiL.option_general_overridehightolow end
+	if o == "TukuiConfigUIgeneralbordercolor" then o = TukuiL.option_general_bordercolor end
+	if o == "TukuiConfigUIgeneralbackdropcolor" then o = TukuiL.option_general_backdropcolor end
+	if o == "TukuiConfigUIgeneralclasscoloredborder" then o = TukuiL.option_general_classcolored_border end
 	
-	if o == "TukuiConfigUIdatatextcolor" then o = "Text Color (datatext, chat etc.)" end
-	if o == "TukuiConfigUIdatatextclasscolored" then o = "Classcolored Text" end
-	if o == "TukuiConfigUIdatatextzonepanel" then o = "Panel that shows current Zone below Minimap" end
-	if o == "TukuiConfigUIdatatextexperience" then o = "Experience Position" end
-	if o == "TukuiConfigUIdatatextreputation" then o = "Reputation Position" end
-	if o == "TukuiConfigUIdatatextmmenu"  then o = "mMenu Position (mMenu required)" end
-	if o == "TukuiConfigUIdatatextfont" then o = "Font (datatext, buffs, chat-tabs, ClassTimer)" end
-	if o == "TukuiConfigUIdatatexthonorablekills" then o = "Honorable Kills Position" end
-	if o == "TukuiConfigUIdatatexthonor" then o = "Honor Position" end
+	if o == "TukuiConfigUIdatatextcolor" then o = TukuiL.option_datatext_color end
+	if o == "TukuiConfigUIdatatextclasscolored" then o = TukuiL.option_datatext_classcolored end
+	if o == "TukuiConfigUIdatatextzonepanel" then o = TukuiL.option_datatext_zonepanel end
+	if o == "TukuiConfigUIdatatextexperience" then o = TukuiL.option_datatext_experience end
+	if o == "TukuiConfigUIdatatextreputation" then o = TukuiL.option_datatext_reputation end
+	if o == "TukuiConfigUIdatatextmmenu"  then o = TukuiL.option_datatext_mmenu end
+	if o == "TukuiConfigUIdatatextfont" then o = TukuiL.option_datatext_font end
+	if o == "TukuiConfigUIdatatexthonorablekills" then o = TukuiL.option_datatext_honorablekills end
+	if o == "TukuiConfigUIdatatexthonor" then o = TukuiL.option_datatext_honor end
 	
-	if o == "TukuiConfigUIunitframeshealthbarcolor"  then o = "Healthbar Color (unicolor)" end
-	if o == "TukuiConfigUIunitframesdeficitcolor"  then o = "Deficit Color (unicolor)" end
-	if o == "TukuiConfigUIunitframespriestarmor"  then o = "Display current Armor for Priest" end
-	if o == "TukuiConfigUIunitframestotandpetlines"  then o = "Display Lines from Pet & ToT" end
-	if o == "TukuiConfigUIunitframesframewidth"  then o = "Player & Target width (affect also boss- & arenaframes)" end
-	if o == "TukuiConfigUIunitframesfader" then o = "[EXPERIMENTAL] Fade Unitframes out when not in combat (+ some more conditions ofc)" end
-	if o == "TukuiConfigUIunitframesfader_alpha" then o = "(Fader) Alpha for frames (if not 0)" end
-	if o == "TukuiConfigUIunitframesvengeancebar" then o = "Display Vengeance-Bar instead of Threat-Bar" end
-	if o == "TukuiConfigUIunitframeslargefocus" then o = "Use larger Focus Frame" end
-	if o == "TukuiConfigUIunitframesgridvertical" then o = "Grid direction vertical instead of horizontal" end
-	if o == "TukuiConfigUIunitframesgridpets" then o = "Show pets in Grid Layout (only in group, not raid)" end
-	if o == "TukuiConfigUIunitframesfontsize" then o = "Unitframe Fontsize" end
-	if o == "TukuiConfigUIunitframesgridsolo" then o = "Show Grid even without a Group (Solo)" end
-	if o == "TukuiConfigUIunitframesfocusdebuffs" then o = "Enable Focus Debuffs" end
-	if o == "TukuiConfigUIunitframesbuffrows" then o = "Buff-rows above Target" end
-	if o == "TukuiConfigUIunitframesdebuffrows" then o = "Debuff-rows above Target" end
-	if o == "TukuiConfigUIunitframesportraitstyle" then o = "Portrait Style: ICON or MODEL (Layout 2 only)" end
-	if o == "TukuiConfigUIunitframeslayout" then o = "Layout (1, 2, 3)" end
-	if o == "TukuiConfigUIunitframesColorGradient" then o = "Add Color-Gradient to healthbar (from red to healthbarcolor u set in config)" end
-	if o == "TukuiConfigUIunitframespowerClasscolored" then o = "Powerbar in class-color instead of power-color" end
-	if o == "TukuiConfigUIunitframesoutline" then o = "Set Outline for Unitframes (NONE, OUTLINE, THINOUTLINE)" end
+	if o == "TukuiConfigUIunitframeshealthbarcolor"  then o = TukuiL.option_unitframes_healthbarcolor end
+	if o == "TukuiConfigUIunitframesdeficitcolor"  then o = TukuiL.option_unitframes_deficitcolor end
+	if o == "TukuiConfigUIunitframespriestarmor"  then o = TukuiL.option_unitframes_priestarmor end
+	if o == "TukuiConfigUIunitframestotandpetlines"  then o = TukuiL.option_unitframes_totandpetlines end
+	if o == "TukuiConfigUIunitframesframewidth"  then o = TukuiL.option_unitframes_framewidth end
+	if o == "TukuiConfigUIunitframesfader" then o = TukuiL.option_unitframes_fader end
+	if o == "TukuiConfigUIunitframesfader_alpha" then o = TukuiL.option_unitframes_faderalpha end
+	if o == "TukuiConfigUIunitframesvengeancebar" then o = TukuiL.option_unitframes_vengeancebar end
+	if o == "TukuiConfigUIunitframeslargefocus" then o = TukuiL.option_unitframes_largefocus end
+	if o == "TukuiConfigUIunitframesgridvertical" then o = TukuiL.option_unitframes_gridvertical end
+	if o == "TukuiConfigUIunitframesgridpets" then o = TukuiL.option_unitframes_gridpets end
+	if o == "TukuiConfigUIunitframesfontsize" then o = TukuiL.option_unitframes_fontsize end
+	if o == "TukuiConfigUIunitframesgridsolo" then o = TukuiL.option_unitframes_gridsolo end
+	if o == "TukuiConfigUIunitframesfocusdebuffs" then o = TukuiL.option_unitframes_focusdebuffs end
+	if o == "TukuiConfigUIunitframesbuffrows" then o = TukuiL.option_unitframes_buffrows end
+	if o == "TukuiConfigUIunitframesdebuffrows" then o = TukuiL.option_unitframes_debuffrows end
+	if o == "TukuiConfigUIunitframesportraitstyle" then o = TukuiL.option_unitframes_portraitstyle end
+	if o == "TukuiConfigUIunitframeslayout" then o = TukuiL.option_unitframes_layout end
+	if o == "TukuiConfigUIunitframesColorGradient" then o = TukuiL.option_unitframes_colorgradient end
+	if o == "TukuiConfigUIunitframespowerClasscolored" then o = TukuiL.option_unitframes_powerclasscolored end
+	if o == "TukuiConfigUIunitframesoutline" then o = TukuiL.option_unitframes_outline end
+	if o == "TukuiConfigUIunitframespercent" then o = TukuiL.option_unitframes_percent end
 	
-	if o == "TukuiConfigUIcastbar" then o = "Castbar" end
-	if o == "TukuiConfigUIcastbarcolor"  then o = "Castbarcolor for not-player (if not classcolored)" end
-	if o == "TukuiConfigUIcastbarclasscolored"  then o = "Castbar classcolored." end
-	if o == "TukuiConfigUIcastbartarget-y-offset"  then o = "Target Castbar offset from the BOTTOM" end
-	if o == "TukuiConfigUIcastbartarget-x-offset" then o = "Target Castbar offset from the CENTER (horizontal)" end
-	if o == "TukuiConfigUIcastbartargetwidth" then o = "Target Castbar width" end
-	if o == "TukuiConfigUIcastbarfocus-y-offset"  then o = "Focus Castbar offset from the TOP" end
-	if o == "TukuiConfigUIcastbarfocus-x-offset" then o = "Focus Castbar offset from the CENTER (horizontal)" end
-	if o == "TukuiConfigUIcastbarfocuswidth" then o = "Focus Castbar width" end
+	if o == "TukuiConfigUIcastbar" then o = TukuiL.option_castbar end
+	if o == "TukuiConfigUIcastbarcolor"  then o = TukuiL.option_castbar_color end
+	if o == "TukuiConfigUIcastbarclasscolored"  then o = TukuiL.option_castbar_classcolored end
+	if o == "TukuiConfigUIcastbartarget-y-offset"  then o = TukuiL.option_castbar_targetyoffset end
+	if o == "TukuiConfigUIcastbartarget-x-offset" then o = TukuiL.option_castbar_targetxoffset end
+	if o == "TukuiConfigUIcastbartargetwidth" then o = TukuiL.option_castbar_targetwidth end
+	if o == "TukuiConfigUIcastbarfocus-y-offset"  then o = TukuiL.option_castbar_focusyoffset end
+	if o == "TukuiConfigUIcastbarfocus-x-offset" then o = TukuiL.option_castbar_focusxoffset end
+	if o == "TukuiConfigUIcastbarfocuswidth" then o = TukuiL.option_castbar_focuswidth end
 	if o == "TukuiConfigUIcastbarenable" then o = TukuiL.option_unitframes_castbar end
 	if o == "TukuiConfigUIcastbarcblatency" then o = TukuiL.option_unitframes_latency end
 	if o == "TukuiConfigUIcastbarcbicons" then o = TukuiL.option_unitframes_icon end
 	
-	if o == "TukuiConfigUIactionbarswapbar1and3"  then o = "Swap Mainbar with 2. or 3. (depends on which AB-Layout you use)" end
-	if o == "TukuiConfigUIactionbarrightbarsmouseover"  then o = "Rightbars on mouseover" end
-	if o == "TukuiConfigUIactionbarshapeshiftborder"  then o = "Display Border around Shapeshiftbar" end
-	if o == "TukuiConfigUIactionbarshapeshiftmouseover"  then o = "Shapeshiftbar on mouseover" end
-	if o == "TukuiConfigUIactionbarverticalshapeshift" then o = "Set Shapeshiftbar vertical" end
-	if o == "TukuiConfigUIactionbarmacrotext"  then o = "Display Macrotext" end
-	if o == "TukuiConfigUIactionbarmacro" then o ="Enable Buttonhighlightning like Blizzstandard for Procs" end
-	if o == "TukuiConfigUIactionbarpetbaralwaysvisible"  then o = "Always show Petbar even if rightbarsmouseover = true" end
-	if o == "TukuiConfigUIactionbarpetbarhorizontal"  then o = "Petbar horizontal on top of Bar2/1" end
-	if o == "TukuiConfigUIactionbarbutton2" then o = "Show or Hide the +/-Button at the bottom Datatextpanel" end
-	if o == "TukuiConfigUIactionbarlayout" then o = "Set Actionbarlayout" end
+	if o == "TukuiConfigUIactionbarswapbar1and3"  then o = TukuiL.option_actionbar_swaprbar1and3 end
+	if o == "TukuiConfigUIactionbarrightbarsmouseover"  then o = TukuiL.option_actionbar_rightbarsmouseover end
+	if o == "TukuiConfigUIactionbarshapeshiftborder"  then o = TukuiL.option_actionbar_shapeshiftborder end
+	if o == "TukuiConfigUIactionbarshapeshiftmouseover"  then o = TukuiL.option_actionbar_shapeshiftmouseover end
+	if o == "TukuiConfigUIactionbarverticalshapeshift" then o = TukuiL.option_actionbar_shapeshiftvertical end
+	if o == "TukuiConfigUIactionbarmacrotext"  then o = TukuiL.option_actionbar_macrotext end
+	if o == "TukuiConfigUIactionbarmacro" then o = TukuiL.option_actionbar_macro end
+	if o == "TukuiConfigUIactionbarpetbaralwaysvisible"  then o = TukuiL.option_actionbar_petbaralwaysvisible end
+	if o == "TukuiConfigUIactionbarpetbarhorizontal"  then o = TukuiL.option_actionbar_petbarhorizontal end
+	if o == "TukuiConfigUIactionbarbutton2" then o = TukuiL.option_actionbar_button2 end
+	if o == "TukuiConfigUIactionbarlayout" then o = TukuiL.option_actionbar_barlayout end
+	if o == "TukuiConfigUIactionbarpanels" then o = TukuiL.option_actionbar_panels end
 	
 	-- pvp
 	if o == "TukuiConfigUIduffed" then o = "Duffed" end
-	if o == "TukuiConfigUIduffeddrinkannouncement"  then o = "Announce 'drinking' in  Arena" end
-	if o == "TukuiConfigUIduffedccannouncement"  then o = "Announce CC/Buffs/Debuffs" end
-	if o == "TukuiConfigUIduffedsayinterrupt"  then o = "Announce when u interrupt someone" end
-	if o == "TukuiConfigUIduffeddispelannouncement" then o = "Announce Dispels" end
-	if o == "TukuiConfigUIduffedtbtimer" then o = "Enable Tol Barad-Timer in watchframe" end
-	if o == "TukuiConfigUIduffedpriest_sos" then o = "Enable display for Strength of Soul (Priests only)" end
-	if o == "TukuiConfigUIduffedarenaonly" then o = "Aura & Interrupt announcement in arena only." end
+	if o == "TukuiConfigUIduffeddrinkannouncement"  then o = TukuiL.option_duffed_drinkannouncement end
+	if o == "TukuiConfigUIduffedccannouncement"  then o = TukuiL.option_duffed_ccannouncement end
+	if o == "TukuiConfigUIduffedsayinterrupt"  then o = TukuiL.option_duffed_sayinterrupt end
+	if o == "TukuiConfigUIduffeddispelannouncement" then o = TukuiL.option_duffed_dispelannouncement end
+	if o == "TukuiConfigUIduffedtbtimer" then o = TukuiL.option_duffed_tbtimer end
+	if o == "TukuiConfigUIduffedpriest_sos" then o = TukuiL.option_duffed_priest_sos end
+	if o == "TukuiConfigUIduffedarenaonly" then o = TukuiL.option_duffed_arenaonly end
+	if o == "TukuiConfigUIduffedannouncechannel" then o = TukuiL.option_duffed_announcechannel end
 	
-	if o == "TukuiConfigUIclasstimer" then o = "ClassTimer" end
-	if o == "TukuiConfigUIclasstimerenable" then o = "Enable Classtimer" end
-	if o == "TukuiConfigUIclasstimerplayercolor" then o = "Player-Bar Color" end
-	if o == "TukuiConfigUIclasstimertargetbuffcolor" then o = "Target-Buffs Color" end
-	if o == "TukuiConfigUIclasstimertargetdebuffcolor" then o = "Target-Debuffs Color" end
-	if o == "TukuiConfigUIclasstimertrinketcolor" then o = "Player-Trinket(Procs) Color" end
-	if o == "TukuiConfigUIclasstimertargetdebuffs" then o = "Target Debuffs above Target (looks crappy imo :))" end
+	if o == "TukuiConfigUIclasstimer" then o = TukuiL.option_classtimer end
+	if o == "TukuiConfigUIclasstimerenable" then o = TukuiL.option_classtimer_enable end
+	if o == "TukuiConfigUIclasstimerplayercolor" then o = TukuiL.option_classtimer_playercolor end
+	if o == "TukuiConfigUIclasstimertargetbuffcolor" then o = TukuiL.option_classtimer_targetbuffcolor end
+	if o == "TukuiConfigUIclasstimertargetdebuffcolor" then o = TukuiL.option_classtimer_targetdebuffcolor end
+	if o == "TukuiConfigUIclasstimertrinketcolor" then o = TukuiL.option_classtimer_trinketcolor end
+	if o == "TukuiConfigUIclasstimertargetdebuffs" then o = TukuiL.option_classtimer_targetdebuffs end
 	
-	if o == "TukuiConfigUIchataddonborder" then o = "Create Panel that looks exactly like the left chat (by default) at the BOTTOMRIGHT" end
-	if o == "TukuiConfigUIchatleftchatbackground" then o = "Show Background for the left Chat (ChatFrame1)" end
-	if o == "TukuiConfigUIchatrightchatbackground" then o = "Show Background for the right Chat (ChatFrame4)" end
-	if o == "TukuiConfigUIchatrightchatnumber" then o = "(For Rightchat-Background) Chat Number X" end
-	if o == "TukuiConfigUIchatfading" then o = "Enable fading" end
-	if o == "TukuiConfigUIchatrightchatalign" then o = "Set align of right chat to left or right" end
+	if o == "TukuiConfigUIchataddonborder" then o = TukuiL.option_chat_addonborder end
+	if o == "TukuiConfigUIchatleftchatbackground" then o = TukuiL.option_chat_leftchatbackground end
+	if o == "TukuiConfigUIchatrightchatbackground" then o = TukuiL.option_chat_rightchatbackground end
+	if o == "TukuiConfigUIchatrightchatnumber" then o = TukuiL.option_chat_rightchatnumber end
+	if o == "TukuiConfigUIchatfading" then o = TukuiL.option_chat_fading end
+	if o == "TukuiConfigUIchatrightchatalign" then o = TukuiL.option_chat_rightchatalign end
 	
-	if o == "TukuiConfigUIskins" then o = "Skins" end
-	if o == "TukuiConfigUIskinsbackground" then o = "Create Panel that looks exactly like the left chat (by default) at the BOTTOMRIGHT" end
-	if o == "TukuiConfigUIskinscombat_toggle" then o = "Toggle Addonbackground, Recount, Omen & Skada in-/outfight (NOTE: Turn off auto-hide functions in these Addons)" end
-	if o == "TukuiConfigUIskinsSkada" then o = "Enable Skada Skin" end
-	if o == "TukuiConfigUIskinsRecount" then o = "Enable Recount Skin" end
-	if o == "TukuiConfigUIskinsOmen" then o = "Enable Omen Skin" end
-	if o == "TukuiConfigUIskinsBigWigs" then o = "Enable BigWigs Skin" end
-	if o == "TukuiConfigUIskinsDXE" then o = "Enable DXE Skin" end
-	if o == "TukuiConfigUIskinsTinyDPS" then o = "Enable TinyDPS Skin" end
-	if o == "TukuiConfigUIskinsQuartz" then o = "Enable Quartz Skin" end
-	if o == "TukuiConfigUIskinsDBM" then o = "Enable DBM Skin" end
-	if o == "TukuiConfigUIskinsbskins" then o = "Enable Skinning for Blizzardframes" end
-	if o == "TukuiConfigUIskinsitemborder" then o = "Enable Qualityborder for Items on Character / Inspectframe" end
+	if o == "TukuiConfigUIskins" then o = TukuiL.option_skins end
+	if o == "TukuiConfigUIskinsbackground" then o = TukuiL.option_skins_background end
+	if o == "TukuiConfigUIskinscombat_toggle" then o = TukuiL.option_skins_combat_toggle end
+	if o == "TukuiConfigUIskinsSkada" then o = TukuiL.option_skins_skada end
+	if o == "TukuiConfigUIskinsRecount" then o = TukuiL.option_skins_recount end
+	if o == "TukuiConfigUIskinsOmen" then o = TukuiL.option_skins_omen end
+	if o == "TukuiConfigUIskinsBigWigs" then o = TukuiL.option_skins_bigwigs end
+	if o == "TukuiConfigUIskinsDXE" then o = TukuiL.option_skins_dxe end
+	if o == "TukuiConfigUIskinsTinyDPS" then o = TukuiL.option_skins_tinydps end
+	if o == "TukuiConfigUIskinsQuartz" then o = TukuiL.option_skins_quartz end
+	if o == "TukuiConfigUIskinsDBM" then o = TukuiL.option_skins_dbm end
+	if o == "TukuiConfigUIskinsbskins" then o = TukuiL.option_skins_bskins end
+	if o == "TukuiConfigUIskinsitemborder" then o = TukuiL.option_skins_itemborder end
 	
 	-- misc
-	if o == "TukuiConfigUImisc" then o = "Misc Options" end
-	if o == "TukuiConfigUImiscswingtimerenable" then o = "Enable SwingTimer" end
-	if o == "TukuiConfigUImiscswingtimerwidth" then o = "Swingtimer Width" end
-	if o == "TukuiConfigUImiscswingtimerheight" then o = "Swingtimer Height" end
-	if o == "TukuiConfigUImiscswingtimercolor" then o = "Swingtimer Bar-Color" end
-	if o == "TukuiConfigUImiscsesenable" then o = "Enable Specswitcher" end
-	if o == "TukuiConfigUImiscsesenablegear" then o = "Enable automatic gearswap" end
-	if o == "TukuiConfigUImiscsesset1" then o = "Equipset for first spec (must be a number between 1 - 10)" end
-	if o == "TukuiConfigUImiscsesset2" then o = "Equipset for second spec (must be a number between 1 - 10)" end
-	if o == "TukuiConfigUImiscsesgearswap" then o = "Enable automatic gearswap for respec" end
-	if o == "TukuiConfigUImiscsescastbar" then o = "Enable castbar for specswitcher" end
-	if o == "TukuiConfigUImiscrbf" then o = "Enable RaidBuff Reminder" end
-	if o == "TukuiConfigUImiscrbfmouseover" then o = "Enable mouseover for RaidBuff Reminder" end
-	if o == "TukuiConfigUImiscnpdebuff" then o = "Enable Debuffdisplay on nameplates" end
-	if o == "TukuiConfigUImiscbossicons" then o = "Enable alternative Bossportraits on instancemaps" end
-	if o == "TukuiConfigUImisctbchattab" then o = "Set Threatbarpoint to ChatBG2Tab" end
-	if o == "TukuiConfigUImiscsComboenable" then o = "Enable sCombo-Addon for combopoints instead of default cp-display" end
-	if o == "TukuiConfigUImiscsComboenergybar" then o = "Show Energy-Bar below Combopoints" end
+	if o == "TukuiConfigUImisc" then o = TukuiL.option_misc end
+	if o == "TukuiConfigUImiscswingtimerenable" then o = TukuiL.option_misc_swingtimerenable end
+	if o == "TukuiConfigUImiscswingtimerwidth" then o = TukuiL.option_misc_swingtimerwidth end
+	if o == "TukuiConfigUImiscswingtimerheight" then o = TukuiL.option_misc_swingtimerheight end
+	if o == "TukuiConfigUImiscswingtimercolor" then o = TukuiL.option_misc_swingtimercolor end
+	if o == "TukuiConfigUImiscsesenable" then o = TukuiL.option_misc_sesenable end
+	if o == "TukuiConfigUImiscsesenablegear" then o = TukuiL.option_misc_sesenablegear end
+	if o == "TukuiConfigUImiscsesset1" then o = TukuiL.option_misc_sesset1 end
+	if o == "TukuiConfigUImiscsesset2" then o = TukuiL.option_misc_sesset2 end
+	if o == "TukuiConfigUImiscsesgearswap" then o = TukuiL.option_misc_sesgearswap end
+	if o == "TukuiConfigUImiscsescastbar" then o = TukuiL.option_misc_sescastbar end
+	if o == "TukuiConfigUImiscrbf" then o = TukuiL.option_misc_rbf end
+	if o == "TukuiConfigUImiscrbfmouseover" then o = TukuiL.option_misc_rbfmouseover end
+	if o == "TukuiConfigUImiscrbfvertical" then o = TukuiL.option_misc_rbfvertical end
+	if o == "TukuiConfigUImiscnpdebuff" then o = TukuiL.option_misc_npdebuff end
+	if o == "TukuiConfigUImiscbossicons" then o = TukuiL.option_misc_bossicons end
+	if o == "TukuiConfigUImisctbchattab" then o = TukuiL.option_misc_tbchattab end
+	if o == "TukuiConfigUImiscsComboenable" then o = TukuiL.option_misc_sComboenable end
+	if o == "TukuiConfigUImiscsComboenergybar" then o = TukuiL.option_misc_sComboenergybar end
 
 	-- general
 	if o == "TukuiConfigUIgeneral" then o = TukuiL.option_general end
@@ -176,7 +180,7 @@ local function Local(o)
 	if o == "TukuiConfigUInameplatecombat" then o = TukuiL.option_nameplates_combat end
 	if o == "TukuiConfigUInameplategoodcolor" then o = TukuiL.option_nameplates_goodcolor end
 	if o == "TukuiConfigUInameplatebadcolor" then o = TukuiL.option_nameplates_badcolor end
-	if o == "TukuiConfigUInameplatetransitioncolor" then o = TukuiL.option_nameplates_transitioncolor end
+	if o == "TukuiConfigUInameplategtransitioncolor" then o = TukuiL.option_nameplates_transitioncolor end
 	if o == "TukuiConfigUInameplatebtransitioncolor" then o = TukuiL.option_nameplates_transitioncolor end
 	
 	-- merchant
@@ -184,13 +188,13 @@ local function Local(o)
 	if o == "TukuiConfigUImerchantsellgrays" then o = TukuiL.option_merchant_autosell end
 	if o == "TukuiConfigUImerchantautorepair" then o = TukuiL.option_merchant_autorepair end
 	if o == "TukuiConfigUImerchantsellmisc" then o = TukuiL.option_merchant_sellmisc end
-	if o == "TukuiConfigUImerchantautoguildrepair" then o = "Autorepair from Guild Bank if possible." end
+	if o == "TukuiConfigUImerchantautoguildrepair" then o = TukuiL.option_merchant_autoguildrepair end
 	
 	-- bags
 	if o == "TukuiConfigUIbags" then o = TukuiL.option_bags end
 	if o == "TukuiConfigUIbagsenable" then o = TukuiL.option_bags_enable end
-	if o == "TukuiConfigUIbagsmoveable" then o = "Enable to move your bags" end
-	if o == "TukuiConfigUIbagstransparent" then o = "Enable Transparent for bags" end
+	if o == "TukuiConfigUIbagsmoveable" then o = TukuiL.option_bags_moveable end
+	if o == "TukuiConfigUIbagstransparent" then o = TukuiL.option_bags_transparent end
 	
 	-- datatext
 	if o == "TukuiConfigUIdatatext" then o = TukuiL.option_datatext end
@@ -218,12 +222,12 @@ local function Local(o)
 	if o == "TukuiConfigUIdatatextmicromenu" then o = TukuiL.option_datatext_micromenu end
 	if o == "TukuiConfigUIdatatexthit" then o = TukuiL.option_datatext_hit end	
 	if o == "TukuiConfigUIdatatextmastery" then o = TukuiL.option_datatext_mastery end
-	if o == "TukuiConfigUIdatatextregen" then o = "Manaregeneration Position" end
-	if o == "TukuiConfigUIdatatextcalltoarms" then o = "Call to Arms Position" end
-	if o == "TukuiConfigUIdatatextprofession" then o = "Profession Position" end
-	if o == "TukuiConfigUIdatatextblock" then o = "Block Position" end
-	if o == "TukuiConfigUIdatatextdodge" then o = "Dodge Position" end
-	if o == "TukuiConfigUIdatatextparry" then o = "Parry Position" end
+	if o == "TukuiConfigUIdatatextregen" then o = TukuiL.option_datatext_regen end
+	if o == "TukuiConfigUIdatatextcalltoarms" then o = TukuiL.option_datatext_calltoarms end
+	if o == "TukuiConfigUIdatatextprofession" then o = TukuiL.option_datatext_profession end
+	if o == "TukuiConfigUIdatatextblock" then o = TukuiL.option_datatext_block end
+	if o == "TukuiConfigUIdatatextdodge" then o = TukuiL.option_datatext_dodge end
+	if o == "TukuiConfigUIdatatextparry" then o = TukuiL.option_datatext_parry end
 
 	-- unit frames
 	if o == "TukuiConfigUIunitframes" then o = TukuiL.option_unitframes_unitframes end
@@ -271,7 +275,7 @@ local function Local(o)
 	if o == "TukuiConfigUIunitframesclassbar" then o = TukuiL.option_unitframes_classbar end
 	if o == "TukuiConfigUIunitframesweakenedsoulbar" then o = TukuiL.option_unitframes_weakenedsoulbar end
 	if o == "TukuiConfigUIunitframesonlyselfdebuffs" then o = TukuiL.option_unitframes_onlyselfdebuffs end
-	if o == "TukuiConfigUIunitframestotdebuff" then o = "Set size of Target of Target Debuffs" end
+	if o == "TukuiConfigUIunitframestotdebuff" then o = TukuiL.option_unitframes_totdebuff end
 
 	-- loot
 	if o == "TukuiConfigUIloot" then o = TukuiL.option_loot end
@@ -294,8 +298,8 @@ local function Local(o)
 	if o == "TukuiConfigUItooltiphidebuttons" then o = TukuiL.option_tooltip_hidebutton end
 	if o == "TukuiConfigUItooltiphideuf" then o = TukuiL.option_tooltip_hideuf end
 	if o == "TukuiConfigUItooltipcursor" then o = TukuiL.option_tooltip_cursor end
-	if o == "TukuiConfigUItooltipilvl" then o = "Display average itemlevel on tooltip" end
-	if o == "TukuiConfigUItooltipshowspellid" then o = "Show SpellID on Tooltip" end
+	if o == "TukuiConfigUItooltipilvl" then o = TukuiL.option_tooltip_ilvl end
+	if o == "TukuiConfigUItooltipshowspellid" then o = TukuiL.option_tooltip_showspellid end
 	
 	-- others
 	if o == "TukuiConfigUIothers" then o = TukuiL.option_others end

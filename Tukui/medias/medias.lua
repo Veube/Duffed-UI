@@ -39,6 +39,7 @@ C["media"] = {
 	["valuecolor"] = {r = 23/255,g = 132/255,b = 209/255}, 									-- color for values of datatexts
 	["buttonhover"] = [[Interface\AddOns\Tukui\medias\textures\button_hover]],				-- hovertexture
 	["backdropfadecolor"] = { r = .07,g = .07,b = .07, a = 0.9 }, 							-- this is always the same as the backdrop color with an alpha of 0.8
+	["largenodes"] = [[Interface\AddOns\Tukui\medias\textures\nodesLarge]],					-- bigger Icons for minimap in Farmmode.
 	
 	-- sound
 	["whisper"] = [[Interface\AddOns\Tukui\medias\sounds\whisper.mp3]],

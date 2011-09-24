@@ -249,7 +249,7 @@ local CLASS_FILTERS = {
 				CreateSpellEntry( 69369 ), -- Predator's Swiftness
 				CreateSpellEntry( 93400 ), -- Shooting Stars
 				CreateSpellEntry( 81006 ), CreateSpellEntry( 81191 ), CreateSpellEntry( 81192 ), -- Lunar Shower Rank 1/2/3
-				CreateSpellEntry( 16880 ), CreateSpellEntry( 61345 ), CreateSpellEntry( 61346 ), -- Nature's Grace Rank 1/2/3
+				CreateSpellEntry( 16886 ), -- Nature's Grace Rank
 			},
 		},
 		HUNTER = { 

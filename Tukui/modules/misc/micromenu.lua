@@ -50,10 +50,10 @@ local function CreateMicroMenuDropDown()
 			Calendar_Toggle()
 		end},
 		{text = ENCOUNTER_JOURNAL,
-		func = function() if T.toc >= 40200 then ToggleFrame(EncounterJournal) end end}, 
+		func = function() ToggleFrame(EncounterJournal) end}, 
 	}
 	
-	for i=1, 13 do
+	for i=1, 14 do
 		UIDropDownMenu_AddButton(microList[i])
 	end
 	

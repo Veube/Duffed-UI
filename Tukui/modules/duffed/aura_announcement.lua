@@ -35,7 +35,7 @@ SpellsAN = {
 		[GetSpellInfo(19263)]	= true,		-- Deterrence
 		[GetSpellInfo(31224)]	= true,		-- Cloak of Shadows
 		[GetSpellInfo(498)]    	= true,    	-- Divine Protection
-		[GetSpellInfo( 33206 )]	= true,		-- Pain Suppression
+		--[GetSpellInfo( 33206 )]	= true,		-- Pain Suppression
 		[GetSpellInfo(86150)]  	= true,    	-- Guardian of Ancient Kings
 		[GetSpellInfo(31850)]  	= true,    	-- Ardent Defender
 	},
@@ -60,10 +60,10 @@ local function Update(self, event, ...)
 	end
 
 	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-		if UnitInRaid("player") and GetNumRaidMembers() > 5 then 
-			channel = "RAID"
+		if UnitInRaid("player") and GetNumRaidMembers() > 5 then
+			channel = C["duffed"].announcechannel
 		elseif GetNumPartyMembers() > 0 then
-			channel = "PARTY"
+			channel = C["duffed"].announcechannel
 		else
 			channel = "SAY"
 		end

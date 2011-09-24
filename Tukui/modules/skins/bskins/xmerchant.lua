@@ -4,7 +4,7 @@ if not C["skins"].bskins == true then return end
 local function LoadSkin()
 	xMerchantFrame:StripTextures()
 		
-	T.SkinScrollBar(xMerchantScrollFrame)
+	T.SkinScrollBar(xMerchantScrollFrameScrollBar)
 	T.SkinCheckBox(xMerchantFrameTooltipSearching)
 	T.SkinEditBox(xMerchantFrameSearch)
 end

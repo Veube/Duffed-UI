@@ -22,19 +22,11 @@ local function OnEvent(self, event, ...)
 		if displaydamage then
 			if eventType == "SWING_DAMAGE" then
 				local _, amount, critical
-				if T.toc < 40200 then
-					_, amount, _, _, _, _, critical = select(9, ...)
-				else
-					_, _, _, amount, _, _, _, _, critical = select(9, ...)
-				end
+				_, _, _, amount, _, _, _, _, critical = select(9, ...)
 				self:AddMessage(amount, 1, 1, 1)
 			elseif eventType == "SPELL_DAMAGE" or eventType == "SPELL_PERIODIC_DAMAGE" then
 				local _, spellId, spellSchool, amount, critical
-				if T.toc < 40200 then
-					_, spellId, _, spellSchool, amount, _, _, _, _, _, critical = select(9, ...)
-				else
-					_, _, _, spellId, _, spellSchool, amount, _, _, _, _, _, critical = select(9, ...)
-				end
+				_, _, _, spellId, _, spellSchool, amount, _, _, _, _, _, critical = select(9, ...)
 				if eventType == "SPELL_PERIODIC_DAMAGE" then
 					if displaydot then self:AddMessage(amount, 151/255, 70/255, 194/255) end
 				else
@@ -42,27 +34,15 @@ local function OnEvent(self, event, ...)
 				end
 			elseif eventType == "RANGE_DAMAGE" then
 				local _, spellId, amount, critical
-				if T.toc < 40200 then
-					_, spellId, _, _, amount, _, _, _, _, _, critical = select(9, ...)
-				else
-					_, _, _, spellId, _, _, amount, _, _, _, _, _, critical = select(9, ...)
-				end
+				_, _, _, spellId, _, _, amount, _, _, _, _, _, critical = select(9, ...)
 				self:AddMessage(amount, 1, 1, 1)
 			elseif eventType == "SWING_MISSED" then
 				local _, missType
-				if T.toc < 40200 then
-					_, missType, _ = select(9, ...)
-				else
-					_, _, _, missType, _ = select(9, ...)
-				end
+				_, _, _, missType, _ = select(9, ...)
 				self:AddMessage(missType, 1, 1, 1)
 			elseif eventType == "SPELL_MISSED" or eventType == "RANGE_MISSED" then
 				local _, spellId, missType
-				if T.toc < 40200 then
-					_, spellId, _, _, missType, _ = select(9,...)
-				else
-					_, _, _, spellId, _, _, missType, _ = select(9,...)
-				end
+				_, _, _, spellId, _, _, missType, _ = select(9,...)
 				self:AddMessage(missType, 1, 1, 1)
 			end
 		end
@@ -71,11 +51,7 @@ local function OnEvent(self, event, ...)
 		if displayheal then
 			if eventType == "SPELL_HEAL" or eventType== "SPELL_PERIODIC_HEAL" then
 				local _, amount
-				if T.toc < 40200 then
-					_, _, _, _, amount, _, _, _ = select(9,...)
-				else
-					_, _, _, _, _, _, amount, _, _, _ = select(9,...)
-				end
+				_, _, _, _, _, _, amount, _, _, _ = select(9,...)
 				self:AddMessage(amount, 0, 1, 0)			
 			end
 		end
