@@ -1717,7 +1717,7 @@ player:Size(playerwidth, 43)
 local target = oUF:Spawn('target', "TukuiTarget")
 if C["actionbar"].layout == 2 then
 	if C["actionbar"].panels == false then
-		target:Point("BOTTOMRIGHT", TukuiBar3Left, "TOPRIGHT", 75,100)
+		target:Point("BOTTOMRIGHT", TukuiBar3Right, "TOPRIGHT", 75,100)
 	else
 		target:Point("BOTTOM", UIParent, "BOTTOM", 300, 225)
 	end
