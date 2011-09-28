@@ -94,20 +94,26 @@ local function exec(self, enable)
 		end
 	end
 	
-	if self == TukuiShiftBar or self == RaidBuffReminder then
-		if enable then
-			TukuiShapeShiftHolder:SetAlpha(1)
-			if C["misc"].rbf == true then
+	if C["actionbar"].panels == false then
+		if self == TukuiShiftBar then
+			if enable then
+				TukuiShapeShiftHolder:SetAlpha(1)
+			else
+				TukuiShapeShiftHolder:SetAlpha(0)
+				-- used for shaman totembar update
+				if T.myclass == "SHAMAN" and self.moving == false and HasMultiCastActionBar() then
+					T.TotemOrientationDown = T.TotemBarOrientation()
+				end
+			end
+		end
+	end
+	
+	if C["misc"].rbf == true then
+		if self == RaidbuffReminder then
+			if enable then
 				RaidBuffReminderHolder:SetAlpha(1)
-			end
-		else
-			TukuiShapeShiftHolder:SetAlpha(0)
-			if C["misc"].rbf == true then
+			else
 				RaidBuffReminderHolder:SetAlpha(0)
-			end
-			-- used for shaman totembar update
-			if T.myclass == "SHAMAN" and self.moving == false and HasMultiCastActionBar() then
-				T.TotemOrientationDown = T.TotemBarOrientation()
 			end
 		end
 	end

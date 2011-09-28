@@ -59,6 +59,19 @@ local function Shared(self, unit)
 	RaidIcon:SetPoint("TOP", 0, 11)
 	self.RaidIcon = RaidIcon
 	
+	-- Fader
+	if C.unitframes.fader then
+		if (unit and not unit:find("arena%d")) or (unit and not unit:find("boss%d")) then
+			self.Fader = {
+				[1] = {Combat = 1, Arena = 1, Instance = 1}, 
+				[2] = {PlayerTarget = C.unitframes.fader_alpha, PlayerNotMaxHealth = C.unitframes.fader_alpha, PlayerNotMaxMana = C.unitframes.fader_alpha}, 
+				[3] = {Stealth = C.unitframes.fader_alpha},
+				[4] = {notCombat = 0, PlayerTaxi = 0},
+			}
+		end
+		self.NormalAlpha = 1
+	end
+	
 	------------------------------------------------------------------------
 	--	Player and Target units layout (mostly mirror'd)
 	------------------------------------------------------------------------
@@ -268,6 +281,64 @@ local function Shared(self, unit)
 			self.MasterLooter = MasterLooter
 			self:RegisterEvent("PARTY_LEADER_CHANGED", T.MLAnchorUpdate)
 			self:RegisterEvent("PARTY_MEMBERS_CHANGED", T.MLAnchorUpdate)
+			
+			-- Strength of Soul Plugin
+			if T.myclass == "PRIEST" then
+				local sos = CreateFrame("Frame", nil, self)
+				sos:CreatePanel("", 43, 43, "BOTTOMLEFT", panel, "BOTTOMRIGHT", 3, 0)
+				sos:CreateShadow("Default")
+				
+				sos.icon = sos:CreateTexture(nil, "OVERLAY")
+				sos.icon:Point("TOPLEFT", 2, -2)
+				sos.icon:Point("BOTTOMRIGHT", -2, 2)
+				
+				sos.text = T.SetFontString(sos, font2, 14, fontflag)
+				sos.text:SetPoint("CENTER", sos, 1, 0)
+				sos:SetScript("OnUpdate", Priest_SoS_Time)
+
+				self.Priest_SoS = sos
+			end
+			
+			-- SwingTimer
+			if C.misc.swingtimerenable then
+				local sh = CreateFrame("Frame", "TukuiSwingtimerHolder", UIParent)
+				sh:CreatePanel("", C.misc.swingtimerwidth, 13, "CENTER", UIParent, "CENTER", 0, -50)
+				sh:SetMovable(true)
+				sh:Hide()
+				sh:SetBackdropBorderColor(1,0,0)
+				sh:SetScript("OnMouseDown", function(self) self:StartMoving() end)
+				sh:SetScript("OnMouseUp", function(self) self:StopMovingOrSizing() end)
+				sh.text = sh:CreateFontString(nil, "OVERLAY")
+				sh.text:SetFont(C.datatext.font, C.datatext.fontsize)
+				sh.text:SetPoint("CENTER")
+				sh.text:SetText("Move SwingTimer")
+				sh:CreateShadow("")
+
+				Swing = CreateFrame("Frame", "TukuiSwingtimer", self)
+				Swing:Point("TOPLEFT", sh, "BOTTOMLEFT", 0, -5)
+				Swing:Point("TOPRIGHT", sh, "BOTTOMRIGHT", 0, -5)
+				Swing:Height(C.misc.swingtimerheight)
+				Swing.texture = C["media"].normTex 
+				Swing.color = C.misc.swingtimercolor
+				Swing.textureBG = C["media"].blank
+				Swing.colorBG = {0, 0, 0, 0.8}
+				Swing.hideOoc = true
+
+				Swing:CreateBorder()
+				-- pretty sure there's a better way :/
+				Swing.border:Hide()
+				Swing.border:RegisterEvent("PLAYER_REGEN_ENABLED")
+				Swing.border:RegisterEvent("PLAYER_REGEN_DISABLED")
+				Swing.border:SetScript("OnEvent", function(self, event)
+					if event == "PLAYER_REGEN_ENABLED" then 
+						self:Hide()
+					else
+						self:Show()
+					end
+				end)
+
+				self.Swing = Swing
+			end
 
 			-- show druid mana when shapeshifted in bear, cat or whatever
 			if C["unitframes"].classbar then
