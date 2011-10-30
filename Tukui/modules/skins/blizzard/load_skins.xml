@@ -1,5 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Script file="core.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="reforge.lua"/>
 	<Script file="calendar.lua"/>

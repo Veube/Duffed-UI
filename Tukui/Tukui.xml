@@ -56,11 +56,11 @@
 	<Script file="modules\blizzard\timertracker.lua"/>
 	<Script file="modules\misc\micromenu.lua"/>
 	
-	<Script file="modules\misc\commands.lua"/>
 	<Script file="modules\blizzard\quests.lua"/>
+	<Script file="modules\loot\autodez.lua"/>
+	<Script file="modules\misc\commands.lua"/>
 	<Script file="modules\misc\invite.lua"/>
 	<Script file="modules\misc\damage.lua"/>
-	<Script file="modules\loot\autodez.lua"/>
 	<Script file="modules\blizzard\symbol.lua"/>
 	<Script file="modules\loot\merchant.lua"/>
 	<Script file="modules\blizzard\error.lua"/>
@@ -139,7 +139,7 @@
 	<Script file="modules\maps\zonemap.lua"/>
 	<Script file="modules\blizzard\mirror.lua"/>
 	<Script file="modules\notifications\selfbuffs.lua"/>
-	<Include file="modules\skins\bskins\load_skins.xml"/>
+	<Include file="modules\skins\blizzard\load_skins.xml"/>
 	<Script file="modules\skins\bubbles.lua"/>
 	<Script file="modules\skins\addons\LoadSkins.lua"/>
 	<Script file="modules\skins\addons\addons.lua"/>
