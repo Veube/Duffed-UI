@@ -264,7 +264,7 @@ local function Shared(self, unit)
 			local PVP = health:CreateTexture(nil, "OVERLAY")
 			PVP:SetHeight(T.Scale(32))
 			PVP:SetWidth(T.Scale(32))
-			PVP:SetPoint("CENTER", health, "CENTER", 0, -7)
+			PVP:SetPoint("TOPLEFT", health, "TOPRIGHT", -7, 7)
 			self.PvP = PVP
 			
 			-- leader icon
@@ -928,6 +928,28 @@ local function Shared(self, unit)
 
 		self:Tag(Name, '[Tukui:getnamecolor][Tukui:namemedium]')
 		self.Name = Name
+		
+		if (C["castbar"].enable == true) then
+			local castbar = CreateFrame("StatusBar", self:GetName().."CastBar", self)
+			castbar:SetStatusBarTexture(normTex)
+			self.Castbar = castbar
+			castbar:Height(16)
+			
+			castbar:Point("TOPLEFT", health, "BOTTOMLEFT", 0, 16)
+			castbar:Point("TOPRIGHT", health, "BOTTOMRIGHT", 0, 16)
+
+			castbar.bg = castbar:CreateTexture(nil, "BORDER")
+			castbar.bg:SetTexture(normTex)
+			castbar.bg:SetVertexColor(0.0, 0.0, 0.0)
+			castbar:SetFrameLevel(6)
+			
+			castbar.CustomTimeText = T.CustomCastTimeText
+			castbar.CustomDelayText = T.CustomCastDelayText
+			castbar.PostCastStart = T.CheckCast
+			castbar.PostChannelStart = T.CheckChannel
+			
+			self.Castbar.Time = castbar.time
+		end
 		
 		-- portraits
 		local portrait = CreateFrame("PlayerModel", nil, health)

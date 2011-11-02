@@ -120,6 +120,7 @@ local function LoadSkin()
 	CalendarTexturePickerFrame:SetTemplate("Transparent")
 	
 	T.SkinScrollBar(CalendarTexturePickerScrollBar)
+	T.SkinScrollBar(CalendarCreateEventDescriptionScrollFrameScrollBar)
 	T.SkinButton(CalendarTexturePickerAcceptButton, true)
 	T.SkinButton(CalendarTexturePickerCancelButton, true)
 	T.SkinButton(CalendarCreateEventInviteButton, true)

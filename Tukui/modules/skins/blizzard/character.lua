@@ -265,6 +265,9 @@ local function LoadSkin()
 		TokenFramePopup:SetTemplate("Transparent")
 		TokenFramePopup:Point("TOPLEFT", TokenFrame, "TOPRIGHT", 4, -28)				
 	end)
+	T.SkinCloseButton(TokenFramePopupCloseButton)
+	T.SkinCheckBox(TokenFramePopupBackpackCheckBox)
+	T.SkinCheckBox(TokenFramePopupInactiveCheckBox)
 	
 	--Pet
 	PetModelFrame:CreateBackdrop("Default")
