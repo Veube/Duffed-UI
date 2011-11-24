@@ -93,15 +93,7 @@
 
 	TukuiL.option_skins = "Skins"
 	TukuiL.option_skins_background = "Create Panel that looks exactly like the left chat (by default) at the BOTTOMRIGHT"
-	TukuiL.option_skins_combat_toggle = "Toggle Addonbackground, Recount, Omen & Skada in-/outfight (NOTE: Turn off auto-hide functions in these Addons)"
-	TukuiL.option_skins_skada = "Enable Skada Skin"
-	TukuiL.option_skins_recount = "Enable Recount Skin"
-	TukuiL.option_skins_omen = "Enable Omen Skin"
-	TukuiL.option_skins_bigwigs = "Enable BigWigs Skin"
-	TukuiL.option_skins_dxe = "Enable DXE Skin"
-	TukuiL.option_skins_tinydps = "Enable TinyDPS Skin"
-	TukuiL.option_skins_quartz = "Enable Quartz Skin"
-	TukuiL.option_skins_dbm = "Enable DBM Skin"
+	TukuiL.option_skins_combat_toggle = "Toggle Addonbackground in-/outfight (NOTE: Turn off auto-hide functions in these Addons)"
 	TukuiL.option_skins_bskins = "Enable Skinning for Blizzardframes"
 	TukuiL.option_skins_itemborder =  "Enable Qualityborder for Items on Character / Inspectframe"
 
@@ -119,8 +111,7 @@
 	TukuiL.option_misc_rbf = "Enable RaidBuff Reminder"
 	TukuiL.option_misc_rbfmouseover = "Enable mouseover for RaidBuff Reminder"
 	TukuiL.option_misc_rbfvertical = "Set RaidBuff Reminder vertical"
-	TukuiL.option_misc_npdebuff =  "Enable Debuffdisplay on nameplates"
-	TukuiL.option_misc_bossicons = "Enable alternative Bossportraits on instancemaps"
+	TukuiL.option_nameplate_debuff =  "Enable Debuffdisplay on nameplates"
 	TukuiL.option_misc_tbchattab = "Set Threatbarpoint to ChatBG2Tab"
 	TukuiL.option_misc_sComboenable = "Enable sCombo-Addon for combopoints instead of default cp-display"
 	TukuiL.option_misc_sComboenergybar = "Show Energy-Bar below Combopoints"
@@ -236,7 +227,7 @@
 	TukuiL.option_unitframes_weakenedsoulbar = "啟用虛弱靈魂指示 (牧師)"
 	TukuiL.option_unitframes_onlyselfdebuffs = "只在目標頭像上顯示自己釋放的減益效果"
 	TukuiL.option_unitframes_focus = "開啟專注目標的目標"
-	TukuiL.option_unitframes_totdebuff = "Set size of Target of Target Debuffs"
+	TukuiL.option_unitframes_totdbsize = "Set size of Target of Target Debuffs"
  
 	-- loot
 	TukuiL.option_loot = "戰利品"
@@ -247,7 +238,8 @@
 	-- map
 	TukuiL.option_map = "地圖"
 	TukuiL.option_map_enable = "啟用地圖"
- 
+ 	TukuiL.option_map_bossicons = "Enable alternative Bossportraits on instancemaps"
+
 	-- invite
 	TukuiL.option_invite = "邀請"
 	TukuiL.option_invite_autoinvite = "啟用自動接受組隊邀請及自動邀請(限用好友及公會成員)"

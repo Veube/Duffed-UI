@@ -109,7 +109,7 @@ local function exec(self, enable)
 	end
 	
 	if C["misc"].rbf == true then
-		if self == RaidbuffReminder then
+		if self == RaidBuffReminder then
 			if enable then
 				RaidBuffReminderHolder:SetAlpha(1)
 			else

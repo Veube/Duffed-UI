@@ -39,7 +39,7 @@ local function CreateMicroMenuDropDown()
 		{text = LFG_TITLE,
 		func = function() ToggleFrame(LFDParentFrame) end},
 		{text = LOOKING_FOR_RAID,
-		func = function() ToggleFrame(LFRParentFrame) end},
+		func = function() if T.toc >= 40300 then ToggleFrame(RaidParentFrame) else ToggleFriendsFrame(4) end end},
 		{text = "Addonmanager",
 		func = function() addonBG:Show() end},
 		{text = HELP_BUTTON,
@@ -50,7 +50,7 @@ local function CreateMicroMenuDropDown()
 			Calendar_Toggle()
 		end},
 		{text = ENCOUNTER_JOURNAL,
-		func = function() ToggleFrame(EncounterJournal) end}, 
+		func = function() if T.toc >= 40200 then if T.toc >= 40300 then ToggleEncounterJournal() else ToggleFrame(EncounterJournal) end end end},
 	}
 	
 	for i=1, 14 do

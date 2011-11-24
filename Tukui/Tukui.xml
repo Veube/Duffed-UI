@@ -71,6 +71,7 @@
 	<Script file="modules\blizzard\font.lua"/>
 	<Include file="modules\buffs\template.xml"/>
 	<Script file="modules\buffs\buffs.lua"/>
+	<Script file="modules\buffs\header.lua"/>
 	<Script file="modules\maps\minimap.lua"/>
 	<Script file="modules\panels\panels.lua"/>
 	

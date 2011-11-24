@@ -132,14 +132,6 @@ local function Local(o)
 	if o == "TukuiConfigUIskins" then o = TukuiL.option_skins end
 	if o == "TukuiConfigUIskinsbackground" then o = TukuiL.option_skins_background end
 	if o == "TukuiConfigUIskinscombat_toggle" then o = TukuiL.option_skins_combat_toggle end
-	if o == "TukuiConfigUIskinsSkada" then o = TukuiL.option_skins_skada end
-	if o == "TukuiConfigUIskinsRecount" then o = TukuiL.option_skins_recount end
-	if o == "TukuiConfigUIskinsOmen" then o = TukuiL.option_skins_omen end
-	if o == "TukuiConfigUIskinsBigWigs" then o = TukuiL.option_skins_bigwigs end
-	if o == "TukuiConfigUIskinsDXE" then o = TukuiL.option_skins_dxe end
-	if o == "TukuiConfigUIskinsTinyDPS" then o = TukuiL.option_skins_tinydps end
-	if o == "TukuiConfigUIskinsQuartz" then o = TukuiL.option_skins_quartz end
-	if o == "TukuiConfigUIskinsDBM" then o = TukuiL.option_skins_dbm end
 	if o == "TukuiConfigUIskinsbskins" then o = TukuiL.option_skins_bskins end
 	if o == "TukuiConfigUIskinsitemborder" then o = TukuiL.option_skins_itemborder end
 	
@@ -158,8 +150,7 @@ local function Local(o)
 	if o == "TukuiConfigUImiscrbf" then o = TukuiL.option_misc_rbf end
 	if o == "TukuiConfigUImiscrbfmouseover" then o = TukuiL.option_misc_rbfmouseover end
 	if o == "TukuiConfigUImiscrbfvertical" then o = TukuiL.option_misc_rbfvertical end
-	if o == "TukuiConfigUImiscnpdebuff" then o = TukuiL.option_misc_npdebuff end
-	if o == "TukuiConfigUImiscbossicons" then o = TukuiL.option_misc_bossicons end
+	if o == "TukuiConfigUInameplatedebuff" then o = TukuiL.option_nameplate_debuff end
 	if o == "TukuiConfigUImisctbchattab" then o = TukuiL.option_misc_tbchattab end
 	if o == "TukuiConfigUImiscsComboenable" then o = TukuiL.option_misc_sComboenable end
 	if o == "TukuiConfigUImiscsComboenergybar" then o = TukuiL.option_misc_sComboenergybar end
@@ -286,6 +277,7 @@ local function Local(o)
 	-- map
 	if o == "TukuiConfigUImap" then o = TukuiL.option_map end
 	if o == "TukuiConfigUImapenable" then o = TukuiL.option_map_enable end
+	if o == "TukuiConfigUImapbossicons" then o = TukuiL.option_map_bossicons end
 	
 	-- invite
 	if o == "TukuiConfigUIinvite" then o = TukuiL.option_invite end

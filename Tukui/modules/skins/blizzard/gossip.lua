@@ -11,6 +11,8 @@ local function LoadSkin()
 	T.SkinScrollBar(GossipGreetingScrollFrameScrollBar, 5)
 	ItemTextPageText:SetTextColor(1, 1, 1)
 	ItemTextPageText.SetTextColor = T.dummy
+	T.SkinScrollBar(GossipGreetingScrollFrameScrollBar)
+	T.SkinScrollBar(ItemTextScrollFrameScrollBar)
 	
 	local StripAllTextures = {
 		"GossipFrameGreetingPanel",

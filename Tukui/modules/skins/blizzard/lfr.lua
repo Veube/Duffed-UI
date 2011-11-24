@@ -8,6 +8,13 @@ local function LoadSkin()
 	  "LFRBrowseFrameSendMessageButton",
 	  "LFRBrowseFrameInviteButton",
 	  "LFRBrowseFrameRefreshButton",
+	  "LFRQueueFrameNoLFRWhileLFDLeaveQueueButton",
+	}
+	
+	local inset = {
+		"LFRQueueFrameRoleInset",
+		"LFRQueueFrameListInset",
+		"LFRQueueFrameCommentInset",
 	}
 
 	LFRParentFrame:StripTextures()
@@ -15,10 +22,13 @@ local function LoadSkin()
 	LFRQueueFrame:StripTextures()
 	LFRBrowseFrame:StripTextures()
 
-
 	for i=1, #buttons do
 	  T.SkinButton(_G[buttons[i]])
 	end
+	
+	for _, object in pairs(inset) do
+		if _G[object] then _G[object]:StripTextures() end
+	end	
 
 	--Close button doesn't have a fucking name, extreme hackage
 	for i=1, LFRParentFrame:GetNumChildren() do
@@ -33,32 +43,40 @@ local function LoadSkin()
 
 	T.SkinDropDownBox(LFRBrowseFrameRaidDropDown)
 
+	-- initial skinning for LFR expand
 	for i=1, 20 do
-	  local button = _G["LFRQueueFrameSpecificListButton"..i.."ExpandOrCollapseButton"]
+		local button = _G["LFRQueueFrameSpecificListButton"..i.."ExpandOrCollapseButton"]
 
-	  if button then
-		button:HookScript("OnClick", function()
-		  T.SkinCloseButton(button)
-		end)
-		T.SkinCloseButton(button)
-	  end
+		if button then
+			button:HookScript("OnClick", function(self)
+				local text = self.t:GetText()
+				if text == "X" then
+					self.t:SetText("V")
+				else
+					self.t:SetText("X")
+				end
+			end)
+			T.SkinCloseButton(button)
+			button.SetNormalTexture = T.dummy
+		end
 	end
 
 	LFRQueueFrameCommentTextButton:CreateBackdrop("Default")
 	LFRQueueFrameCommentTextButton:Height(35)
+	LFRQueueFrameNoLFRWhileLFD:SetTemplate("Default")
 
 	for i=1, 7 do
 		local button = "LFRBrowseFrameColumnHeader"..i
 		_G[button.."Left"]:Kill()
 		_G[button.."Middle"]:Kill()
 		_G[button.."Right"]:Kill()
-	end		
-	
+	end
+
 	for i=1, NUM_LFR_CHOICE_BUTTONS do
 		local button = _G["LFRQueueFrameSpecificListButton"..i]
 		T.SkinCheckBox(button.enableButton)
 	end
-	
+
 	--DPS, Healer, Tank check button's don't have a name, use it's parent as a referance.
 	T.SkinCheckBox(LFRQueueFrameRoleButtonTank:GetChildren())
 	T.SkinCheckBox(LFRQueueFrameRoleButtonHealer:GetChildren())
@@ -66,8 +84,6 @@ local function LoadSkin()
 	LFRQueueFrameRoleButtonTank:GetChildren():SetFrameLevel(LFRQueueFrameRoleButtonTank:GetChildren():GetFrameLevel() + 2)
 	LFRQueueFrameRoleButtonHealer:GetChildren():SetFrameLevel(LFRQueueFrameRoleButtonHealer:GetChildren():GetFrameLevel() + 2)
 	LFRQueueFrameRoleButtonDPS:GetChildren():SetFrameLevel(LFRQueueFrameRoleButtonDPS:GetChildren():GetFrameLevel() + 2)
-	
-	LFRQueueFrameSpecificListScrollFrame:StripTextures()
 end
 
 tinsert(T.SkinFuncs["Tukui"], LoadSkin)

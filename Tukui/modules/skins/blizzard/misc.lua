@@ -23,9 +23,11 @@ local function LoadSkin()
 	}
 	
 	for i = 1, getn(skins) do
-		_G[skins[i]]:SetTemplate("Transparent")
-		if _G[skins[i]] ~= _G["GhostFrameContentsFrame"] or _G[skins[i]] ~= _G["AutoCompleteBox"] then -- frame to blacklist from create shadow function
-			_G[skins[i]]:CreateShadow("Default")
+		if _G[skins[i]] then
+			_G[skins[i]]:SetTemplate("Transparent")
+			if _G[skins[i]] ~= _G["AutoCompleteBox"] then -- frame to blacklist from create shadow function
+				_G[skins[i]]:CreateShadow("Default")
+			end
 		end
 	end
 	
@@ -195,29 +197,36 @@ local function LoadSkin()
 	end
 	
 	-- if a button position is not really where we want, we move it here
-	VideoOptionsFrameCancel:ClearAllPoints()
-	VideoOptionsFrameCancel:SetPoint("RIGHT",VideoOptionsFrameApply,"LEFT",-4,0)		 
-	VideoOptionsFrameOkay:ClearAllPoints()
-	VideoOptionsFrameOkay:SetPoint("RIGHT",VideoOptionsFrameCancel,"LEFT",-4,0)	
-	AudioOptionsFrameOkay:ClearAllPoints()
-	AudioOptionsFrameOkay:SetPoint("RIGHT",AudioOptionsFrameCancel,"LEFT",-4,0)
-	InterfaceOptionsFrameOkay:ClearAllPoints()
-	InterfaceOptionsFrameOkay:SetPoint("RIGHT",InterfaceOptionsFrameCancel,"LEFT", -4,0)
-	ReadyCheckFrameYesButton:SetParent(ReadyCheckFrame)
-	ReadyCheckFrameNoButton:SetParent(ReadyCheckFrame) 
-	ReadyCheckFrameYesButton:SetPoint("RIGHT", ReadyCheckFrame, "CENTER", -1, 0)
-	ReadyCheckFrameNoButton:SetPoint("LEFT", ReadyCheckFrameYesButton, "RIGHT", 3, 0)
-	ReadyCheckFrameText:SetParent(ReadyCheckFrame)	
-	ReadyCheckFrameText:ClearAllPoints()
-	ReadyCheckFrameText:SetPoint("TOP", 0, -12)
-	
-	-- others
-	ReadyCheckListenerFrame:SetAlpha(0)
-	ReadyCheckFrame:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end) -- bug fix, don't show it if initiator
-	StackSplitFrame:GetRegions():Hide()
+	_G["VideoOptionsFrameCancel"]:ClearAllPoints()
+	_G["VideoOptionsFrameCancel"]:SetPoint("RIGHT",_G["VideoOptionsFrameApply"],"LEFT",-4,0)
+	_G["VideoOptionsFrameOkay"]:ClearAllPoints()
+	_G["VideoOptionsFrameOkay"]:SetPoint("RIGHT",_G["VideoOptionsFrameCancel"],"LEFT",-4,0)
+	_G["AudioOptionsFrameOkay"]:ClearAllPoints()
+	_G["AudioOptionsFrameOkay"]:SetPoint("RIGHT",_G["AudioOptionsFrameCancel"],"LEFT",-4,0)
+	_G["InterfaceOptionsFrameOkay"]:ClearAllPoints()
+	_G["InterfaceOptionsFrameOkay"]:SetPoint("RIGHT",_G["InterfaceOptionsFrameCancel"],"LEFT", -4,0)
+	_G["ReadyCheckFrameYesButton"]:SetParent(_G["ReadyCheckFrame"])
+	_G["ReadyCheckFrameNoButton"]:SetParent(_G["ReadyCheckFrame"])
+	_G["ReadyCheckFrameYesButton"]:ClearAllPoints()
+	_G["ReadyCheckFrameNoButton"]:ClearAllPoints()
+	_G["ReadyCheckFrameYesButton"]:SetPoint("RIGHT", _G["ReadyCheckFrame"], "CENTER", -2, -20)
+	_G["ReadyCheckFrameNoButton"]:SetPoint("LEFT", _G["ReadyCheckFrameYesButton"], "RIGHT", 3, 0)
+	_G["ReadyCheckFrameText"]:SetParent(_G["ReadyCheckFrame"])
+	_G["ReadyCheckFrameText"]:ClearAllPoints()
+	_G["ReadyCheckFrameText"]:SetPoint("TOP", 0, -12)
 
-	T.SkinButton(LFDDungeonReadyDialogEnterDungeonButton)
-	T.SkinButton(LFDDungeonReadyDialogLeaveQueueButton)
+	-- others
+	_G["ReadyCheckListenerFrame"]:SetAlpha(0)
+	_G["ReadyCheckFrame"]:HookScript("OnShow", function(self) if UnitIsUnit("player", self.initiator) then self:Hide() end end) -- bug fix, don't show it if initiator
+	_G["StackSplitFrame"]:GetRegions():Hide()
+	
+	if T.toc < 40300 then
+		T.SkinButton(LFDDungeonReadyDialogEnterDungeonButton)
+		T.SkinButton(LFDDungeonReadyDialogLeaveQueueButton)
+	else
+		T.SkinButton(LFGDungeonReadyDialogEnterDungeonButton)
+		T.SkinButton(LFGDungeonReadyDialogLeaveQueueButton)
+	end
 	
 	RolePollPopup:SetTemplate("Transparent")
 	RolePollPopup:CreateShadow("Default")

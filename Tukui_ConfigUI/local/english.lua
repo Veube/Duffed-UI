@@ -93,15 +93,7 @@ TukuiL.option_chat_rightchatalign = "Set textalign of right chat to left or righ
 
 TukuiL.option_skins = "Skins"
 TukuiL.option_skins_background = "Create Panel that looks exactly like the left chat (by default) at the BOTTOMRIGHT"
-TukuiL.option_skins_combat_toggle = "Toggle Addonbackground, Recount, Omen & Skada in-/outfight (NOTE: Turn off auto-hide functions in these Addons)"
-TukuiL.option_skins_skada = "Enable Skada Skin"
-TukuiL.option_skins_recount = "Enable Recount Skin"
-TukuiL.option_skins_omen = "Enable Omen Skin"
-TukuiL.option_skins_bigwigs = "Enable BigWigs Skin"
-TukuiL.option_skins_dxe = "Enable DXE Skin"
-TukuiL.option_skins_tinydps = "Enable TinyDPS Skin"
-TukuiL.option_skins_quartz = "Enable Quartz Skin"
-TukuiL.option_skins_dbm = "Enable DBM Skin"
+TukuiL.option_skins_combat_toggle = "Toggle Addonbackground in-/outfight (NOTE: Turn off auto-hide functions in these Addons)"
 TukuiL.option_skins_bskins = "Enable Skinning for Blizzardframes"
 TukuiL.option_skins_itemborder =  "Enable Qualityborder for Items on Character / Inspectframe"
 
@@ -119,8 +111,7 @@ TukuiL.option_misc_sescastbar = "Enable castbar for specswitcher"
 TukuiL.option_misc_rbf = "Enable RaidBuff Reminder"
 TukuiL.option_misc_rbfmouseover = "Enable mouseover for RaidBuff Reminder"
 TukuiL.option_misc_rbfvertical = "Set RaidBuff Reminder vertical"
-TukuiL.option_misc_npdebuff =  "Enable Debuffdisplay on nameplates"
-TukuiL.option_misc_bossicons = "Enable alternative Bossportraits on instancemaps"
+TukuiL.option_nameplate_debuff =  "Enable Debuffdisplay on nameplates"
 TukuiL.option_misc_tbchattab = "Set Threatbarpoint to ChatBG2Tab"
 TukuiL.option_misc_sComboenable = "Enable sCombo-Addon for combopoints instead of default cp-display"
 TukuiL.option_misc_sComboenergybar = "Show Energy-Bar below Combopoints"
@@ -232,7 +223,7 @@ TukuiL.option_unitframes_classbar = "Enable class bar"
 TukuiL.option_unitframes_weakenedsoulbar = "Enable Weakened Soul bar notification (Priest)"
 TukuiL.option_unitframes_onlyselfdebuffs = "Display only our debuffs on target"
 TukuiL.option_unitframes_focus = "Enable Focus target"
-TukuiL.option_unitframes_totdebuff = "Set size of Target of Target Debuffs"
+TukuiL.option_unitframes_totdbsize = "Set size of Target of Target Debuffs"
  
 -- loot
 TukuiL.option_loot = "Loot"
@@ -243,7 +234,8 @@ TukuiL.option_loot_enableroll = "Enable item roll window"
 -- map
 TukuiL.option_map = "Map"
 TukuiL.option_map_enable = "Enable Map"
- 
+TukuiL.option_map_bossicons = "Enable alternative Bossportraits on instancemaps"
+
 -- invite
 TukuiL.option_invite = "Invite"
 TukuiL.option_invite_autoinvite = "Enable Auto-Invite (Friends and Guildmates)"

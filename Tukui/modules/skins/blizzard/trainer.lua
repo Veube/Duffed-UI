@@ -52,6 +52,7 @@ local function LoadSkin()
 	end
 
 	T.SkinDropDownBox(ClassTrainerFrameFilterDropDown, 155)
+	T.SkinScrollBar(ClassTrainerScrollFrameScrollBar)
 
 	ClassTrainerFrame:CreateBackdrop("Transparent")
 	ClassTrainerFrame.backdrop:Point("TOPLEFT", ClassTrainerFrame, "TOPLEFT")

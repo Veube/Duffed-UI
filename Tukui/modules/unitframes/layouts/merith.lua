@@ -858,6 +858,22 @@ local function Shared(self, unit)
 		portrait:SetAllPoints(health)
 		table.insert(self.__elements, T.HidePortrait)
 		self.Portrait = portrait
+		
+		if C["unitframes"].totdebuffs == true then
+			local debuffs = CreateFrame("Frame", nil, health)
+			debuffs:Height(20)
+			debuffs:Width(300)
+			debuffs.size = C["unitframes"].totdbsize
+			debuffs.spacing = 3
+			debuffs.num = 7
+
+			debuffs:Point("TOPLEFT", health, "TOPLEFT", -1.5, 24)
+			debuffs.initialAnchor = "TOPLEFT"
+			debuffs["growth-y"] = "UP"
+			debuffs.PostCreateIcon = T.PostCreateAura
+			debuffs.PostUpdateIcon = T.PostUpdateAura
+			self.Debuffs = debuffs
+		end
 	end
 	
 	------------------------------------------------------------------------

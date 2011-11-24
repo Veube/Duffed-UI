@@ -18,7 +18,7 @@ C["general"] = {
 C["unitframes"] = {
 	["layout"] = 2,										-- Layout 1 or 2
 	["outline"] = "NONE",								-- Set outlines
-	["totdebuff"] = 19.5,								-- Set size of Target of Target debuffs
+	["totdbsize"] = 19.5,								-- Set size of Target of Target debuffs
 	["percent"] = false,								-- Shows Healtpercent at Unitframe
 	
 	["fontsize"] = 8,									-- Fontsize on Unitframes
@@ -141,11 +141,9 @@ C["misc"] = {
 	["sesset2"] = 2,									-- Gearset for Secondary Spec
 	["sesgearswap"] = true,								-- Enable automatic gearswap @respec
 	["sescastbar"] = true,								-- Enable castbar @specswitcher
-	["npdebuff"] = true,								-- enable Debuffdisplay on nameplates
 	["rbf"] = true,										-- enable raidbuffreminder
 	["rbfvertical"] = true,								-- Set RBF to vertical direction
 	["rbfmouseover"] = true,							-- enable mouseover for RaidBuff Reminder
-	["bossicons"] = true,								-- enable alternative Bossportraits
 	["swingtimerenable"] = false,						-- enable ouf_Swing Swingtimer Plugin (movable bar)
 	["swingtimerwidth"] = 210,							-- bar width
 	["swingtimerheight"] = 6,							-- bar height
@@ -157,14 +155,6 @@ C["misc"] = {
 C["skins"] = {
 	["background"] = false,								-- Create a Panel that has the exactly same size as the left chat, placed at the bottomright (for addon placement)
 		["combat_toggle"] = false,						-- Shows the Addon Background, Omen, Recount & Skada infight, hides outfight
-	["Recount"] = true,									-- Enable Recount Skin
-	["Skada"] = true,									-- Enable Skada Skin
-	["Omen"] = true,									-- Enable Omen Skin
-	["BigWigs"] = true,									-- Enable BigWigs Skin
-	["DXE"] = true,										-- Enable DXE Skin
-	["TinyDPS"] = true,									-- Enable TinyDPS Skin
-	["Quartz"] = true,									-- Enable Quartz Skin
-	["DBM"] = true,										-- Enable DBM Skin
 	["bskins"] = true,									-- Enable the Skinning for Blizzardframes
 	["itemborder"] = true, 								-- Enable Qualityborder for Items on Character / Inspectframe
 }
@@ -190,6 +180,7 @@ C["bags"] = {
 
 C["map"] = {
 	["enable"] = true,                                  -- reskin the map to fit tukui
+	["bossicons"] = true,								-- enable alternative Bossportraits
 }
 
 C["loot"] = {
@@ -271,6 +262,7 @@ C["nameplate"] = {
 	["badcolor"] = {0.78, 0.25, 0.25},			        -- bad threat color (opposite of above)
 	["gtransitioncolor"] = {218/255, 197/255, 92/255},	-- threat color when gaining threat
 	["btransitioncolor"] = {240/255, 154/255, 17/255},	-- threat color when losing threat
+	["debuff"] = true,								-- enable Debuffdisplay on nameplates
 }
 
 C["tooltip"] = {

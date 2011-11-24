@@ -167,6 +167,7 @@ local function LoadSkin()
 	CalendarViewEventInviteListSection:StripTextures()
 	T.SkinCloseButton(CalendarViewEventCloseButton)
 	T.SkinScrollBar(CalendarViewEventInviteListScrollFrameScrollBar)
+	T.SkinScrollBar(CalendarViewEventDescriptionScrollFrameScrollBar)
 	CalendarInviteStatusContextMenu:SetTemplate("Default")
 	
 	local buttons = {

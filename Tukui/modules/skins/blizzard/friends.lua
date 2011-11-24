@@ -1,35 +1,30 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
+local T, C, L = unpack(select(2, ...))
 if not C["skins"].bskins == true then return end
 
---Tab Regions
-local tabs = {
-	"LeftDisabled",
-	"MiddleDisabled",
-	"RightDisabled",
-	"Left",
-	"Middle",
-	"Right",
-}
-
---Social Frame
-local function SkinSocialHeaderTab(tab)
-	if not tab then return end
-	for _, object in pairs(tabs) do
-		local tex = _G[tab:GetName()..object]
-		tex:SetTexture(nil)
-	end
-	tab:GetHighlightTexture():SetTexture(nil)
-	tab.backdrop = CreateFrame("Frame", nil, tab)
-	tab.backdrop:SetTemplate("Default")
-	tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
-	tab.backdrop:Point("TOPLEFT", 3, -8)
-	tab.backdrop:Point("BOTTOMRIGHT", -6, 0)
-end
-
 local function LoadSkin()
-	T.SkinScrollBar(FriendsFrameFriendsScrollFrameScrollBar, 5)
-	T.SkinScrollBar(WhoListScrollFrameScrollBar, 5)
-	T.SkinScrollBar(ChannelRosterScrollFrameScrollBar, 5)
+	local tabs = {
+		"LeftDisabled",
+		"MiddleDisabled",
+		"RightDisabled",
+		"Left",
+		"Middle",
+		"Right",
+	}
+
+	local function SkinSocialHeaderTab(tab)
+		if not tab then return end
+		for _, object in pairs(tabs) do
+			local tex = _G[tab:GetName()..object]
+			tex:SetTexture(nil)
+		end
+		tab:GetHighlightTexture():SetTexture(nil)
+		tab.backdrop = CreateFrame("Frame", nil, tab)
+		tab.backdrop:SetTemplate("Default")
+		tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
+		tab.backdrop:Point("TOPLEFT", 3, -8)
+		tab.backdrop:Point("BOTTOMRIGHT", -6, 0)
+	end
+
 	local StripAllTextures = {
 		"FriendsListFrame",
 		"FriendsTabHeader",
@@ -47,9 +42,20 @@ local function LoadSkin()
 		"ChannelFrameDaughterFrame",
 		"AddFriendFrame",
 		"AddFriendNoteFrame",
-	}			
+		"FriendsFriendsFrame",
+		"FriendsFriendsList",
+		"FriendsFriendsNoteFrame",
+		"ChannelFrameLeftInset",
+		"ChannelFrameRightInset",
+		"LFRQueueFrameRoleInset",
+		"LFRQueueFrameListInset",
+		"LFRQueueFrameCommentInset",
+		"WhoFrameListInset",
+		"WhoFrameEditBoxInset",
+	}
 
 	local KillTextures = {
+		"FriendsFrameInset",
 		"FriendsFrameTopLeft",
 		"FriendsFrameTopRight",
 		"FriendsFrameBottomLeft",
@@ -62,8 +68,8 @@ local function LoadSkin()
 		"ChannelFrameDaughterFrameChannelNameRight",
 		"ChannelFrameDaughterFrameChannelNameMiddle",
 		"ChannelFrameDaughterFrameChannelPasswordLeft",
-		"ChannelFrameDaughterFrameChannelPasswordRight",				
-		"ChannelFrameDaughterFrameChannelPasswordMiddle",			
+		"ChannelFrameDaughterFrameChannelPasswordRight",
+		"ChannelFrameDaughterFrameChannelPasswordMiddle",
 	}
 
 	local buttons = {
@@ -88,7 +94,9 @@ local function LoadSkin()
 		"AddFriendEntryFrameAcceptButton",
 		"AddFriendEntryFrameCancelButton",
 		"AddFriendInfoFrameContinueButton",
-	}			
+		"FriendsFriendsSendRequestButton",
+		"FriendsFriendsCloseButton",
+	}
 
 	for _, button in pairs(buttons) do
 		T.SkinButton(_G[button])
@@ -105,19 +113,28 @@ local function LoadSkin()
 	WhoFrameEditBox:Height(WhoFrameEditBox:GetHeight() - 15)
 	WhoFrameEditBox:Point("BOTTOM", WhoFrame, "BOTTOM", -10, 108)
 	WhoFrameEditBox:Width(WhoFrameEditBox:GetWidth() + 17)
-	
+
 	for _, texture in pairs(KillTextures) do
-		_G[texture]:Kill()
+		if _G[texture] then
+			_G[texture]:Kill()
+		end
 	end
 
 	for _, object in pairs(StripAllTextures) do
-		_G[object]:StripTextures()
+		if _G[object] then
+			_G[object]:StripTextures()
+		end
 	end
 	FriendsFrame:StripTextures(true)
 
 	T.SkinEditBox(AddFriendNameEditBox)
-	AddFriendFrame:SetTemplate("Transparent")			
-	
+	AddFriendFrame:SetTemplate("Transparent")
+
+	--Scroll
+	T.SkinScrollBar(FriendsFrameFriendsScrollFrameScrollBar)
+	T.SkinScrollBar(WhoListScrollFrameScrollBar)
+	T.SkinScrollBar(ChannelRosterScrollFrameScrollBar)
+
 	--Who Frame
 	local function UpdateWhoSkins()
 		WhoListScrollFrame:StripTextures()
@@ -129,7 +146,7 @@ local function LoadSkin()
 	--BNet Frame
 	FriendsFrameBroadcastInput:CreateBackdrop("Default")
 	ChannelFrameDaughterFrameChannelName:CreateBackdrop("Default")
-	ChannelFrameDaughterFrameChannelPassword:CreateBackdrop("Default")			
+	ChannelFrameDaughterFrameChannelPassword:CreateBackdrop("Default")
 
 	ChannelFrame:HookScript("OnShow", UpdateChannel)
 	hooksecurefunc("FriendsFrame_OnEvent", UpdateChannel)
@@ -138,13 +155,27 @@ local function LoadSkin()
 	hooksecurefunc("FriendsFrame_OnEvent", UpdateWhoSkins)
 
 	ChannelFrameDaughterFrame:CreateBackdrop("Transparent")
-	FriendsFrame:CreateBackdrop("Transparent")
-	FriendsFrame.backdrop:Point( "TOPLEFT", FriendsFrame, "TOPLEFT", 11,-12)
-	FriendsFrame.backdrop:Point( "BOTTOMRIGHT", FriendsFrame, "BOTTOMRIGHT", -35, 76)
 	T.SkinCloseButton(ChannelFrameDaughterFrameDetailCloseButton,ChannelFrameDaughterFrame)
 	T.SkinCloseButton(FriendsFrameCloseButton,FriendsFrame.backdrop)
+	FriendsFrameCloseButton:ClearAllPoints()
+	FriendsFrameCloseButton:SetPoint("TOPRIGHT", 0, 0)
 	T.SkinDropDownBox(WhoFrameDropDown,150)
 	T.SkinDropDownBox(FriendsFrameStatusDropDown,70)
+	T.SkinButton(FriendsTabHeaderSoRButton)
+	FriendsTabHeaderSoRButton:StyleButton()
+	FriendsTabHeaderSoRButton.icon:SetTexCoord(.08, .92, .08, .92)
+	FriendsTabHeaderSoRButton.icon:ClearAllPoints()
+	FriendsTabHeaderSoRButton.icon:Point("TOPLEFT", 2, -2)
+	FriendsTabHeaderSoRButton.icon:Point("BOTTOMRIGHT", -2, 2)
+
+	ScrollOfResurrectionFrame:StripTextures()
+	ScrollOfResurrectionFrameNoteFrame:StripTextures()
+	ScrollOfResurrectionFrame:SetTemplate("Transparent")
+	ScrollOfResurrectionFrameNoteFrame:SetTemplate("Overlay")
+	T.SkinButton(ScrollOfResurrectionFrameAcceptButton)
+	T.SkinButton(ScrollOfResurrectionFrameCancelButton)
+	T.SkinEditBox(ScrollOfResurrectionFrameTargetEditBox)
+	ScrollOfResurrectionFrameTargetEditBox:Height(ScrollOfResurrectionFrameTargetEditBox:GetHeight() - 5)
 
 	--Bottom Tabs
 	for i=1, 4 do
@@ -161,12 +192,63 @@ local function LoadSkin()
 			if button then
 				button:StripTextures()
 				button:SetHighlightTexture("Interface\\PaperDollInfoFrame\\UI-Character-Tab-Highlight")
-				
-				_G["ChannelButton"..i.."Text"]:SetFont(C["media"].font, 12)
+
+				_G["ChannelButton"..i.."Text"]:SetFont(C.media.font, 12)
 			end
 		end
 	end
 	hooksecurefunc("ChannelList_Update", Channel)
+
+	--View Friends BN Frame
+	FriendsFriendsFrame:CreateBackdrop("Transparent")
+
+	T.SkinEditBox(FriendsFriendsList)
+	T.SkinEditBox(FriendsFriendsNoteFrame)
+	T.SkinDropDownBox(FriendsFriendsFrameDropDown,150)
+
+	--Raid Browser Tab
+	for i=1, 2 do
+		local tab = _G["LFRParentFrameSideTab"..i]
+		if tab then
+			local icon = tab:GetNormalTexture():GetTexture()
+
+			tab:StripTextures()
+			tab:SetNormalTexture(icon)
+			tab:GetNormalTexture():SetTexCoord(.08, .92, .08, .92)
+			tab:GetNormalTexture():ClearAllPoints()
+
+			tab:GetNormalTexture():Point("TOPLEFT", 2, -2)
+			tab:GetNormalTexture():Point("BOTTOMRIGHT", -2, 2)
+
+			tab:CreateBackdrop("Default")
+			tab.backdrop:SetAllPoints()
+			tab:StyleButton(true)
+
+			local point, relatedTo, point2, x, y = tab:GetPoint()
+			tab:Point(point, relatedTo, point2, 1, y)
+		end
+	end
+
+	-- 4.3+ only stuff
+	if T.toc >= 40300 then
+		-- bug on PTR with WhoFrame, fixing them
+		WhoFrameEditBox:ClearAllPoints()
+		WhoFrameWhoButton:ClearAllPoints()
+		WhoFrameAddFriendButton:ClearAllPoints()
+		WhoFrameGroupInviteButton:ClearAllPoints()
+		WhoFrameWhoButton:Point("BOTTOMLEFT", 4, 4)
+		WhoFrameGroupInviteButton:Point("BOTTOMRIGHT", -4, 4)
+		WhoFrameAddFriendButton:Point("LEFT", WhoFrameWhoButton, "RIGHT", 4, 0)
+		WhoFrameAddFriendButton:Width(125)
+		WhoListScrollFrame:ClearAllPoints()
+		WhoListScrollFrame:SetPoint("TOPRIGHT", WhoFrameListInset, -25, 0)
+		WhoFrameEditBox:Point("BOTTOM", 0, 32)
+		WhoFrameEditBox:Point("LEFT", 6, 0)
+		WhoFrameEditBox:Point("RIGHT", -6, 0)
+
+		-- go
+		FriendsFrame:SetTemplate("Transparent")
+	end
 end
 
 tinsert(T.SkinFuncs["Tukui"], LoadSkin)

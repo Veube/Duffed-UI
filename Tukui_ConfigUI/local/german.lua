@@ -93,15 +93,7 @@
 
 	TukuiL.option_skins = "Skins"
 	TukuiL.option_skins_background = "Erzeuge unten Rechts einen Rahmen der exakt aussieht wie der linke Chat"
-	TukuiL.option_skins_combat_toggle = "Umschalten des Addonbackgrounds für Recount, Omen & Skada im / ausserhalb des Kampfs (NOTE: Deaktiviere Autoverstecken in den Addons)"
-	TukuiL.option_skins_skada = "Aktiviere Skada Skin"
-	TukuiL.option_skins_recount = "Aktiviere Recount Skin"
-	TukuiL.option_skins_omen = "Aktiviere Omen Skin"
-	TukuiL.option_skins_bigwigs = "Aktiviere BigWigs Skin"
-	TukuiL.option_skins_dxe = "Aktiviere DXE Skin"
-	TukuiL.option_skins_tinydps = "Aktiviere TinyDPS Skin"
-	TukuiL.option_skins_quartz = "Aktiviere Quartz Skin"
-	TukuiL.option_skins_dbm = "Aktiviere DBM Skin"
+	TukuiL.option_skins_combat_toggle = "Umschalten des Addonbackgrounds im / ausserhalb des Kampfs (NOTE: Deaktiviere Autoverstecken in den Addons)"
 	TukuiL.option_skins_bskins = "Aktiviere Skinning for Blizzardframes"
 	TukuiL.option_skins_itemborder =  "Aktiviere Qualitätsrahmen für Gegenstände im Charakter- / Ansehenfenster"
 
@@ -119,8 +111,7 @@
 	TukuiL.option_misc_rbf = "Aktiviere RaidBuff Reminder"
 	TukuiL.option_misc_rbfmouseover = "Aktiviere Mouseover für RaidBuff Reminder"
 	TukuiL.option_misc_rbfvertical = "Setze RaidBuff Reminder vertikal"
-	TukuiL.option_misc_npdebuff =  "Aktiviere Schwächungszauberanzeige an den Namensplaketten"
-	TukuiL.option_misc_bossicons = "Aktiviere alternative Bossportraits für die Instanzkarten"
+	TukuiL.option_nameplate_debuff =  "Aktiviere Schwächungszauberanzeige an den Namensplaketten"
 	TukuiL.option_misc_tbchattab = "Setze Aggroleiste an den rechten Chat"
 	TukuiL.option_misc_sComboenable = "Aktiviere sCombo-Addon für Kombopunkte anstatt der Standardanzeige"
 	TukuiL.option_misc_sComboenergybar = "Zeige Energieleiste unterhalb der Kombopunkte"
@@ -233,7 +224,7 @@
 	TukuiL.option_unitframes_weakenedsoulbar = "Aktiviere 'Geschwächte Seele' Anzeige (Priester)"
 	TukuiL.option_unitframes_onlyselfdebuffs = "Zeigt nur deine debuffs auf dem Ziel an"
 	TukuiL.option_unitframes_focus = "Aktiviere Fokus Ziel"
-	TukuiL.option_unitframes_totdebuff = "Setze Größe der Ziel des Ziel-Schwächungszauber"
+	TukuiL.option_unitframes_totdbsize = "Setze Größe der Ziel des Ziel-Schwächungszauber"
  
 	-- loot
 	TukuiL.option_loot = "Beute"
@@ -244,7 +235,8 @@
 	-- map
 	TukuiL.option_map = "Karte"
 	TukuiL.option_map_enable = "Aktiviere Karte"
- 
+ 	TukuiL.option_map_bossicons = "Aktiviere alternative Bossportraits für die Instanzkarten"
+
 	-- invite
 	TukuiL.option_invite = "Einladung"
 	TukuiL.option_invite_autoinvite = "Einladungen von Freunden & Gildenmitgliedern automatisch annehmen"

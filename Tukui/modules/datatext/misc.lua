@@ -109,7 +109,12 @@ if C["datatext"].reputation and C["datatext"].reputation > 0 then
 
 	local function OnEvent(self, event)
 		local name, standing, max, min, value = GetWatchedFactionInfo()
-		local percentage = (max - value) / (max - min) * 100
+		local percentage 
+		if value > 0 then
+			percentage = (max - value) / (max - min) * 100
+		else
+			percentage = 0
+		end
 		
 		if GetWatchedFactionInfo() ~= nil then
 			Text:SetText(format(name..": %s%d%%", T.panelcolor, percentage))

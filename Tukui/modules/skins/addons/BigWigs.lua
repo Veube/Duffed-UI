@@ -5,7 +5,7 @@ All rights reserved.
 ]]--
 local T, C, L = unpack(select(2, ...))
 
-if not IsAddOnLoaded("BigWigs") or not C.skins.BigWigs then return end
+if not IsAddOnLoaded("BigWigs") then return end
 
 local buttonsize = 19
 

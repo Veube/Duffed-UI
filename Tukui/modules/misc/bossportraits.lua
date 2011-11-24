@@ -1,5 +1,5 @@
 local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if C["misc"].bossicons == false then return end
+if C["map"].bossicons == false then return end
 
 local deadBosses = {}
 local PopulateEncounterInfo = function()
@@ -31,8 +31,12 @@ f:SetScript("OnEvent", function(self, event)
 		-- The EJ_X functions don't work until the Encounter Journal has been seen during that session
 		local _, type = GetInstanceInfo()
 		if type == "party" or type == "raid" then
-			EncounterJournal:Show()
-			EncounterJournal:Hide()
+			if not IsAddOnLoaded('Blizzard_EncounterJournal') and T.toc == 40300 then
+				LoadAddOn('Blizzard_EncounterJournal')
+			else
+				EncounterJournal:Show()
+				EncounterJournal:Hide()
+			end
 		end
 	
 		return

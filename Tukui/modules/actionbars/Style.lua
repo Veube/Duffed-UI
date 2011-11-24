@@ -12,6 +12,10 @@ local function style(self)
 	--> fixing a taint issue while changing totem flyout button in combat.
 	if name:match("MultiCast") then return end 
 	
+	--> don't skin the boss encounter extra button to match texture (4.3 patch)
+	--> http://www.tukui.org/storage/viewer.php?id=913811extrabar.jpg
+	if name:match("ExtraActionButton") then return end
+	
 	local action = self.action
 	local Button = self
 	local Icon = _G[name.."Icon"]
@@ -21,23 +25,30 @@ local function style(self)
 	local Border  = _G[name.."Border"]
 	local Btname = _G[name.."Name"]
 	local normal  = _G[name.."NormalTexture"]
+	local BtnBG = _G[name..'FloatingBG']
  
 	Flash:SetTexture("")
 	Button:SetNormalTexture("")
  
-	Border:Hide()
-	Border = T.dummy
+	if Border then
+		Border:Hide()
+		Border = T.dummy
+	end
  
 	Count:ClearAllPoints()
 	Count:Point("BOTTOMRIGHT", 0, 2)
 	Count:SetFont(C.media.uffont, C.unitframes.fontsize, "OUTLINE")
  
 	if not C["actionbar"].macrotext == true then
-		Btname:SetText("")
-		Btname:Kill()
+		if Btname then
+			Btname:SetText("")
+			Btname:Kill()
+		end
 	else
-		Btname:SetAlphaGradient(0,Button:GetWidth())
-		Btname:SetFont(C.datatext.font, C.datatext.fontsize, "THINOUTLINE")
+		if Btname then
+			Btname:SetAlphaGradient(0,Button:GetWidth())
+			Btname:SetFont(C.datatext.font, C.datatext.fontsize, "THINOUTLINE")
+		end
 	end
  
 	if not _G[name.."Panel"] then
@@ -73,6 +84,10 @@ local function style(self)
 		normal:ClearAllPoints()
 		normal:SetPoint("TOPLEFT")
 		normal:SetPoint("BOTTOMRIGHT")
+	end
+	
+	if BtnBG then
+		BtnBG:Kill()
 	end
 end
 
@@ -207,13 +222,15 @@ SpellFlyout:HookScript("OnShow", SetupFlyoutButton)
  
 --Hide the Mouseover texture and attempt to find the ammount of buttons to be skinned
 local function styleflyout(self)
+	if not self.FlyoutArrow then return end
+
 	self.FlyoutBorder:SetAlpha(0)
 	self.FlyoutBorderShadow:SetAlpha(0)
-	
+
 	SpellFlyoutHorizontalBackground:SetAlpha(0)
 	SpellFlyoutVerticalBackground:SetAlpha(0)
 	SpellFlyoutBackgroundEnd:SetAlpha(0)
-	
+
 	for i=1, GetNumFlyouts() do
 		local x = GetFlyoutID(i)
 		local _, _, numSlots, isKnown = GetFlyoutInfo(x)

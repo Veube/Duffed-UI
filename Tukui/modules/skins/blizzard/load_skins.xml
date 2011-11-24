@@ -49,4 +49,7 @@
 	<Script file="bnviewfriends.lua"/>
 	<Script file="interfaceoptions.lua"/>
 	<Script file="colorpicker.lua"/>
+	<Script file="voidstorage.lua"/>
+	<Script file="itemtransmogrify.lua"/>
+	<Script file="raidparent.lua"/>
 </Ui>

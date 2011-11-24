@@ -3,7 +3,7 @@ local COMBAT_TEXT_LOCATIONS = COMBAT_TEXT_LOCATIONS
 
 -- ptr
 T.IsPTRVersion = function()
-	if T.toc > 40300 then
+	if T.toc > 40200 then
 		return true
 	else
 		return false
@@ -614,14 +614,14 @@ T.CustomCastDelayText = function(self, duration)
 	self.Time:SetText(("%.1f |cffaf5050%s %.1f|r"):format(self.channeling and duration or self.max - duration, self.channeling and "- " or "+", self.delay))
 end
 
-local FormatTime = function(s)
+T.FormatTime = function(s)
 	local day, hour, minute = 86400, 3600, 60
 	if s >= day then
-		return format("%dd", ceil(s / day))
+		return format("%d"..T.panelcolor.."d", ceil(s / day))
 	elseif s >= hour then
-		return format("%dh", ceil(s / hour))
+		return format("%d"..T.panelcolor.."h", ceil(s / hour))
 	elseif s >= minute then
-		return format("%dm", ceil(s / minute))
+		return format("%d"..T.panelcolor.."m", ceil(s / minute))
 	elseif s >= minute / 12 then
 		return floor(s)
 	end
@@ -639,7 +639,7 @@ local CreateAuraTimer = function(self, elapsed)
 				self.first = false
 			end
 			if self.timeLeft > 0 then
-				local time = FormatTime(self.timeLeft)
+				local time = T.FormatTime(self.timeLeft)
 				self.remaining:SetText(time)
 				if self.timeLeft <= 5 then
 					self.remaining:SetTextColor(0.99, 0.31, 0.31)
@@ -1256,6 +1256,17 @@ if C["unitframes"].raidunitdebuffwatch == true then
 			SpellName(100293), -- Lava Wave
 			SpellName(98313),  -- Magma Blast
 			SpellName(100675), -- Dreadflame
+			
+		--Dragon Soul
+			-- Morchok
+			SpellName(33661),	-- Crush Armor
+			-- Warlord Zon'ozz
+			SpellName(103434),	-- Disrupting Shadow
+			SpellName(104322),	-- Psychic Drain
+			-- Hagara
+			SpellName(70157),	-- Ice Tomb
+			-- Ultraxion
+			-- Warmaster Blackhorn
 		}
 
 		T.ReverseTimer = {

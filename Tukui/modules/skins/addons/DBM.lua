@@ -5,7 +5,7 @@ All rights reserved.
 ]]--
 local T, C, L, DB = unpack(select(2, ...))
 
-if not IsAddOnLoaded("DBM-Core") or not C["skins"].DBM == true then return end
+if not IsAddOnLoaded("DBM-Core") then return end
 
 local croprwicons = true			-- crops blizz shitty borders from icons in RaidWarning messages
 local rwiconsize = 18			-- RaidWarning icon size, because 12 is small for me. Works only if croprwicons=true
