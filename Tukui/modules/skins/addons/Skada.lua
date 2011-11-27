@@ -1,6 +1,5 @@
 ﻿local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
 
-
 if not IsAddOnLoaded("Skada") then return end
 local Skada = Skada
 
@@ -54,30 +53,35 @@ barmod.ApplySettings = function(self, win)
 
 	skada:SetTexture(C["media"].normTex)
 	skada:SetSpacing(barSpacing)
-	skada:SetFont(C.media.font, C["datatext"].fontsize, "THINOUTLINE")
+	skada:SetFont(C.media.font, 12)
 	skada:SetFrameLevel(5)
 	
+	if not skada.TitleBackGround then
+		skada.TitleBackGround = CreateFrame("Frame", nil, skada.button)
+		skada.TitleBackGround:SetPoint("TOP")
+		skada.TitleBackGround:SetPoint("LEFT")
+		skada.TitleBackGround:SetPoint("RIGHT")
+		skada.TitleBackGround:SetPoint("BOTTOM", 0, 1)
+		skada.TitleBackGround:SetTemplate("Default")
+		skada.TitleBackGround:SetFrameLevel(skada.button:GetFrameLevel() -1)
+	end
+	
 	local titlefont = CreateFont("TitleFont"..win.db.name)
-	titlefont:SetFont(C.media.font, C["datatext"].fontsize, "THINOUTLINE")
-	win.bargroup.button:SetNormalFontObject(titlefont)
+	titlefont:SetFont(C.media.font, 11, "OUTLINE")
+	skada.button:SetNormalFontObject(titlefont)
 
 	local color = win.db.title.color
-	win.bargroup.button:SetBackdropColor(unpack(C["media"].bordercolor))
+	skada.button:SetBackdropColor(0, 0, 0, 0)
 
 	skada:SetBackdrop(nil)
 	if not skada.backdrop then
-		skada:CreateBackdrop("Default")
+		skada:CreateBackdrop("Transparent")
 	end
 	skada.backdrop:ClearAllPoints()
 	if win.db.enabletitle then
-		skada.backdrop:Point('TOPLEFT', win.bargroup.button, 'TOPLEFT', -2, 2)
+		skada.backdrop:Point('TOPLEFT', skada.button, 'TOPLEFT', -2, 2)
 	else
-		skada.backdrop:Point('TOPLEFT', win.bargroup, 'TOPLEFT', -2, 2)
+		skada.backdrop:Point('TOPLEFT', skada, 'TOPLEFT', -2, 2)
 	end
-	skada.backdrop:Point('BOTTOMRIGHT', win.bargroup, 'BOTTOMRIGHT', 2, -2)
-end
-
--- Update pre-existing displays
-for _, window in ipairs(Skada:GetWindows()) do
-	window:UpdateDisplay()
+	skada.backdrop:Point('BOTTOMRIGHT', skada, 'BOTTOMRIGHT', 2, -2)
 end
