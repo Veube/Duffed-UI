@@ -343,6 +343,8 @@ local function Local(o)
 	-- aura
 	if o == "TukuiConfigUIauras" then o = TukuiL.option_auras end
 	if o == "TukuiConfigUIaurasplayer" then o = TukuiL.option_auras_player end
+	if o == "TukuiConfigUIaurasconsolidate" then o = TukuiL.option_auras_consolidate end
+	if o == "TukuiConfigUIaurasflash" then o = TukuiL.option_auras_flash end
 
 	T.option = o
 end

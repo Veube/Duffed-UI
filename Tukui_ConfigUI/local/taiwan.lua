@@ -308,6 +308,8 @@
 	-- buff
 	TukuiL.option_auras = "顯示光環"
 	TukuiL.option_auras_player = "啟用 Tukui Buff/Debuff 框體"
+	TukuiL.option_auras_consolidate = "Consolidate Buffs"
+	TukuiL.option_auras_flash = "Flash Buffbutton"
  
 	-- buttons
 	TukuiL.option_button_reset = "重置"

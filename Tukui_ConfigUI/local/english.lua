@@ -304,6 +304,8 @@ TukuiL.option_chat_background = "Enable chat panel background"
 -- buff
 TukuiL.option_auras = "Auras"
 TukuiL.option_auras_player = "Enable Tukui Buff/Debuff Frames"
+TukuiL.option_auras_consolidate = "Consolidate Buffs"
+TukuiL.option_auras_flash = "Flash Buffbutton"
 
 -- buttons
 TukuiL.option_button_reset = "Reset"

@@ -304,7 +304,9 @@
  
 	 -- buff
 	TukuiL.option_auras = "Auras"
-	TukuiL.option_auras_player = "Enable Tukui Buff/Debuff Frames"
+	TukuiL.option_auras_player = "Aktiviere Tukui Stärkungs/Schwächungszauber"
+	TukuiL.option_auras_consolidate = "Stärkungszauber zusammenfassen"
+	TukuiL.option_auras_flash = "Hervorheben von auslaufenden Stärkungszaubern"
 
 	-- buttons
 	TukuiL.option_button_reset = "Zurücksetzen"

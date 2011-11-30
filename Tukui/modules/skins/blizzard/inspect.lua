@@ -103,9 +103,9 @@ local function LoadSkin()
 		ColorItemBorder()
 	end
 	
-	T.SkinRotateButton(InspectModelFrameRotateLeftButton)
+	--[[T.SkinRotateButton(InspectModelFrameRotateLeftButton)
 	T.SkinRotateButton(InspectModelFrameRotateRightButton)
-	InspectModelFrameRotateRightButton:Point("TOPLEFT", InspectModelFrameRotateLeftButton, "TOPRIGHT", 3, 0)
+	InspectModelFrameRotateRightButton:Point("TOPLEFT", InspectModelFrameRotateLeftButton, "TOPRIGHT", 3, 0)]]--
 	
 	InspectPVPFrameBottom:Kill()
 	InspectGuildFrameBG:Kill()

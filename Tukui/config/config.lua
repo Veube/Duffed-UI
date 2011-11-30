@@ -170,6 +170,8 @@ C["classtimer"] = {
 
 C["auras"] = {
 	["player"] = true,                                  -- enable tukui buffs/debuffs
+	["consolidate"] = false,                            -- enable downpdown menu with consolidate buff
+	["flash"] = false,                                  -- flash warning for buff with time < 30 sec
 }
 
 C["bags"] = {

@@ -310,6 +310,8 @@ if GetLocale() == "zhCN" then
 	-- buff
 	TukuiL.option_auras = "光环"
 	TukuiL.option_auras_player = "启用Tukui Buff/Debuff 框架"
+	TukuiL.option_auras_consolidate = "Consolidate Buffs"
+	TukuiL.option_auras_flash = "Flash Buffbutton"
 
 	-- buttons
 	TukuiL.option_button_reset = "重置"

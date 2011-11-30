@@ -305,6 +305,8 @@ if GetLocale() == "frFR" then
 	-- buff
 	TukuiL.option_auras = "Auras"
 	TukuiL.option_auras_player = "Activer les frames buff/debuff de Tukui"
+	TukuiL.option_auras_consolidate = "Consolidate Buffs"
+	TukuiL.option_auras_flash = "Flash Buffbutton"
  
 	TukuiL.option_button_reset = "Défaut"
 	TukuiL.option_button_load = "Appliquer"

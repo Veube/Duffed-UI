@@ -4,8 +4,7 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 T.MoverFrames = {
 	TukuiMinimap,
 	TukuiTooltipAnchor,
-	TukuiPlayerBuffs,
-	TukuiPlayerDebuffs,
+	TukuiAurasPlayerBuffs,
 	TukuiShiftBar,
 	TukuiRollAnchor,
 	TukuiAchievementHolder,
@@ -14,6 +13,7 @@ T.MoverFrames = {
 	TukuiVehicleAnchor,
 	TukuiBnetHolder,
 	RaidBuffReminder,
+	TukuiExtraActionBarFrameHolder,
 }
 
 -- used to exec various code if we enable or disable moving
@@ -37,7 +37,7 @@ local function exec(self, enable)
 		end
 	end
 	
-	if self == TukuiPlayerBuffs or self == TukuiPlayerDebuffs then
+	if self == TukuiAurasPlayerBuffs then
 		if enable then
 			self:SetBackdropColor(unpack(C.media.backdropcolor))
 			self:SetBackdropBorderColor(1,0,0,1)	
@@ -84,7 +84,7 @@ local function exec(self, enable)
 		end		
 	end
 	
-	if self == TukuiWatchFrameAnchor then
+	if self == TukuiWatchFrameAnchor or self == TukuiExtraActionBarFrameHolder then
 		if enable then
 			TukuiWatchFrameAnchor:SetBackdropBorderColor(1,0,0,1)
 			TukuiWatchFrameAnchor:SetBackdropColor(unpack(C.media.backdropcolor))		
