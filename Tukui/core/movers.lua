@@ -38,26 +38,36 @@ local function exec(self, enable)
 	end
 	
 	if self == TukuiAurasPlayerBuffs then
+		if not self:GetBackdrop() then self:SetTemplate("Default") end
+
+		local buffs = TukuiAurasPlayerBuffs
+		local debuffs = TukuiAurasPlayerDebuffs
+
 		if enable then
-			self:SetBackdropColor(unpack(C.media.backdropcolor))
-			self:SetBackdropBorderColor(1,0,0,1)	
+			buffs:SetBackdropColor(unpack(C.media.backdropcolor))
+			buffs:SetBackdropBorderColor(1,0,0,1)	
 		else
-			local position = self:GetPoint()			
+			local position = self:GetPoint()
 			if position:match("TOPLEFT") or position:match("BOTTOMLEFT") or position:match("BOTTOMRIGHT") or position:match("TOPRIGHT") then
-				self:SetAttribute("point", position)
+				buffs:SetAttribute("point", position)
+				debuffs:SetAttribute("point", position)
 			end
 			if position:match("LEFT") then
-				self:SetAttribute("xOffset", 36)
+				buffs:SetAttribute("xOffset", 35)
+				debuffs:SetAttribute("xOffset", 35)
 			else
-				self:SetAttribute("xOffset", -36)
+				buffs:SetAttribute("xOffset", -35)
+				debuffs:SetAttribute("xOffset", -35)
 			end
 			if position:match("BOTTOM") then
-				self:SetAttribute("wrapYOffset", 68)
+				buffs:SetAttribute("wrapYOffset", 67.5)
+				debuffs:SetAttribute("wrapYOffset", 67.5)
 			else
-				self:SetAttribute("wrapYOffset", -68)
+				buffs:SetAttribute("wrapYOffset", -67.5)
+				debuffs:SetAttribute("wrapYOffset", -67.5)
 			end
-			self:SetBackdropColor(0,0,0,0)
-			self:SetBackdropBorderColor(0,0,0,0)
+			buffs:SetBackdropColor(0,0,0,0)
+			buffs:SetBackdropBorderColor(0,0,0,0)
 		end
 	end
 	
@@ -86,11 +96,11 @@ local function exec(self, enable)
 	
 	if self == TukuiWatchFrameAnchor or self == TukuiExtraActionBarFrameHolder then
 		if enable then
-			TukuiWatchFrameAnchor:SetBackdropBorderColor(1,0,0,1)
-			TukuiWatchFrameAnchor:SetBackdropColor(unpack(C.media.backdropcolor))		
+			self:SetBackdropBorderColor(1,0,0,1)
+			self:SetBackdropColor(unpack(C.media.backdropcolor))		
 		else
-			TukuiWatchFrameAnchor:SetBackdropBorderColor(0,0,0,0)
-			TukuiWatchFrameAnchor:SetBackdropColor(0,0,0,0)		
+			self:SetBackdropBorderColor(0,0,0,0)
+			self:SetBackdropColor(0,0,0,0)		
 		end
 	end
 	
