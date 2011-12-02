@@ -52,4 +52,5 @@
 	<Script file="voidstorage.lua"/>
 	<Script file="itemtransmogrify.lua"/>
 	<Script file="raidparent.lua"/>
+	<Script file="skindropdown.lua"/>
 </Ui>
