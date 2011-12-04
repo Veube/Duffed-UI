@@ -8,18 +8,19 @@ if C["datatext"].avd and C["datatext"].avd > 0 then
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
+	Stat.Option = C.datatext.avd
 
-	local Text  = TukuiInfoLeft:CreateFontString("TukuiStatAvoidanceText", "OVERLAY")
+	local Text  = Stat:CreateFontString("TukuiStatAvoidanceText", "OVERLAY")
 	Text:SetFont(C.media.font, C["datatext"].fontsize)
 	T.PP(C["datatext"].avd, Text)
-
+	
 	local targetlv
 	local playerlv
 
 	local function Update(self)
 		local format = string.format
 		targetlv, playerlv = UnitLevel("target"), UnitLevel("player")
-
+		
 		if targetlv == -1 then
 			basemisschance = (5 - (3*.2))  --Boss Value
 			leveldifference = 3
@@ -38,26 +39,16 @@ if C["datatext"].avd and C["datatext"].avd > 0 then
 			dodge = (GetDodgeChance()-leveldifference*.2)
 			parry = (GetParryChance()-leveldifference*.2)
 			block = (GetBlockChance()-leveldifference*.2)
-			local MissChance
-			if MissChance then
-				MissChance = (basemisschance + 1/(0.0625 + 0.956/(GetCombatRating(CR_DEFENSE_SKILL)/4.91850*0.04)))
-			else
-				MissChance = 0
-			end
+			MissChance = (basemisschance + 1/(0.0625 + 0.956/(GetCombatRating(CR_DEFENSE_SKILL)/4.91850*0.04)))
 			avoidance = (dodge+parry+block+MissChance)
-			Text:SetText(L.datatext_playeravd.."|r"..format("%.2f", avoidance))
+			Text:SetText(T.panelcolor..L.datatext_playeravd.."|r"..format("%.2f", avoidance).."|r")
 		else
 			dodge = (GetDodgeChance()+abs(leveldifference*.2))
 			parry = (GetParryChance()+abs(leveldifference*.2))
 			block = (GetBlockChance()+abs(leveldifference*.2))
-			local MissChance
-			if MissChance then
-				MissChance = (basemisschance + 1/(0.0625 + 0.956/(GetCombatRating(CR_DEFENSE_SKILL)/4.91850*0.04)))
-			else
-				MissChance = 0
-			end
+			MissChance = (basemisschance + 1/(0.0625 + 0.956/(GetCombatRating(CR_DEFENSE_SKILL)/4.91850*0.04)))
 			avoidance = (dodge+parry+block+MissChance)
-			Text:SetText(L.datatext_playeravd.."|r"..format("%.2f", avoidance))
+			Text:SetText(T.panelcolor..L.datatext_playeravd.."|r"..format("%.2f", avoidance).."|r")
 		end
 
 		--Setup Avoidance Tooltip
