@@ -292,7 +292,7 @@ local function Shared(self, unit)
 				sos.icon:Point("TOPLEFT", 2, -2)
 				sos.icon:Point("BOTTOMRIGHT", -2, 2)
 				
-				sos.text = T.SetFontString(sos, font2, 14, fontflag)
+				sos.text = T.SetFontString(sos, font, 14, fontflag)
 				sos.text:SetPoint("CENTER", sos, 1, 0)
 				sos:SetScript("OnUpdate", Priest_SoS_Time)
 
