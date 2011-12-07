@@ -1259,14 +1259,42 @@ if C["unitframes"].raidunitdebuffwatch == true then
 			
 		--Dragon Soul
 			-- Morchok
-			SpellName(33661),	-- Crush Armor
+			SpellName(103541),	-- Safe
+			SpellName(103536),	-- Warning
+			SpellName(103534),	-- Danger
+			SpellName(108570),	-- Black Blood of the Earth
+			-- Yor'sahj the Unsleeping
+			SpellName(105171),	-- Deep Corruption
 			-- Warlord Zon'ozz
 			SpellName(103434),	-- Disrupting Shadow
 			SpellName(104322),	-- Psychic Drain
 			-- Hagara
-			SpellName(70157),	-- Ice Tomb
+			SpellName(105465),	-- Lighting Storm
+			SpellName(104451),	-- Ice Tomb
+			SpellName(109325),	-- Frostflake
+			SpellName(105289),	-- Shattered Ice
+			SpellName(105285),	-- Target
 			-- Ultraxion
+			SpellName(110079),	-- Fading Light
+			SpellName(109075),	-- Fading Light
 			-- Warmaster Blackhorn
+			-- Spine of Deathwing
+			SpellName(105479),	-- Searing Plasma (don't know which the correct ID is)
+			SpellName(105490),	-- Fiery Grip
+			SpellName(109379),	-- Searing Plasma (don't know which the correct ID is)
+			SpellName(109362),	-- Searing Plasma (don't know which the correct ID is)
+			SpellName(105479),	-- Searing Plasma (don't know which the correct ID is)
+			SpellName(109364),	-- Searing Plasma (don't know which the correct ID is)
+			SpellName(109363),	-- Searing Plasma (don't know which the correct ID is)
+			--Madness of Deathwing
+			SpellName(109597),	-- Shrapnel (don't know which the correct ID is)
+			SpellName(110141),	-- Shrapnel (don't know which the correct ID is)
+			SpellName(109599),	-- Shrapnel (don't know which the correct ID is)
+			SpellName(110139),	-- Shrapnel (don't know which the correct ID is)
+			SpellName(110141),	-- Shrapnel (don't know which the correct ID is)
+			SpellName(109598),	-- Shrapnel (don't know which the correct ID is)
+			SpellName(106791),	-- Shrapnel (don't know which the correct ID is)
+			SpellName(106794),	-- Shrapnel (don't know which the correct ID is)
 		}
 
 		T.ReverseTimer = {
