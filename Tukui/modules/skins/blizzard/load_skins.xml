@@ -53,4 +53,5 @@
 	<Script file="itemtransmogrify.lua"/>
 	<Script file="raidparent.lua"/>
 	<Script file="skindropdown.lua"/>
+	<Script file="loot.lua"/>
 </Ui>

@@ -1,8 +1,0 @@
-﻿## Interface: 40300
-## Author: Hydra, Big credit to Tukui aswell
-## Version: 1.4
-## Title: |cff00AAFFHydra|r |cffFFFFFFChat|r
-## Notes: Instant Messanger style chat windows
-## SavedVariables: Config
-
-Load.xml
