@@ -1,15 +1,15 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	TradeSkillFrame:StripTextures(true)
+	TradeSkillFrame:SetTemplate("Transparent")
 	TradeSkillListScrollFrame:StripTextures()
 	TradeSkillDetailScrollFrame:StripTextures()
 	TradeSkillFrameInset:StripTextures()
 	TradeSkillExpandButtonFrame:StripTextures()
 	TradeSkillDetailScrollChildFrame:StripTextures()
 	
-	TradeSkillFrame:SetTemplate("Transparent")
+	TradeSkillFrame:SetTemplate("Default")
 	TradeSkillFrame:CreateShadow("Default")
 	TradeSkillFrame:Height(TradeSkillFrame:GetHeight() + 12)
 	TradeSkillRankFrame:StripTextures()
@@ -21,8 +21,6 @@ local function LoadSkin()
 	T.SkinButton(TradeSkillFilterButton, true)
 	T.SkinButton(TradeSkillCreateAllButton, true)
 	T.SkinButton(TradeSkillViewGuildCraftersButton, true)
-	T.SkinScrollBar(TradeSkillListScrollFrameScrollBar)
-	T.SkinScrollBar(TradeSkillDetailScrollFrameScrollBar)
 	
 	TradeSkillLinkButton:GetNormalTexture():SetTexCoord(0.25, 0.7, 0.37, 0.75)
 	TradeSkillLinkButton:GetPushedTexture():SetTexCoord(0.25, 0.7, 0.45, 0.8)
@@ -37,6 +35,8 @@ local function LoadSkin()
 	TradeSkillIncrementButton:Point("RIGHT", TradeSkillCreateButton, "LEFT", -13, 0)
 	
 	T.SkinCloseButton(TradeSkillFrameCloseButton)
+	T.SkinScrollBar(TradeSkillDetailScrollFrameScrollBar)
+	T.SkinScrollBar(TradeSkillListScrollFrameScrollBar)
 	
 	local once = false
 	hooksecurefunc("TradeSkillFrame_SetSelection", function(id)
@@ -82,12 +82,11 @@ local function LoadSkin()
 	
 	--Guild Crafters
 	TradeSkillGuildFrame:StripTextures()
-	TradeSkillGuildFrame:SetTemplate("Transparent")
+	TradeSkillGuildFrame:SetTemplate("Default")
 	TradeSkillGuildFrame:Point("BOTTOMLEFT", TradeSkillFrame, "BOTTOMRIGHT", 3, 19)
 	TradeSkillGuildFrameContainer:StripTextures()
 	TradeSkillGuildFrameContainer:SetTemplate("Default")
 	T.SkinCloseButton(TradeSkillGuildFrameCloseButton)
-	T.SkinScrollBar(TradeSkillGuildCraftersFrameScrollBar)
 end
 
 T.SkinFuncs["Blizzard_TradeSkillUI"] = LoadSkin

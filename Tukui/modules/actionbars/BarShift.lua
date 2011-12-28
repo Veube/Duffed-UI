@@ -8,7 +8,8 @@ if not C["actionbar"].enable == true then return end
 -- used for anchor totembar or shapeshiftbar
 local TukuiShift = CreateFrame("Frame","TukuiShiftBar",UIParent)
 TukuiShift:SetPoint("TOPLEFT", 4, -46)
-TukuiShift:SetSize((T.petbuttonsize * 5) + (T.petbuttonsize * 4), 15)
+TukuiShift:SetWidth((T.petbuttonsize * 5) + (T.petbuttonsize * 4))
+TukuiShift:SetHeight(10)
 TukuiShift:SetFrameStrata("MEDIUM")
 TukuiShift:SetMovable(true)
 TukuiShift:SetClampedToScreen(true)
@@ -64,7 +65,7 @@ bar:SetScript("OnEvent", function(self, event, ...)
 				button:Point("BOTTOMLEFT", TukuiShift, 0, 24)
 			else
 				local previous = _G["ShapeshiftButton"..i-1]
-				if C.actionbar.verticalshapeshift then
+				if C["actionbar"].verticalshapeshift then
 					button:Point("TOP", previous, "BOTTOM", 0, -T.buttonspacing)
 				else
 					button:Point("LEFT", previous, "RIGHT", T.buttonspacing, 0)
@@ -91,14 +92,14 @@ bar:SetScript("OnEvent", function(self, event, ...)
 			end
 		end
 		T.TukuiShiftBarUpdate()
-		if C.actionbar.verticalshapeshift then
+		if C["actionbar"].verticalshapeshift then
 			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing))+ T.buttonspacing, ShapeshiftButton1:GetHeight()*GetNumShapeshiftForms()+ (GetNumShapeshiftForms()+1)*T.buttonspacing)
 		else
 			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing)*GetNumShapeshiftForms() )+ T.buttonspacing, ShapeshiftButton1:GetHeight()+ 2*T.buttonspacing)
 		end
 	elseif event == "PLAYER_ENTERING_WORLD" then
 		T.StyleShift()
-		if C.actionbar.verticalshapeshift then
+		if C["actionbar"].verticalshapeshift then
 			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing))+ T.buttonspacing, ShapeshiftButton1:GetHeight()*GetNumShapeshiftForms()+ (GetNumShapeshiftForms()+1)*T.buttonspacing)
 		else
 			ShapeShiftBorder:Size(((ShapeshiftButton1:GetWidth()+T.buttonspacing)*GetNumShapeshiftForms() )+ T.buttonspacing, ShapeshiftButton1:GetHeight()+ 2*T.buttonspacing)

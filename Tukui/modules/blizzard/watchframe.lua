@@ -12,8 +12,8 @@ TukuiWatchFrameAnchor:SetFrameStrata("HIGH")
 TukuiWatchFrameAnchor:SetFrameLevel(20)
 TukuiWatchFrameAnchor:SetHeight(20)
 TukuiWatchFrameAnchor:SetClampedToScreen(true)
-TukuiWatchFrameAnchor:EnableMouse(false)
 TukuiWatchFrameAnchor:SetMovable(true)
+TukuiWatchFrameAnchor:EnableMouse(false)
 TukuiWatchFrameAnchor:SetTemplate("Default")
 TukuiWatchFrameAnchor:SetBackdropBorderColor(0,0,0,0)
 TukuiWatchFrameAnchor:SetBackdropColor(0,0,0,0)
@@ -23,7 +23,7 @@ TukuiWatchFrameAnchor.text:SetText(L.move_watchframe)
 TukuiWatchFrameAnchor.text:Hide()
 
 -- set default position according to how many right bars we have
-TukuiWatchFrameAnchor:Point("TOPRIGHT", UIParent, -212, -243)
+TukuiWatchFrameAnchor:Point("TOPRIGHT", UIParent, -210, -220)
 
 -- width of the watchframe according to our Blizzard cVar.
 if wideFrame == "1" then
@@ -34,7 +34,7 @@ else
 	TukuiWatchFrameAnchor:SetWidth(250)
 end
 
-local screenheight = T.getscreenheight
+local screenheight = T.screenheight
 TukuiWatchFrame:SetParent(TukuiWatchFrameAnchor)
 TukuiWatchFrame:SetHeight(screenheight / 1.6)
 TukuiWatchFrame:ClearAllPoints()
@@ -61,7 +61,7 @@ end
 
 local function setup()	
 	WatchFrame:SetParent(TukuiWatchFrame)
-	WatchFrame:SetFrameStrata("MEDIUM")
+	WatchFrame:SetFrameStrata("LOW")
 	WatchFrame:SetFrameLevel(3)
 	WatchFrame:SetClampedToScreen(false)
 	WatchFrame:ClearAllPoints()
@@ -71,17 +71,21 @@ local function setup()
 	WatchFrame.SetPoint = T.dummy
 
 	WatchFrameTitle:SetParent(TukuiWatchFrame)
-	WatchFrameCollapseExpandButton:FontString("text", C.datatext.font, C.datatext.fontsize)
-	WatchFrameCollapseExpandButton.text:SetText("-")
-	WatchFrameCollapseExpandButton.text:Point("CENTER", 0, 0)
-	WatchFrameCollapseExpandButton:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(C.datatext.color)) end)
-	WatchFrameCollapseExpandButton:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+	WatchFrameCollapseExpandButton:SetParent(TukuiWatchFrame)
+	WatchFrameCollapseExpandButton:SetSize(16, 16)
+	WatchFrameCollapseExpandButton:SetFrameStrata(WatchFrameHeader:GetFrameStrata())
+	WatchFrameCollapseExpandButton:SetFrameLevel(WatchFrameHeader:GetFrameLevel() + 1)
+	WatchFrameCollapseExpandButton:SetNormalTexture("")
+	WatchFrameCollapseExpandButton:SetPushedTexture("")
+	WatchFrameCollapseExpandButton:SetHighlightTexture("")
+	T.SkinCloseButton(WatchFrameCollapseExpandButton)
+	WatchFrameCollapseExpandButton.t:SetFont(C.media.font, 12, "OUTLINE")
 	WatchFrameCollapseExpandButton:HookScript("OnClick", function(self) 
-		if WatchFrame.collapsed then
-			self.text:SetText("+") 
+		if WatchFrame.collapsed then 
+			self.t:SetText("V") 
 		else 
-			self.text:SetText("-")
-		end
+			self.t:SetText("X")
+		end 
 	end)
 	WatchFrameTitle:Kill()
 end

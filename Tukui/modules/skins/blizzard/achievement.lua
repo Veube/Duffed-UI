@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	local frames = {
@@ -37,7 +36,8 @@ local function LoadSkin()
 		end
 	end
 	
-	AchievementFrame:CreateBackdrop("Transparent")
+	AchievementFrame:CreateBackdrop("Default")
+	AchievementFrame:SetTemplate("Transparent")
 	AchievementFrame.backdrop:Point("TOPLEFT", 0, 6)
 	AchievementFrame.backdrop:SetPoint("BOTTOMRIGHT")
 	AchievementFrameHeaderTitle:ClearAllPoints()
@@ -58,11 +58,11 @@ local function LoadSkin()
 	AchievementFrameFilterDropDown:Point("TOPRIGHT", AchievementFrame, "TOPRIGHT", -44, 5)
 	
 	-- ScrollBars
-	T.SkinScrollBar(AchievementFrameCategoriesContainerScrollBar, 5)
-	T.SkinScrollBar(AchievementFrameAchievementsContainerScrollBar, 5)
-	T.SkinScrollBar(AchievementFrameStatsContainerScrollBar, 5)
-	T.SkinScrollBar(AchievementFrameComparisonContainerScrollBar, 5)
-	T.SkinScrollBar(AchievementFrameComparisonStatsContainerScrollBar, 5)
+	T.SkinScrollBar(AchievementFrameCategoriesContainerScrollBar)
+	T.SkinScrollBar(AchievementFrameAchievementsContainerScrollBar)
+	T.SkinScrollBar(AchievementFrameStatsContainerScrollBar)
+	T.SkinScrollBar(AchievementFrameComparisonContainerScrollBar)
+	T.SkinScrollBar(AchievementFrameComparisonStatsContainerScrollBar)
 	
 	--Tabs
 	for i = 1, 3 do
@@ -156,7 +156,7 @@ local function LoadSkin()
 		--Initiate fucked up method of creating a backdrop
 		frame.bg1 = frame:CreateTexture(nil, "BACKGROUND")
 		frame.bg1:SetDrawLayer("BACKGROUND", 4)
-		frame.bg1:SetTexture(C["media"].glossTex) --Default Tukui users this is normTex, glossTex doesn't exist
+		frame.bg1:SetTexture(C["media"].normTex) --Default TukUI users this is normTex, glossTex doesn't exist
 		frame.bg1:SetVertexColor(unpack(C["media"].backdropcolor))
 		frame.bg1:Point("TOPLEFT", T.mult*4, -T.mult*4)
 		frame.bg1:Point("BOTTOMRIGHT", -T.mult*4, T.mult*4)				
@@ -199,7 +199,7 @@ local function LoadSkin()
 		_G["AchievementFrameAchievementsContainerButton"..i.."IconTexture"]:Point("BOTTOMRIGHT", -2, 2)		
 		
 		
-		_G["AchievementFrameAchievementsContainerButton"..i.."Tracked"].oborder = "Don't use sharp border" --Needed for Tukui only
+		_G["AchievementFrameAchievementsContainerButton"..i.."Tracked"].oborder = "Don't use sharp border" --Needed for ElvUI only
 		_G["AchievementFrameAchievementsContainerButton"..i.."Tracked"]:StripTextures()
 		_G["AchievementFrameAchievementsContainerButton"..i.."Tracked"]:SetTemplate("Default")
 		_G["AchievementFrameAchievementsContainerButton"..i.."Tracked"]:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check")
@@ -237,7 +237,7 @@ local function LoadSkin()
 			--Initiate fucked up method of creating a backdrop
 			_G[frame].bg1 = _G[frame]:CreateTexture(nil, "BACKGROUND")
 			_G[frame].bg1:SetDrawLayer("BACKGROUND", 4)
-			_G[frame].bg1:SetTexture(C["media"].glossTex) --Default Tukui users this is normTex, glossTex doesn't exist
+			_G[frame].bg1:SetTexture(C["media"].glossTex) --Default TukUI users this is normTex, glossTex doesn't exist
 			_G[frame].bg1:SetVertexColor(unpack(C["media"].backdropcolor))
 			_G[frame].bg1:Point("TOPLEFT", T.mult*4, -T.mult*4)
 			_G[frame].bg1:Point("BOTTOMRIGHT", -T.mult*4, T.mult*4)				
@@ -302,7 +302,7 @@ local function LoadSkin()
 	hooksecurefunc("AchievementButton_GetProgressBar", function(index)
 		local frame = _G["AchievementFrameProgressBar"..index]
 		if frame then
-			if not frame.Skinned then
+			if not frame.skinned then
 				frame:StripTextures()
 				frame:SetStatusBarTexture(C["media"].normTex)
 				frame:SetStatusBarColor(4/255, 179/255, 30/255)
@@ -340,7 +340,7 @@ local function LoadSkin()
 					frame.ClearAllPoints = T.dummy
 				end
 				
-				frame.Skinned = true
+				frame.skinned = true
 			end
 
 		end

@@ -4,10 +4,13 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 ----------------------------------------------------------------
 
 if not C["datatext"].mastery == nil or C["datatext"].mastery > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "TukuiStatMastery")
+	Stat.Option = C.datatext.mastery
+	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+	local Text  = Stat:CreateFontString("TukuiStatMasteryText", "OVERLAY")
+	Text:SetFont(T.SetUserFont())
 	T.PP(C["datatext"].mastery, Text)
 
 	local int = 1
@@ -15,7 +18,7 @@ if not C["datatext"].mastery == nil or C["datatext"].mastery > 0 then
 	local function Update(self, t)
 		int = int - t
 		if int < 0 then
-			Text:SetText("Mastery: "..T.panelcolor..GetCombatRating(26))
+			Text:SetText(Stat.Color1..STAT_MASTERY..":|r "..Stat.Color2..GetCombatRating(26).."|r")
 			int = 1
 		end
 	end

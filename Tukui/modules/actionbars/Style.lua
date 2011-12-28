@@ -6,11 +6,11 @@ local media = C["media"]
 local securehandler = CreateFrame("Frame", nil, nil, "SecureHandlerBaseTemplate")
 local replace = string.gsub
 
-local function style(self)
+function T.StyleActionBarButton(self)
 	local name = self:GetName()
 	
 	--> fixing a taint issue while changing totem flyout button in combat.
-	if name:match("MultiCast") then return end 
+	if name:match("MultiCast") then return end
 	
 	--> don't skin the boss encounter extra button to match texture (4.3 patch)
 	--> http://www.tukui.org/storage/viewer.php?id=913811extrabar.jpg
@@ -37,18 +37,11 @@ local function style(self)
  
 	Count:ClearAllPoints()
 	Count:Point("BOTTOMRIGHT", 0, 2)
-	Count:SetFont(C.media.uffont, C.unitframes.fontsize, "OUTLINE")
- 
-	if not C["actionbar"].macrotext == true then
-		if Btname then
-			Btname:SetText("")
-			Btname:Kill()
-		end
-	else
-		if Btname then
-			Btname:SetAlphaGradient(0,Button:GetWidth())
-			Btname:SetFont(C.datatext.font, C.datatext.fontsize, "THINOUTLINE")
-		end
+	Count:SetFont(T.SetUserFont())
+
+	if Btname then
+		Btname:SetText("")
+		Btname:Kill()
 	end
  
 	if not _G[name.."Panel"] then
@@ -71,7 +64,7 @@ local function style(self)
 
 	HotKey:ClearAllPoints()
 	HotKey:Point("TOPRIGHT", 0, -3)
-	HotKey:SetFont(C["datatext"].font, C["datatext"].fontsize, "OUTLINE")
+	HotKey:SetFont(T.SetUserFont())
 	HotKey.ClearAllPoints = T.dummy
 	HotKey.SetPoint = T.dummy
  
@@ -88,17 +81,17 @@ local function style(self)
 	
 	if BtnBG then
 		BtnBG:Kill()
-	end
+	end 
 end
 
-local function stylesmallbutton(normal, button, icon, name, pet)
-	local Flash	 = _G[name.."Flash"]
+function T.StyleActionBarPetAndShiftButton(normal, button, icon, name, pet)
 	button:SetNormalTexture("")
 	
-	-- another bug fix reported by Affli in t12 beta
+	-- bug fix when moving spell from bar
 	button.SetNormalTexture = T.dummy
 	
-	Flash:SetTexture(media.buttonhover)
+	local Flash	 = _G[name.."Flash"]
+	Flash:SetTexture("")
 	
 	if not _G[name.."Panel"] then
 		button:SetWidth(T.petbuttonsize)
@@ -142,7 +135,7 @@ function T.StyleShift()
 		local button  = _G[name]
 		local icon  = _G[name.."Icon"]
 		local normal  = _G[name.."NormalTexture"]
-		stylesmallbutton(normal, button, icon, name)
+		T.StyleActionBarPetAndShiftButton(normal, button, icon, name)
 	end
 end
 
@@ -152,11 +145,11 @@ function T.StylePet()
 		local button  = _G[name]
 		local icon  = _G[name.."Icon"]
 		local normal  = _G[name.."NormalTexture2"]
-		stylesmallbutton(normal, button, icon, name, true)
+		T.StyleActionBarPetAndShiftButton(normal, button, icon, name, true)
 	end
 end
 
-local function updatehotkey(self, actionButtonType)
+function T.UpdateActionBarHotKey(self, actionButtonType)
 	local hotkey = _G[self:GetName() .. 'HotKey']
 	local text = hotkey:GetText()
 	
@@ -174,10 +167,6 @@ local function updatehotkey(self, actionButtonType)
 	text = replace(text, '(Insert)', 'Ins')
 	text = replace(text, '(Home)', 'Hm')
 	text = replace(text, '(Delete)', 'Del')
-	text = replace(text, '(Maustaste 5)', 'M5')
-	text = replace(text, '(Maustaste 4)', 'M4')
-	text = replace(text, '(Mittlere Maustaste)', 'M3')
-	text = replace(text, '(Maustaste)', 'M ')
 	
 	if hotkey:GetText() == _G['RANGE_INDICATOR'] then
 		hotkey:SetText('')
@@ -209,8 +198,8 @@ local function SetupFlyoutButton()
 	for i=1, buttons do
 		--prevent error if you don't have max ammount of buttons
 		if _G["SpellFlyoutButton"..i] then
-			style(_G["SpellFlyoutButton"..i])
-			
+			T.StyleActionBarButton(_G["SpellFlyoutButton"..i])
+					
 			if _G["SpellFlyoutButton"..i]:GetChecked() then
 				_G["SpellFlyoutButton"..i]:SetChecked(nil)
 			end
@@ -221,16 +210,16 @@ SpellFlyout:HookScript("OnShow", SetupFlyoutButton)
 
  
 --Hide the Mouseover texture and attempt to find the ammount of buttons to be skinned
-local function styleflyout(self)
+function T.StyleActionBarFlyout(self)
 	if not self.FlyoutArrow then return end
-
+	
 	self.FlyoutBorder:SetAlpha(0)
 	self.FlyoutBorderShadow:SetAlpha(0)
-
+	
 	SpellFlyoutHorizontalBackground:SetAlpha(0)
 	SpellFlyoutVerticalBackground:SetAlpha(0)
 	SpellFlyoutBackgroundEnd:SetAlpha(0)
-
+	
 	for i=1, GetNumFlyouts() do
 		local x = GetFlyoutID(i)
 		local _, _, numSlots, isKnown = GetFlyoutInfo(x)
@@ -283,9 +272,9 @@ do
 	end
 end
 
-hooksecurefunc("ActionButton_Update", style)
-hooksecurefunc("ActionButton_UpdateHotkeys", updatehotkey)
-hooksecurefunc("ActionButton_UpdateFlyout", styleflyout)
+hooksecurefunc("ActionButton_Update", T.StyleActionBarButton)
+hooksecurefunc("ActionButton_UpdateHotkeys", T.UpdateActionBarHotKey)
+hooksecurefunc("ActionButton_UpdateFlyout", T.StyleActionBarFlyout)
 
 ---------------------------------------------------------------
 -- Totem Style, they need a lot more work than "normal" buttons
@@ -334,7 +323,6 @@ local function StyleTotemFlyout(flyout)
 	
 	for _,button in ipairs(flyout.buttons) do
 		button:SetTemplate("Default")
-		button:CreateShadow("")
 		local icon = select(1,button:GetRegions())
 		icon:SetTexCoord(.09,.91,.09,.91)
 		icon:SetDrawLayer("ARTWORK")
@@ -360,7 +348,6 @@ local function StyleTotemFlyout(flyout)
 	-- Skin Close button
 	local close = MultiCastFlyoutFrameCloseButton
 	close:SetTemplate("Default")	
-	close:CreateShadow("")
 	close:GetHighlightTexture():SetTexture([[Interface\Buttons\ButtonHilight-Square]])
 	close:GetHighlightTexture():Point("TOPLEFT",close,"TOPLEFT",1,-1)
 	close:GetHighlightTexture():Point("BOTTOMRIGHT",close,"BOTTOMRIGHT",-1,1)
@@ -393,7 +380,6 @@ local function StyleTotemOpenButton(button, parent)
 		button.visibleBut.highlight:Point("TOPLEFT",button.visibleBut,"TOPLEFT",1,-1)
 		button.visibleBut.highlight:Point("BOTTOMRIGHT",button.visibleBut,"BOTTOMRIGHT",-1,1)
 		button.visibleBut:SetTemplate("Default")
-		button.visibleBut:CreateShadow("")
 	end
 	
 	button.visibleBut:SetBackdropBorderColor(parent:GetBackdropBorderColor())
@@ -410,7 +396,6 @@ local bordercolors = {
 
 local function StyleTotemSlotButton(button, index)
 	button:SetTemplate("Default")
-	button:CreateShadow("")
 	button.overlayTex:SetTexture(nil)
 	button.background:SetDrawLayer("ARTWORK")
 	button.background:ClearAllPoints()
@@ -452,7 +437,6 @@ local function StyleTotemSpellButton(button, index)
 	icon:Point("TOPLEFT",button,"TOPLEFT",2,-2)
 	icon:Point("BOTTOMRIGHT",button,"BOTTOMRIGHT",-2,2)
 	button:SetTemplate("Default")
-	button:CreateShadow("")
 	button:GetNormalTexture():SetTexture(nil)
 	if not InCombatLockdown() then button:Size(30, 30) end
 	_G[button:GetName().."Highlight"]:SetTexture(nil)

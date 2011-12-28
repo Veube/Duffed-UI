@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	T.SkinCloseButton(MacroFrameCloseButton)
@@ -20,8 +19,10 @@ local function LoadSkin()
 	}
 	
 	for i = 1, #buttons do
-		_G[buttons[i]]:StripTextures()
-		T.SkinButton(_G[buttons[i]])
+		if _G[buttons[i]] then
+			_G[buttons[i]]:StripTextures()
+			T.SkinButton(_G[buttons[i]])
+		end
 	end
 	
 	for i = 1, 2 do
@@ -39,7 +40,7 @@ local function LoadSkin()
 	MacroFrameTextBackground:CreateBackdrop()
 	MacroButtonScrollFrame:CreateBackdrop()
 	MacroPopupFrame:StripTextures()
-	MacroPopupFrame:SetTemplate("Transparent")
+	MacroPopupFrame:SetTemplate("Default")
 	MacroPopupScrollFrame:StripTextures()
 	MacroPopupScrollFrame:CreateBackdrop()
 	MacroPopupScrollFrame.backdrop:Point("TOPLEFT", 51, 2)
@@ -53,9 +54,6 @@ local function LoadSkin()
 	
 	-- Regular scroll bar
 	T.SkinScrollBar(MacroButtonScrollFrame)
-	T.SkinScrollBar(MacroFrameScrollFrameScrollBar)
-	T.SkinScrollBar(MacroPopupScrollFrameScrollBar)
-	T.SkinScrollBar(MacroButtonScrollFrameScrollBar)
 	
 	MacroPopupFrame:HookScript("OnShow", function(self)
 		self:ClearAllPoints()
@@ -111,6 +109,11 @@ local function LoadSkin()
 			pt:Point("BOTTOMRIGHT", -2, 2)
 		end
 	end
+	
+	-- scroll bars
+	T.SkinScrollBar(MacroButtonScrollFrameScrollBar)
+	T.SkinScrollBar(MacroFrameScrollFrameScrollBar)
+	T.SkinScrollBar(MacroPopupScrollFrameScrollBar)
 end
 
 T.SkinFuncs["Blizzard_MacroUI"] = LoadSkin

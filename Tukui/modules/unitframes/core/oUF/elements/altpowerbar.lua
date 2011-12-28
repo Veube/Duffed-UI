@@ -76,9 +76,9 @@ local Disable = function(self, unit)
 		self:UnregisterEvent('UNIT_POWER_BAR_HIDE', Toggler)
 
 		if(unit == 'player') then
-			PlayerPowerBarAlt:UnregisterEvent'UNIT_POWER_BAR_SHOW'
-			PlayerPowerBarAlt:UnregisterEvent'UNIT_POWER_BAR_HIDE'
-			PlayerPowerBarAlt:UnregisterEvent'PLAYER_ENTERING_WORLD'
+			PlayerPowerBarAlt:RegisterEvent'UNIT_POWER_BAR_SHOW'
+			PlayerPowerBarAlt:RegisterEvent'UNIT_POWER_BAR_HIDE'
+			PlayerPowerBarAlt:RegisterEvent'PLAYER_ENTERING_WORLD'
 		end
 	end
 end

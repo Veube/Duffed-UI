@@ -6,8 +6,8 @@ if not C["actionbar"].enable == true then return end
 ---------------------------------------------------------------------------
 
 if C["actionbar"].layout ~= 1 then
-	local barL = TukuiBar3Left
-	local barR = TukuiBar3Right
+	local barL = TukuiBar2
+	local barR = TukuiBar4
 	barR:SetParent(barL)
 	MultiBarBottomRight:SetParent(barL)
 
@@ -18,7 +18,7 @@ if C["actionbar"].layout ~= 1 then
 		b:ClearAllPoints()
 		b:SetFrameStrata("BACKGROUND")
 		b:SetFrameLevel(15)
-	
+
 		if i == 1 then
 			b:SetPoint("TOPLEFT", barL, T.buttonspacing, -T.buttonspacing)
 		elseif i == 4 then
@@ -33,9 +33,7 @@ if C["actionbar"].layout ~= 1 then
 	end
 else
 	local bar = TukuiBar2
-	if C["actionbar"].swapbar1and3 then
-		bar = TukuiBar1
-	end
+	if C["actionbar"].swapbar1and3 then bar = TukuiBar1 end
 	MultiBarBottomRight:SetParent(bar)
 
 	for i= 1, 12 do
@@ -45,7 +43,7 @@ else
 		b:ClearAllPoints()
 		b:SetFrameStrata("MEDIUM")
 		b:SetFrameLevel(15)
-	
+
 		if i == 1 then
 			b:SetPoint("BOTTOMLEFT", bar, T.buttonspacing, T.buttonspacing)
 		else

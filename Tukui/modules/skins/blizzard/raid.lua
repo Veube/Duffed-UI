@@ -1,5 +1,5 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
+if T.toc >= 40300 then return end
 
 local function LoadSkin()
 	local buttons = {
@@ -27,10 +27,17 @@ local function LoadSkin()
 		_G[object]:StripTextures()
 	end
 
-	for i=1, MAX_RAID_GROUPS*5 do
-		T.SkinButton(_G["RaidGroupButton"..i], true)
+	local function raidskinupdate()
+		nummembers = GetNumRaidMembers();
+
+		for i=1,nummembers do
+			T.SkinButton(_G["RaidGroupButton"..i])
+		end
 	end
-	
+	raidskinupdate()
+	RaidFrame:HookScript("OnShow", raidskinupdate)
+	hooksecurefunc("RaidGroupFrame_OnEvent", raidskinupdate)
+
 	for i=1,8 do
 		for j=1,5 do
 			_G["RaidGroup"..i.."Slot"..j]:StripTextures()

@@ -1,11 +1,10 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	ItemSocketingFrame:StripTextures()
 	ItemSocketingFrame:SetTemplate("Transparent")
 	ItemSocketingScrollFrame:StripTextures()
-	ItemSocketingScrollFrame:CreateBackdrop("Transparent")
+	ItemSocketingScrollFrame:CreateBackdrop("Default")
 
 	for i = 1, MAX_NUM_SOCKETS  do
 		local button = _G["ItemSocketingSocket"..i]
@@ -34,6 +33,7 @@ local function LoadSkin()
 	ItemSocketingSocketButton:Point("BOTTOMRIGHT", ItemSocketingFrame, "BOTTOMRIGHT", -5, 5)
 	T.SkinButton(ItemSocketingSocketButton)
 	T.SkinCloseButton(ItemSocketingCloseButton)
+	T.SkinScrollBar(ItemSocketingScrollFrameScrollBar)
 end
 
 T.SkinFuncs["Blizzard_ItemSocketingUI"] = LoadSkin

@@ -6,7 +6,13 @@ local noop = T.dummy
 local floor = math.floor
 local class = T.myclass
 local texture = C.media.blank
-local backdropr, backdropg, backdropb, backdropa, borderr, borderg, borderb = 0, 0, 0, 1, 0, 0, 0
+local backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
+local borderr, borderg, borderb = unpack(C["media"].bordercolor)
+local backdropa = 1
+local bordera = 1
+local template
+local inset = 0
+local noinset = C.media.noinset
 
 -- pixel perfect script of custom ui Scale.
 local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/C["general"].uiscale
@@ -17,41 +23,30 @@ end
 T.Scale = function(x) return Scale(x) end
 T.mult = mult
 
----------------------------------------------------
--- TEMPLATES
----------------------------------------------------
+if noinset then inset = mult end
 
-local function GetTemplate(t)
-	if t == "Tukui" then
-		borderr, borderg, borderb = .6, .6, .6
-		backdropr, backdropg, backdropb = .1, .1, .1
-	elseif t == "ClassColor" then
-		local c = T.oUF_colors.class[class]
+-- function to update color when it doesn't match template we try to apply
+local function UpdateColor(t)
+	if t == template then return end
+
+	if t == "ClassColor" or t == "Class Color" or t == "Class" then
+		local c = T.UnitColor.class[class]
 		borderr, borderg, borderb = c[1], c[2], c[3]
 		backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
-	elseif t == "Elv" then
-		borderr, borderg, borderb = .3, .3, .3
-		backdropr, backdropg, backdropb = .1, .1, .1	
-	elseif t == "Duffed" then
-		borderr, borderg, borderb = .2, .2, .2
-		backdropr, backdropg, backdropb = .02, .02, .02
-	elseif t == "Dajova" then
-		borderr, borderg, borderb = .05, .05, .05
-		backdropr, backdropg, backdropb = .1, .1, .1
-	elseif t == "Eclipse" then
-		borderr, borderg, borderb = .1, .1, .1
-		backdropr, backdropg, backdropb = 0, 0, 0
-	elseif t == "Hydra" then
-		borderr, borderg, borderb = .2, .2, .2
-		backdropr, backdropg, backdropb = .075, .075, .075
+		backdropa = 1
 	else
+		local balpha = 1
+		if t == "Transparent" then balpha = 0.8 end
 		borderr, borderg, borderb = unpack(C["media"].bordercolor)
 		backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
+		backdropa = balpha
 	end
+	
+	template = t
 end
 
 ---------------------------------------------------
--- END OF TEMPLATES
+-- TUKUI API START HERE
 ---------------------------------------------------
 
 local function Size(frame, width, height)
@@ -78,28 +73,28 @@ local function Point(obj, arg1, arg2, arg3, arg4, arg5)
 end
 
 local function SetTemplate(f, t, tex)
-	if tex then texture = C.media.normTex else texture = C.media.blank end
+	if tex then 
+		texture = C["media"].normTex 
+	else 
+		texture = C["media"].blank 
+	end
 	
-	GetTemplate(t)
+	UpdateColor(t)
 		
 	f:SetBackdrop({
 	  bgFile = texture, 
 	  edgeFile = C.media.blank, 
 	  tile = false, tileSize = 0, edgeSize = mult, 
-	  insets = { left = -mult, right = -mult, top = -mult, bottom = -mult}
+	  insets = { left = -mult + inset, right = -mult + inset, top = -mult + inset, bottom = -mult + inset}
 	})
-	
-	if t == "Transparent" then backdropa = 0.85 else backdropa = 1 end
-	
+
 	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
 	f:SetBackdropBorderColor(borderr, borderg, borderb)
 end
 
 local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
-	GetTemplate(t)
-	
-	if t == "Transparent" then backdropa = 0.85 else backdropa = 1 end
-	
+	UpdateColor(t)
+		
 	local sh = Scale(h)
 	local sw = Scale(w)
 	f:SetFrameLevel(1)
@@ -111,7 +106,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	  bgFile = C["media"].blank, 
 	  edgeFile = C["media"].blank, 
 	  tile = false, tileSize = 0, edgeSize = mult, 
-	  insets = { left = -mult, right = -mult, top = -mult, bottom = -mult}
+	  insets = { left = -mult + inset + inset, right = -mult + inset + inset, top = -mult + inset + inset, bottom = -mult + inset + inset}
 	})
 	
 	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
@@ -120,12 +115,12 @@ end
 
 local function CreateBackdrop(f, t, tex)
 	if not t then t = "Default" end
-	
+
 	local b = CreateFrame("Frame", nil, f)
-	b:Point("TOPLEFT", -2, 2)
-	b:Point("BOTTOMRIGHT", 2, -2)
+	b:Point("TOPLEFT", -2 + inset, 2 - inset)
+	b:Point("BOTTOMRIGHT", 2 - inset, -2 + inset)
 	b:SetTemplate(t, tex)
-	
+
 	if f:GetFrameLevel() - 1 >= 0 then
 		b:SetFrameLevel(f:GetFrameLevel() - 1)
 	else
@@ -137,16 +132,7 @@ end
 
 local function CreateShadow(f, t)
 	if f.shadow then return end -- we seriously don't want to create shadow 2 times in a row on the same frame.
-	
-	borderr, borderg, borderb = 0, 0, 0
-	backdropr, backdropg, backdropb = 0, 0, 0
-	
-	if t == "ClassColor" then
-		local c = T.oUF_colors.class[class]
-		borderr, borderg, borderb = c[1], c[2], c[3]
-		backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
-	end
-	
+			
 	local shadow = CreateFrame("Frame", nil, f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
@@ -158,19 +144,9 @@ local function CreateShadow(f, t)
 		edgeFile = C["media"].glowTex, edgeSize = T.Scale(3),
 		insets = {left = T.Scale(5), right = T.Scale(5), top = T.Scale(5), bottom = T.Scale(5)},
 	})
-	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.8)
+	shadow:SetBackdropColor(0, 0, 0, 0)
+	shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
 	f.shadow = shadow
-end
-
-local function CreateLine(f, w, h) -- was thinking about something completely different..now there's a function that creates a Backdrop ._.
-	f:SetHeight(Scale(h))
-	f:SetWidth(Scale(w))
-	f:SetFrameLevel(2)
-	f:SetFrameStrata("BACKGROUND")
-
-	f:SetBackdrop({ bgFile = C["media"].blank })
-	f:SetBackdropColor(unpack(C["media"].bordercolor))
 end
 
 local function CreateBorder(f, n, p)
@@ -182,6 +158,16 @@ local function CreateBorder(f, n, p)
 	border:CreateShadow("")
 	
 	f.border = border
+end
+
+local function CreateLine(f, w, h) -- was thinking about something completely different..now there's a function that creates a Backdrop ._.
+	f:SetHeight(Scale(h))
+	f:SetWidth(Scale(w))
+	f:SetFrameLevel(2)
+	f:SetFrameStrata("BACKGROUND")
+
+	f:SetBackdrop({ bgFile = C["media"].blank })
+	f:SetBackdropColor(unpack(C["media"].bordercolor))
 end
 
 local function Kill(object)
@@ -222,7 +208,7 @@ local function StyleButton(b, c)
 	pushed:Point("TOPLEFT",button,2,-2)
 	pushed:Point("BOTTOMRIGHT",button,-2,2)
 	button:SetPushedTexture(pushed)
- 
+
 	if c then
 		local checked = b:CreateTexture("frame", nil, self) -- checked
 		checked:SetTexture(0,1,0,0.3)
@@ -282,14 +268,24 @@ local function StripTextures(object, kill)
 				region:SetTexture(nil)
 			end
 		end
-	end
+	end		
 end
+
+---------------------------------------------------
+-- TUKUI API STOP HERE
+---------------------------------------------------
+
+---------------------------------------------------
+-- MERGE TUKUI API WITH WOW API
+---------------------------------------------------
 
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Size then mt.Size = Size end
 	if not object.Point then mt.Point = Point end
 	if not object.SetTemplate then mt.SetTemplate = SetTemplate end
+	if not object.CreateBackdrop then mt.CreateBackdrop = CreateBackdrop end
+	if not object.StripTextures then mt.StripTextures = StripTextures end
 	if not object.CreatePanel then mt.CreatePanel = CreatePanel end
 	if not object.CreateShadow then mt.CreateShadow = CreateShadow end
 	if not object.Kill then mt.Kill = Kill end
@@ -297,11 +293,10 @@ local function addapi(object)
 	if not object.Width then mt.Width = Width end
 	if not object.Height then mt.Height = Height end
 	if not object.FontString then mt.FontString = FontString end
-	if not object.CreateLine then mt.CreateLine = CreateLine end
 	if not object.HighlightUnit then mt.HighlightUnit = HighlightUnit end
-	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
 	if not object.CreateBackdrop then mt.CreateBackdrop = CreateBackdrop end
-	if not object.StripTextures then mt.StripTextures = StripTextures end
+	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
+	if not object.CreateLine then mt.CreateLine = CreateLine end
 end
 
 local handled = {["Frame"] = true}

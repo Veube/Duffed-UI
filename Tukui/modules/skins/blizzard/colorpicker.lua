@@ -1,5 +1,4 @@
 local T, C, L = unpack(select(2, ...))
-if not C["skins"].bskins == true then return end
 
 local function LoadSkin()
 	ColorPickerFrame:CreateBackdrop("Default")

@@ -1,19 +1,6 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
-	ItemTextFrame:StripTextures(true)
-	ItemTextScrollFrame:StripTextures()
-	ItemTextFrame:SetTemplate("Transparent")
-	T.SkinCloseButton(ItemTextCloseButton)
-	T.SkinNextPrevButton(ItemTextPrevPageButton)
-	T.SkinNextPrevButton(ItemTextNextPageButton)
-	T.SkinScrollBar(GossipGreetingScrollFrameScrollBar, 5)
-	ItemTextPageText:SetTextColor(1, 1, 1)
-	ItemTextPageText.SetTextColor = T.dummy
-	T.SkinScrollBar(GossipGreetingScrollFrameScrollBar)
-	T.SkinScrollBar(ItemTextScrollFrameScrollBar)
-	
 	local StripAllTextures = {
 		"GossipFrameGreetingPanel",
 	}			
@@ -46,12 +33,13 @@ local function LoadSkin()
 	end
 
 	GossipGreetingText:SetTextColor(1,1,1)
-	GossipFrame:CreateBackdrop("Transparent")
+	GossipFrame:CreateBackdrop("Default")
 	GossipFrame.backdrop:Point("TOPLEFT", GossipFrame, "TOPLEFT", 15, -20)
 	GossipFrame.backdrop:Point("BOTTOMRIGHT", GossipFrame, "BOTTOMRIGHT", -30, 65)
 	T.SkinCloseButton(GossipFrameCloseButton,GossipFrame.backdrop)
-	
-	
+	T.SkinScrollBar(GossipGreetingScrollFrameScrollBar)
+
+
 	--Extreme hackage, blizzard makes button text on quest frame use hex color codes for some reason
 	hooksecurefunc("GossipFrameUpdate", function()
 		for i=1, NUMGOSSIPBUTTONS do
@@ -63,7 +51,7 @@ local function LoadSkin()
 				end
 			end
 		end
-	end)	
+	end)
 end
 
 tinsert(T.SkinFuncs["Tukui"], LoadSkin)

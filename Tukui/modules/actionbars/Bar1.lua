@@ -9,10 +9,7 @@ if not C["actionbar"].enable == true then return end
 ---------------------------------------------------------------------------
 
 local bar = TukuiBar1
-if C["actionbar"].layout == 1 then
-	if C["actionbar"].swapbar1and3 then bar = TukuiBar2 end
-end
-
+if C["actionbar"].swapbar1and3 then bar = TukuiBar2 end
 --[[ 
 	Bonus bar classes id
 
@@ -24,11 +21,14 @@ end
 	When Possessing a Target: 5
 ]]--
 
+local shd = 7
+if C["actionbar"].ownshdbar then shd = 10 end
+
 local Page = {
 	["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 8; [bonusbar:2] 8; [bonusbar:3] 9; [bonusbar:4] 10;",
 	["WARRIOR"] = "[bonusbar:1] 7; [bonusbar:2] 8; [bonusbar:3] 9;",
 	["PRIEST"] = "[bonusbar:1] 7;",
-	["ROGUE"] = "[bonusbar:1] 7; [form:3] 7;",
+	["ROGUE"] = "[bonusbar:1] 7; [form:3] "..shd..";",
 	["DEFAULT"] = "[bonusbar:5] 11; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;",
 }
 
@@ -72,36 +72,21 @@ bar:SetScript("OnEvent", function(self, event, ...)
 			
 		RegisterStateDriver(self, "page", GetBar())
 	elseif event == "PLAYER_ENTERING_WORLD" then
+		if T.toc < 40200 then MainMenuBar_UpdateKeyRing() end
+		
 		local button
 		for i = 1, 12 do
 			button = _G["ActionButton"..i]
 			button:SetSize(T.buttonsize, T.buttonsize)
 			button:ClearAllPoints()
 			button:SetParent(bar)
-			if C["actionbar"].layout == 1 then
-				button:SetFrameStrata("MEDIUM")
-			else
-				button:SetFrameStrata("BACKGROUND")
-			end
+			button:SetFrameStrata("BACKGROUND")
 			button:SetFrameLevel(15)
-			if C["actionbar"].layout == 2 then
-				if i == 1 then
-					if C["actionbar"].swapbar1and3 == false then
-						button:SetPoint("TOPLEFT", T.buttonspacing, -T.buttonspacing)
-					else
-						button:SetPoint("BOTTOMLEFT", T.buttonspacing, T.buttonspacing)
-					end
-				else
-					local previous = _G["ActionButton"..i-1]
-					button:SetPoint("LEFT", previous, "RIGHT", T.buttonspacing, 0)
-				end
+			if i == 1 then
+				button:SetPoint("BOTTOMLEFT", T.buttonspacing, T.buttonspacing)
 			else
-				if i == 1 then
-					button:SetPoint("BOTTOMLEFT", T.buttonspacing, T.buttonspacing)
-				else
-					local previous = _G["ActionButton"..i-1]
-					button:SetPoint("LEFT", previous, "RIGHT", T.buttonspacing, 0)
-				end
+				local previous = _G["ActionButton"..i-1]
+				button:SetPoint("LEFT", previous, "RIGHT", T.buttonspacing, 0)
 			end
 		end
 	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then

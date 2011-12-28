@@ -1,10 +1,10 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local Taint = T.FullMapQuestTaintFix
 
 local function LoadSkin()
-	WorldMapFrame:CreateBackdrop("Transparent")
+	WorldMapFrame:CreateBackdrop("Default")
+	WorldMapFrame:SetTemplate("Transparent")
 	WorldMapDetailFrame.backdrop = CreateFrame("Frame", nil, WorldMapFrame)
 	WorldMapDetailFrame.backdrop:SetTemplate("Default")
 	WorldMapDetailFrame.backdrop:Point("TOPLEFT", WorldMapDetailFrame, "TOPLEFT", -2, 2)
@@ -13,13 +13,17 @@ local function LoadSkin()
 
 	T.SkinCloseButton(WorldMapFrameCloseButton)
 	T.SkinCloseButton(WorldMapFrameSizeDownButton)
+	WorldMapFrameSizeDownButton.t:SetText("s")
 	T.SkinCloseButton(WorldMapFrameSizeUpButton)
+	WorldMapFrameSizeUpButton.t:SetText("s")
 							
 	T.SkinDropDownBox(WorldMapLevelDropDown)
 	T.SkinDropDownBox(WorldMapZoneMinimapDropDown)
 	T.SkinDropDownBox(WorldMapContinentDropDown)
 	T.SkinDropDownBox(WorldMapZoneDropDown)
 	T.SkinButton(WorldMapZoomOutButton)
+	T.SkinScrollBar(WorldMapQuestScrollFrameScrollBar)
+	T.SkinScrollBar(WorldMapQuestDetailScrollFrameScrollBar)
 	WorldMapZoomOutButton:Point("LEFT", WorldMapZoneDropDown, "RIGHT", 0, 4)
 	WorldMapLevelUpButton:Point("TOPLEFT", WorldMapLevelDropDown, "TOPRIGHT", -2, 8)
 	WorldMapLevelDownButton:Point("BOTTOMLEFT", WorldMapLevelDropDown, "BOTTOMRIGHT", -2, 2)
@@ -27,8 +31,6 @@ local function LoadSkin()
 	T.SkinCheckBox(WorldMapTrackQuest)
 	T.SkinCheckBox(WorldMapQuestShowObjectives)
 	T.SkinCheckBox(WorldMapShowDigSites)
-	T.SkinScrollBar(WorldMapQuestScrollFrameScrollBar)
-	T.SkinScrollBar(WorldMapQuestDetailScrollFrameScrollBar)
 
 	--Mini
 	local function SmallSkin()
@@ -125,16 +127,16 @@ local function LoadSkin()
 	end)
 
 	WorldMapFrame:RegisterEvent("PLAYER_LOGIN")
-	WorldMapFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- fix taint with small map &amp; big map
-	WorldMapFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- fix taint with small map &amp; big map
+	WorldMapFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- fix taint with small map & big map
+	WorldMapFrame:RegisterEvent("PLAYER_REGEN_DISABLED") -- fix taint with small map & big map
 	WorldMapFrame:HookScript("OnEvent", function(self, event)
 		local miniWorldMap = GetCVarBool("miniWorldMap")
 		local quest = WorldMapQuestShowObjectives:GetChecked()
 
 		if event == "PLAYER_LOGIN" then
 			if not miniWorldMap then
-				ToggleFrame(WorldMapFrame)
-				ToggleFrame(WorldMapFrame)
+				WorldMapFrame:Show()
+				WorldMapFrame:Hide()
 			end
 		elseif event == "PLAYER_REGEN_DISABLED" then
 			WorldMapFrameSizeDownButton:Disable()

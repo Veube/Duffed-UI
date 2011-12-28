@@ -6,17 +6,19 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 
 -- Hit Rating
 if not C["datatext"].hit == nil or C["datatext"].hit > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "TukuiStatHit")
+	Stat.Option = C.datatext.hit
+	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+	local Text  = Stat:CreateFontString("TukuiStatHitText", "OVERLAY")
+	Text:SetFont(T.SetUserFont())
 	T.PP(C["datatext"].hit, Text)
 
 	local int = 1
 
-	local function Update(self, t)
+	local function Update(self, t)		
 		int = int - t
-
 		if int < 0 then
 			local base, posBuff, negBuff = UnitAttackPower("player")
 			local effective = base + posBuff + negBuff
@@ -26,16 +28,16 @@ if not C["datatext"].hit == nil or C["datatext"].hit > 0 then
 			local Rattackpwr = Reffective
 			local spellpwr = GetSpellBonusDamage(7)
 			local attackpwr = effective
-
+			
 			local cac = GetHitModifier() or 0
 			local cast = GetSpellHitModifier() or 0
-		
+			
 			if attackpwr > spellpwr and select(2, UnitClass("Player")) ~= "HUNTER" then
-				Text:SetText(format("%.2f", GetCombatRatingBonus(6)+cac).."%"..T.panelcolor.." Hit")
+				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(6)+cac)..Stat.Color1..HIT.."|r")
 			elseif select(2, UnitClass("Player")) == "HUNTER" then
-				Text:SetText(format("%.2f", GetCombatRatingBonus(7)+cac).."%"..T.panelcolor.." Hit")
+				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(7)+cac)..Stat.Color1..HIT.."|r")
 			else
-				Text:SetText(format("%.2f", GetCombatRatingBonus(8)+cast).."%"..T.panelcolor.." Hit")
+				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(8)+cast)..Stat.Color1..HIT.."|r")
 			end
 			
 			int = 1

@@ -120,7 +120,7 @@ oUF.Tags['Tukui:getnamecolor'] = function(unit)
 	if (UnitIsPlayer(unit)) then
 		return _TAGS['raidcolor'](unit)
 	elseif (reaction) then
-		local c = T.oUF_colors.reaction[reaction]
+		local c = T.UnitColor.reaction[reaction]
 		return string.format('|cff%02x%02x%02x', c[1] * 255, c[2] * 255, c[3] * 255)
 	else
 		r, g, b = .84,.75,.65
@@ -157,15 +157,5 @@ oUF.TagEvents['Tukui:afk'] = 'PLAYER_FLAGS_CHANGED'
 oUF.Tags['Tukui:afk'] = function(unit)
 	if UnitIsAFK(unit) then
 		return CHAT_FLAG_AFK
-	end
-end
-
-oUF.TagEvents['Tukui:perchp'] = 'UNIT_HEALTH'
-oUF.Tags['Tukui:perchp'] = function(u)
-	local m = UnitHealthMax(u)
-	if(m == 0) then
-		return 0
-	else
-		return T.panelcolor..math.floor(UnitHealth(u)/m*100+.5).."%"
 	end
 end

@@ -4,12 +4,14 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 --------------------------------------------------------------------
 
 local TukuiMinimap = CreateFrame("Frame", "TukuiMinimap", UIParent)
-TukuiMinimap:CreatePanel("Default", 144, 144, "TOPRIGHT", UIParent, "TOPRIGHT", -9, -9)
+TukuiMinimap:CreatePanel("Default", 1, 1, "CENTER", UIParent, "CENTER", 0, 0)
 TukuiMinimap:RegisterEvent("ADDON_LOADED")
+TukuiMinimap:Point("TOPRIGHT", UIParent, "TOPRIGHT", -34, -5)
+TukuiMinimap:Size(144)
+TukuiMinimap:CreateShadow("Default")
 TukuiMinimap:SetClampedToScreen(true)
 TukuiMinimap:SetMovable(true)
-TukuiMinimap:CreateShadow("Default")
-TukuiMinimap.text = T.SetFontString(TukuiMinimap, C.media.font, 12)
+TukuiMinimap.text = T.SetFontString(TukuiMinimap, C.media.uffont, 12)
 TukuiMinimap.text:SetPoint("CENTER")
 TukuiMinimap.text:SetText(L.move_minimap)
 
@@ -53,7 +55,7 @@ MiniMapMailIcon:SetTexture("Interface\\AddOns\\Tukui\\medias\\textures\\mail")
 
 -- Move battleground icon
 MiniMapBattlefieldFrame:ClearAllPoints()
-MiniMapBattlefieldFrame:Point("BOTTOMRIGHT", Minimap, 0, 0)
+MiniMapBattlefieldFrame:Point("BOTTOMRIGHT", Minimap, 3, 0)
 MiniMapBattlefieldBorder:Hide()
 
 -- Ticket Frame
@@ -62,7 +64,7 @@ TukuiTicket:CreatePanel("Default", 1, 1, "CENTER", TukuiMinimap, "CENTER", 0, 0)
 TukuiTicket:Size(TukuiMinimap:GetWidth() - 4, 24)
 TukuiTicket:SetFrameStrata("MEDIUM")
 TukuiTicket:SetFrameLevel(20)
-TukuiTicket:Point("BOTTOM", 0, 2)
+TukuiTicket:Point("TOP", 0, -2)
 TukuiTicket:FontString("Text", C.media.font, 12)
 TukuiTicket.Text:SetPoint("CENTER")
 TukuiTicket.Text:SetText(HELP_TICKET_EDIT)
@@ -110,7 +112,7 @@ local status
 if T.toc >= 40300 then status = LFGSearchStatus else status = LFDSearchStatus end
 status:SetTemplate("Default")
 
--- for t13+, if we move map we need to point LFDSearchStatus according to our Minimap position.
+-- for t13+, if we move map we need to point status according to our Minimap position.
 local function UpdateLFGTooltip()
 	local position = TukuiMinimap:GetPoint()
 	status:ClearAllPoints()
@@ -143,8 +145,6 @@ Minimap:SetMaskTexture(C.media.blank)
 function GetMinimapShape() return "SQUARE" end
 
 -- do some stuff on addon loaded or player login event
-TukuiMinimap:RegisterEvent("PLAYER_LOGIN")
-TukuiMinimap:RegisterEvent("ADDON_LOADED")
 TukuiMinimap:SetScript("OnEvent", function(self, event, addon)
 	if addon == "Blizzard_TimeManager" then
 		-- Hide Game Time
@@ -156,39 +156,34 @@ end)
 -- Map menus, right/middle click
 ----------------------------------------------------------------------------------------
 
-
-
 Minimap:SetScript("OnMouseUp", function(self, btn)
 	local xoff = 0
 	local position = TukuiMinimap:GetPoint()
 	
-	if btn == "RightButton" then
-		if position:match("RIGHT") then xoff = T.Scale(-16) end
+	if btn == "RightButton" then	
+		if position:match("RIGHT") then xoff = T.Scale(-8) end
 		ToggleDropDownMenu(1, nil, MiniMapTrackingDropDown, TukuiMinimap, xoff, T.Scale(-2))
 	elseif btn == "MiddleButton" then
-		if not TukuiMicroMenu then return end
-		if position:match("RIGHT") then xoff = T.Scale(-14) end
-		ToggleDropDownMenu(1, nil, TukuiMicroMenu, TukuiMinimap, xoff, T.Scale(-2))
+		if not TukuiMicroButtonsDropDown then return end
+		if position:match("RIGHT") then xoff = T.Scale(-160) end
+		EasyMenu(T.MicroMenu, TukuiMicroButtonsDropDown, "cursor", xoff, 0, "MENU", 2)
 	else
 		Minimap_OnClick(self)
 	end
 end)
 
--- eyefinity fix to not show tracking behind bezel
---MiniMapTrackingDropDown:SetParent(TukuiMinimap)
-
 ----------------------------------------------------------------------------------------
 -- Mouseover map, displaying zone and coords
 ----------------------------------------------------------------------------------------
-if C["datatext"].zonepanel == true then return end
-local m_zone = CreateFrame("Frame",nil,TukuiMinimap)
+
+local m_zone = CreateFrame("Frame","TukuiMinimapZone",TukuiMinimap)
 m_zone:CreatePanel("Default", 0, 20, "TOPLEFT", TukuiMinimap, "TOPLEFT", 2,-2)
 m_zone:SetFrameLevel(5)
 m_zone:SetFrameStrata("LOW")
 m_zone:Point("TOPRIGHT",TukuiMinimap,-2,-2)
 m_zone:SetAlpha(0)
 
-local m_zone_text = m_zone:CreateFontString(nil,"Overlay")
+local m_zone_text = m_zone:CreateFontString("TukuiMinimapZoneText","Overlay")
 m_zone_text:SetFont(C["media"].font,12)
 m_zone_text:Point("TOP", 0, -1)
 m_zone_text:SetPoint("BOTTOM")
@@ -196,33 +191,29 @@ m_zone_text:Height(12)
 m_zone_text:Width(m_zone:GetWidth()-6)
 m_zone_text:SetAlpha(0)
 
-local m_coord = CreateFrame("Frame",nil,TukuiMinimap)
+local m_coord = CreateFrame("Frame","TukuiMinimapCoord",TukuiMinimap)
 m_coord:CreatePanel("Default", 40, 20, "BOTTOMLEFT", TukuiMinimap, "BOTTOMLEFT", 2,2)
 m_coord:SetFrameStrata("LOW")
 m_coord:SetAlpha(0)
 
-local m_coord_text = m_coord:CreateFontString(nil,"Overlay")
+local m_coord_text = m_coord:CreateFontString("TukuiMinimapCoordText","Overlay")
 m_coord_text:SetFont(C["media"].font,12)
 m_coord_text:Point("Center",-1,0)
 m_coord_text:SetAlpha(0)
 m_coord_text:SetText("00,00")
 
 Minimap:SetScript("OnEnter",function()
-	m_zone:Show()
-	m_zone_text:Show()
-	UIFrameFadeIn(m_zone, 0.3, 0, 1)
-	UIFrameFadeIn(m_zone_text, 0.3, 0, 1)
-	m_coord:Show()
-	m_coord_text:Show()
-	UIFrameFadeIn(m_coord, 0.3, 0, 1)
-	UIFrameFadeIn(m_coord_text, 0.3, 0, 1)
+	m_zone:SetAlpha(1)
+	m_zone_text:SetAlpha(1)
+	m_coord:SetAlpha(1)
+	m_coord_text:SetAlpha(1)
 end)
 
 Minimap:SetScript("OnLeave",function()
-	m_zone:Hide()
-	m_zone_text:Hide()
-	m_coord:Hide()
-	m_coord_text:Hide()
+	m_zone:SetAlpha(0)
+	m_zone_text:SetAlpha(0)
+	m_coord:SetAlpha(0)
+	m_coord_text:SetAlpha(0)
 end)
  
 local ela = 0
@@ -234,7 +225,7 @@ local coord_Update = function(self,t)
 	x = math.floor(100 * x)
 	y = math.floor(100 * y)
 	if x == 0 and y == 0 then
-		m_coord_text:SetText("")
+		m_coord_text:SetText("X _ X")
 	else
 		if x < 10 then
 			xt = "0"..x
@@ -272,4 +263,4 @@ m_zone:RegisterEvent("PLAYER_ENTERING_WORLD")
 m_zone:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 m_zone:RegisterEvent("ZONE_CHANGED")
 m_zone:RegisterEvent("ZONE_CHANGED_INDOORS")
-m_zone:SetScript("OnEvent",zone_Update) 
+m_zone:SetScript("OnEvent",zone_Update)

@@ -5,9 +5,18 @@ local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Lo
 
 if not C["datatext"].guild or C["datatext"].guild == 0 then return end
 
+local Stat = CreateFrame("Frame", "TukuiStatGuild")
+Stat:EnableMouse(true)
+Stat:SetFrameStrata("BACKGROUND")
+Stat:SetFrameLevel(3)
+Stat.Option = C.datatext.guild
+Stat.update = false
+Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
+
 local tthead, ttsubh, ttoff = {r=0.4, g=0.78, b=1}, {r=0.75, g=0.9, b=1}, {r=.3,g=1,b=.3}
 local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
-local displayString = string.join("", "%s: ", T.panelcolor, "%d|r")
+local displayString = string.join("", Stat.Color1.."%s: |r", Stat.Color2, "%d|r")
 local guildInfoString = "%s [%d]"
 local guildInfoString2 = "%s: %d/%d"
 local guildMotDString = "  %s |cffaaaaaa- |cffffffff%s"
@@ -20,14 +29,8 @@ local officerNoteString = "  o: '%s'"
 local guildTable, guildXP, guildMotD = {}, {}, ""
 local totalOnline = 0
 
-local Stat = CreateFrame("Frame")
-Stat:EnableMouse(true)
-Stat:SetFrameStrata("BACKGROUND")
-Stat:SetFrameLevel(3)
-Stat.update = false
-
-local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+local Text = Stat:CreateFontString("TukuiStatGuildText", "OVERLAY")
+Text:SetFont(T.SetUserFont())
 T.PP(C["datatext"].guild, Text)
 
 local function BuildGuildTable()
@@ -49,6 +52,10 @@ end
 local function UpdateGuildXP()
 	local currentXP, remainingXP, dailyXP, maxDailyXP = UnitGetGuildXP("player")
 	local nextLevelXP = currentXP + remainingXP
+	
+	-- prevent 4.3 division / 0
+	if nextLevelXP == 0 or maxDailyXP == 0 then return end
+	
 	local percentTotal = tostring(math.ceil((currentXP / nextLevelXP) * 100))
 	local percentDaily = tostring(math.ceil((dailyXP / maxDailyXP) * 100))
 	
@@ -75,7 +82,7 @@ local function Update(self, event, ...)
 		end	
 		Text:SetFormattedText(displayString, L.datatext_guild, totalOnline)
 	else
-		Text:SetText(T.panelcolor..L.datatext_noguild)
+		Text:SetText(L.datatext_noguild)
 	end
 	
 	self:SetAllPoints(Text)
@@ -143,6 +150,7 @@ end)
 Stat:SetScript("OnEnter", function(self)
 	if InCombatLockdown() or not IsInGuild() then return end
 	
+	GuildRoster()
 	UpdateGuildMessage()
 	BuildGuildTable()
 		
@@ -165,7 +173,7 @@ Stat:SetScript("OnEnter", function(self)
 		if guildXP[0] and guildXP[1] then
 			local currentXP, nextLevelXP, percentTotal = unpack(guildXP[0])
 			local dailyXP, maxDailyXP, percentDaily = unpack(guildXP[1])
-		
+			
 			GameTooltip:AddLine(string.format(col..GUILD_EXPERIENCE_CURRENT, "|r |cFFFFFFFF"..T.ShortValue(currentXP), T.ShortValue(nextLevelXP), percentTotal))
 			GameTooltip:AddLine(string.format(col..GUILD_EXPERIENCE_DAILY, "|r |cFFFFFFFF"..T.ShortValue(dailyXP), T.ShortValue(maxDailyXP), percentDaily))
 		end

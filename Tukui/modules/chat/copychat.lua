@@ -80,14 +80,12 @@ local function ChatCopyButtons()
 		button:Point("TOPRIGHT", 0, 24)
 		
 		local buttontext = button:CreateFontString(nil,"OVERLAY",nil)
-		buttontext:SetFont(C.datatext.font,C.datatext.fontsize)
+		buttontext:SetFont(T.SetUserFont())
 		buttontext:SetText(T.panelcolor.."C")
-		buttontext:SetShadowColor(0, 0, 0)
-		buttontext:SetShadowOffset(1.25, -1.25)
-		buttontext:Point("CENTER", 1, -1)
+		buttontext:Point("CENTER", 5, -1)
 		buttontext:SetJustifyH("CENTER")
 		buttontext:SetJustifyV("CENTER")
-				
+
 		button:SetScript("OnMouseUp", function(self, btn)
 			if btn == "RightButton" then
 				ToggleFrame(ChatMenu)
@@ -96,7 +94,7 @@ local function ChatCopyButtons()
 			end
 		end)
 		button:SetScript("OnEnter", function() button:SetAlpha(1) buttontext:SetText("C") end)
-		
+
 		local bnb = function() -- just to shorten the code
 			button:SetAlpha(0)
 			button:SetScript("OnLeave", function() button:SetAlpha(0) buttontext:SetText(T.panelcolor.."C") end)
@@ -104,9 +102,10 @@ local function ChatCopyButtons()
 			button:SetPoint("TOPRIGHT", 0, 0)
 			button:SetTemplate("Default")
 		end
+		
 		-- check chat position
 		if point == "BOTTOMLEFT" or point == "LEFT" then
-			if C.chat.leftchatbackground then
+			if C["chat"].background then
 				button:SetScript("OnLeave", function() buttontext:SetText(T.panelcolor.."C") end)
 				if i == 2 and GetChannelName("Log") and not IsAddOnLoaded("nibHideBlackBar") then
 					button:Point("TOPRIGHT", 0, 48)
@@ -115,13 +114,13 @@ local function ChatCopyButtons()
 				bnb()
 			end
 		elseif point == "BOTTOMRIGHT" or point == "RIGHT" then
-			if C.chat.rightchatbackground then
+			if C["chat"].background then
 				button:SetScript("OnLeave", function() buttontext:SetText(T.panelcolor.."C") end)
 			else
 				bnb()
 			end
 		else
-			if C.chat.leftchatbackground then
+			if C["chat"].background then
 				if i == 2 and GetChannelName("Log") then
 					button:Point("TOPRIGHT", 0, 48)
 				end

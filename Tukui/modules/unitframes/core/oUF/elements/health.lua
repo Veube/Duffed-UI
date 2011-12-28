@@ -2,7 +2,7 @@ local parent, ns = ...
 local oUF = ns.oUF
 
 oUF.colors.health = {49/255, 207/255, 37/255}
-local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+
 local Update = function(self, event, unit, powerType)
 	if(self.unit ~= unit) then return end
 	local health = self.Health
@@ -34,8 +34,14 @@ local Update = function(self, event, unit, powerType)
 	elseif(health.colorReaction and UnitReaction(unit, 'player')) then
 		t = self.colors.reaction[UnitReaction(unit, "player")]
 	elseif(health.colorSmooth) then
-		local hr, hg, hb = unpack(C.unitframes.healthbarcolor)
-		r, g, b = self.ColorGradient(min/max, .9, 0, 0, .9, .9, 0, hr, hg, hb)
+		local perc
+		if(max == 0) then
+			perc = 0
+		else
+			perc = min / max
+		end
+
+		r, g, b = self.ColorGradient(perc, unpack(health.smoothGradient or self.colors.smooth))
 	elseif(health.colorHealth) then
 		t = self.colors.health
 	end
@@ -84,7 +90,7 @@ local Enable = function(self, unit)
 		-- For tapping.
 		self:RegisterEvent('UNIT_FACTION', Path)
 
-		if(not health:GetStatusBarTexture()) then
+		if(health:IsObjectType'StatusBar' and not health:GetStatusBarTexture()) then
 			health:SetStatusBarTexture[[Interface\TargetingFrame\UI-StatusBar]]
 		end
 
@@ -99,7 +105,6 @@ local Disable = function(self)
 		self:UnregisterEvent('UNIT_HEALTH', Path)
 		self:UnregisterEvent('UNIT_MAXHEALTH', Path)
 		self:UnregisterEvent('UNIT_CONNECTION', Path)
-		self:UnregisterEvent('UNIT_POWER', Path)
 
 		self:UnregisterEvent('UNIT_FACTION', Path)
 	end

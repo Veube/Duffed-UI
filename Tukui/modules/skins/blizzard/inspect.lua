@@ -1,11 +1,11 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	InspectFrame:StripTextures(true)
+	InspectFrame:SetTemplate("Transparent")
 	InspectFrameInset:StripTextures(true)
 	InspectTalentFramePointsBar:StripTextures()
-	InspectFrame:CreateBackdrop("Transparent")
+	InspectFrame:CreateBackdrop("Default")
 	InspectFrame.backdrop:SetAllPoints()
 	T.SkinCloseButton(InspectFrameCloseButton)
 	
@@ -25,87 +25,47 @@ local function LoadSkin()
 	InspectModelFrameBackgroundOverlay:Kill()
 	InspectModelFrame:CreateBackdrop("Default")
 	
-	local slots = {
-		"HeadSlot",
-		"NeckSlot",
-		"ShoulderSlot",
-		"BackSlot",
-		"ChestSlot",
-		"ShirtSlot",
-		"TabardSlot",
-		"WristSlot",
-		"HandsSlot",
-		"WaistSlot",
-		"LegsSlot",
-		"FeetSlot",
-		"Finger0Slot",
-		"Finger1Slot",
-		"Trinket0Slot",
-		"Trinket1Slot",
-		"MainHandSlot",
-		"SecondaryHandSlot",
-		"RangedSlot",
-	}
-	for _, slot in pairs(slots) do
-		local icon = _G["Inspect"..slot.."IconTexture"]
-		local slot = _G["Inspect"..slot]
-		slot:StripTextures()
-		slot:StyleButton(false)
-		slot:SetTemplate("Default", true)
-		icon:SetTexCoord(.08, .92, .08, .92)
-		icon:ClearAllPoints()
-		icon:Point("TOPLEFT", 2, -2)
-		icon:Point("BOTTOMRIGHT", -2, 2)
-	end
+		local slots = {
+			"HeadSlot",
+			"NeckSlot",
+			"ShoulderSlot",
+			"BackSlot",
+			"ChestSlot",
+			"ShirtSlot",
+			"TabardSlot",
+			"WristSlot",
+			"HandsSlot",
+			"WaistSlot",
+			"LegsSlot",
+			"FeetSlot",
+			"Finger0Slot",
+			"Finger1Slot",
+			"Trinket0Slot",
+			"Trinket1Slot",
+			"MainHandSlot",
+			"SecondaryHandSlot",
+			"RangedSlot",
+		}
+		for _, slot in pairs(slots) do
+			local icon = _G["Inspect"..slot.."IconTexture"]
+			local slot = _G["Inspect"..slot]
+			slot:StripTextures()
+			slot:StyleButton(false)
+			icon:SetTexCoord(.08, .92, .08, .92)
+			icon:ClearAllPoints()
+			icon:Point("TOPLEFT", 2, -2)
+			icon:Point("BOTTOMRIGHT", -2, 2)
+			
+			slot:SetFrameLevel(slot:GetFrameLevel() + 2)
+			slot:CreateBackdrop("Default")
+			slot.backdrop:SetAllPoints()
+		end		
 	
-	if C["skins"].itemborder == true then 
-		local CheckItemBorderColor = CreateFrame("Frame")
-		local function ScanSlots()
-			local notFound
-			for _, slot in pairs(slots) do
-				-- Colour the equipment slots by rarity
-				local target = _G["Inspect"..slot]
-				local slotId, _, _ = GetInventorySlotInfo(slot)
-				local itemId = GetInventoryItemID("target", slotId)
-
-				if itemId then
-					local _, _, rarity, _, _, _, _, _, _, _, _ = GetItemInfo(itemId)
-					if not rarity then notFound = true end
-					if rarity and rarity > 1 then
-						target:SetBackdropBorderColor(GetItemQualityColor(rarity))
-					else
-						target:SetBackdropBorderColor(unpack(C.media.bordercolor))
-					end
-				else
-					target:SetBackdropBorderColor(unpack(C.media.bordercolor))
-				end
-			end	
-
-			if notFound == true then
-				return false
-			else
-				CheckItemBorderColor:SetScript('OnUpdate', nil) --Stop updating
-				return true
-			end		
-		end
-
-		local function ColorItemBorder(self)
-			if not ScanSlots() then
-				self:SetScript("OnUpdate", ScanSlots) --Run function until all items borders are colored, sometimes when you have never seen an item before GetItemInfo will return nil, when this happens we have to wait for the server to send information.
-			end 
-		end
-
-		CheckItemBorderColor:RegisterEvent("PLAYER_TARGET_CHANGED")
-		CheckItemBorderColor:RegisterEvent("UNIT_PORTRAIT_UPDATE")
-		CheckItemBorderColor:RegisterEvent("PARTY_MEMBERS_CHANGED")
-		CheckItemBorderColor:SetScript("OnEvent", ColorItemBorder)	
-		InspectFrame:HookScript("OnShow", ColorItemBorder)
-		ColorItemBorder()
+	if T.toc < 40300 then
+		T.SkinRotateButton(InspectModelFrameRotateLeftButton)
+		T.SkinRotateButton(InspectModelFrameRotateRightButton)
+		InspectModelFrameRotateRightButton:Point("TOPLEFT", InspectModelFrameRotateLeftButton, "TOPRIGHT", 3, 0)
 	end
-	
-	--[[T.SkinRotateButton(InspectModelFrameRotateLeftButton)
-	T.SkinRotateButton(InspectModelFrameRotateRightButton)
-	InspectModelFrameRotateRightButton:Point("TOPLEFT", InspectModelFrameRotateLeftButton, "TOPRIGHT", 3, 0)]]--
 	
 	InspectPVPFrameBottom:Kill()
 	InspectGuildFrameBG:Kill()
@@ -137,7 +97,7 @@ local function LoadSkin()
 			button:GetPushedTexture():SetAllPoints(icon)
 			
 			if button.Rank then
-				button.Rank:SetFont(C["media"].font, 12, C["media"].fontFLAG)
+				button.Rank:SetFont(C.media.font, 12, "THINOUTLINE")
 				button.Rank:ClearAllPoints()
 				button.Rank:SetPoint("BOTTOMRIGHT")
 			end		

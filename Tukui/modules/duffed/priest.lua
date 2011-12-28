@@ -1,9 +1,15 @@
 local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 if C["duffed"].priest_sos ~= true or select(2, UnitClass("player")) ~= "PRIEST" then return end
 
-local p = CreateFrame("Frame", "dPriest_Frame", UIParent)
+local p = CreateFrame("Frame", "dPriest_Frame", TukuiPlayer)
 p:SetSize(40,40)
-p:SetPoint("CENTER", 0, 150)
+if C["unitframes"].layout == 1 then
+	p:SetPoint("RIGHT", 44, -5)
+elseif C["unitframes"].layout == 2 then
+	p:SetPoint("RIGHT", 42, 0)
+elseif C["unitframes"].layout == 3 then
+	p:SetPoint("RIGHT", 49, 4)
+end
 p:SetBackdrop({bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
 	edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
 	tileSize = 0, edgeSize = 1, 
@@ -20,7 +26,7 @@ p.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 p.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
 p.text = p:CreateFontString(nil, "OVERLAY")
-p.text:SetFont(dStuff.font, 14, "THINOUTLINE")
+p.text:SetFont(T.SetUserFont())
 p.text:SetPoint("CENTER", 0, 0)
 
 local spells = { 89489, 96219 }

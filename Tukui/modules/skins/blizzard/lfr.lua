@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	local buttons = {
@@ -9,12 +8,8 @@ local function LoadSkin()
 	  "LFRBrowseFrameInviteButton",
 	  "LFRBrowseFrameRefreshButton",
 	  "LFRQueueFrameNoLFRWhileLFDLeaveQueueButton",
-	}
-	
-	local inset = {
-		"LFRQueueFrameRoleInset",
-		"LFRQueueFrameListInset",
-		"LFRQueueFrameCommentInset",
+	  "RaidFinderQueueFrameIneligibleFrameLeaveQueueButton",	  
+	  "LFRQueueFrameNoLFRWhileLFD",
 	}
 
 	LFRParentFrame:StripTextures()
@@ -25,10 +20,6 @@ local function LoadSkin()
 	for i=1, #buttons do
 	  T.SkinButton(_G[buttons[i]])
 	end
-	
-	for _, object in pairs(inset) do
-		if _G[object] then _G[object]:StripTextures() end
-	end	
 
 	--Close button doesn't have a fucking name, extreme hackage
 	for i=1, LFRParentFrame:GetNumChildren() do
@@ -42,13 +33,13 @@ local function LoadSkin()
 	T.SkinTab(LFRParentFrameTab2)
 
 	T.SkinDropDownBox(LFRBrowseFrameRaidDropDown)
-
+	
 	-- initial skinning for LFR expand
 	for i=1, 20 do
 		local button = _G["LFRQueueFrameSpecificListButton"..i.."ExpandOrCollapseButton"]
 
-		if button then
-			button:HookScript("OnClick", function(self)
+		if button then		
+			button:HookScript("OnClick", function(self)			
 				local text = self.t:GetText()
 				if text == "X" then
 					self.t:SetText("V")
@@ -57,10 +48,21 @@ local function LoadSkin()
 				end
 			end)
 			T.SkinCloseButton(button)
-			button.SetNormalTexture = T.dummy
+			button.SetNormalTexture = T.dummy		
 		end
 	end
-
+	
+	-- refresh expand button when opening LFR
+	LFRQueueFrame:HookScript("OnShow", function(self)
+		for i=1, 20 do
+			local list = _G["LFRQueueFrameSpecificListButton"..i]
+			local button = _G["LFRQueueFrameSpecificListButton"..i.."ExpandOrCollapseButton"]
+			if list then
+				if list.isCollapsed then button.t:SetText("V") else button.t:SetText("X") end
+			end
+		end
+	end)
+	
 	LFRQueueFrameCommentTextButton:CreateBackdrop("Default")
 	LFRQueueFrameCommentTextButton:Height(35)
 	LFRQueueFrameNoLFRWhileLFD:SetTemplate("Default")
@@ -70,7 +72,7 @@ local function LoadSkin()
 		_G[button.."Left"]:Kill()
 		_G[button.."Middle"]:Kill()
 		_G[button.."Right"]:Kill()
-	end
+	end		
 
 	for i=1, NUM_LFR_CHOICE_BUTTONS do
 		local button = _G["LFRQueueFrameSpecificListButton"..i]
@@ -84,6 +86,8 @@ local function LoadSkin()
 	LFRQueueFrameRoleButtonTank:GetChildren():SetFrameLevel(LFRQueueFrameRoleButtonTank:GetChildren():GetFrameLevel() + 2)
 	LFRQueueFrameRoleButtonHealer:GetChildren():SetFrameLevel(LFRQueueFrameRoleButtonHealer:GetChildren():GetFrameLevel() + 2)
 	LFRQueueFrameRoleButtonDPS:GetChildren():SetFrameLevel(LFRQueueFrameRoleButtonDPS:GetChildren():GetFrameLevel() + 2)
+	T.SkinScrollBar(LFRQueueFrameCommentScrollFrame)
+	T.SkinScrollBar(RaidFinderQueueFrameScrollFrame)
 end
 
 tinsert(T.SkinFuncs["Tukui"], LoadSkin)

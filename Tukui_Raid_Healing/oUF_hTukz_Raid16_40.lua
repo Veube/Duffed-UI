@@ -8,10 +8,7 @@ ns._Headers = {}
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 if not C["unitframes"].enable == true then return end
 
-local font2 = C["media"].uffont
-local font1 = C["media"].font
 local normTex = C["media"].normTex
-local fontsize = C["unitframes"].fontsize
 local backdrop = {
 	bgFile = C["media"].blank,
 	insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult},
@@ -50,20 +47,20 @@ local function Shared(self, unit)
 	if not unit:find("partypet") then
 		health.value:Point("BOTTOM", health, 1, 2)
 	end
-	health.value:SetFont(font2, fontsize, "THINOUTLINE")
+	health.value:SetFont(T.SetUserFont())
 	self.Health.value = health.value
 	
 	health.PostUpdate = T.PostUpdateHealthRaid
 	
 	health.frequentUpdates = true
 	
-	if C.unitframes.unicolor == true then
+	if C["unitframes"].unicolor == true then
 		health.colorDisconnected = false
 		health.colorClass = false
 		health:SetStatusBarColor(unpack(C["unitframes"].healthbarcolor))
 		health.bg:SetVertexColor(unpack(C["unitframes"].deficitcolor))	
 		health.bg:SetTexture(.6, .6, .6)
-		if C.unitframes.ColorGradient then
+		if C["unitframes"].ColorGradient then
 			health.colorSmooth = true
 			health.bg:SetTexture(.2, .2, .2)
 		end		
@@ -94,7 +91,7 @@ local function Shared(self, unit)
 	power.bg:SetAlpha(1)
 	power.bg.multiplier = 0.3
 	
-	if C.unitframes.powerClasscolored then
+	if C["unitframes"].powerClasscolored then
 		power.colorClass = true		
 	else
 		power.colorPower = true
@@ -120,7 +117,7 @@ local function Shared(self, unit)
 	end
 	
 	local name = health:CreateFontString(nil, "OVERLAY")
-	local name = T.SetFontString(health, font2, fontsize)
+	local name = T.SetFontString(health, T.SetUserFont())
 	if unit:find("partypet") then
 		name:SetPoint("CENTER")
 	else
@@ -222,10 +219,10 @@ local function Shared(self, unit)
 	if T.myclass == "PRIEST" and C["unitframes"].weakenedsoulbar then
 		local ws = CreateFrame("StatusBar", self:GetName().."_WeakenedSoul", power)
 		ws:SetAllPoints(power)
-		ws:SetStatusBarTexture(C.media.normTex)
+		ws:SetStatusBarTexture(C["media"].normTex)
 		ws:GetStatusBarTexture():SetHorizTile(false)
 		ws:SetBackdrop(backdrop)
-		ws:SetBackdropColor(unpack(C.media.backdropcolor))
+		ws:SetBackdropColor(unpack(C["media"].backdropcolor))
 		ws:SetStatusBarColor(191/255, 10/255, 10/255)
     
 		self.WeakenedSoul = ws
@@ -273,10 +270,10 @@ oUF:Factory(function(self)
 	if C["unitframes"].gridonly ~= true then spawnG = "custom [@raid16,exists] show;hide" end
 	
 	local pointG = "LEFT"
-	if C.unitframes.gridvertical then pointG = "BOTTOM" end
+	if C["unitframes"].gridvertical then pointG = "BOTTOM" end
 	
 	local capG = "BOTTOM"
-	if C.unitframes.gridvertical then capG = "LEFT" end
+	if C["unitframes"].gridvertical then capG = "LEFT" end
 	
 	local raid = self:SpawnHeader(
 		"TukuiGrid", nil, spawnG,
@@ -300,15 +297,15 @@ oUF:Factory(function(self)
 		"columnSpacing", T.Scale(8),
 		"point", pointG,
 		"columnAnchorPoint", capG,
-		"showSolo", C.unitframes.gridsolo
+		"showSolo", C["unitframes"].gridsolo
 	)
-	if ChatBG1 then
-		raid:Point("BOTTOMLEFT", ChatBG1, "TOPLEFT", 2, 6)
+	if TukuiChatBackgroundLeft then
+		raid:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "TOPLEFT", 2, 6)
 	else
 		raid:Point("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 2, 23)
 	end
 	
-	if C.unitframes.gridpets and not C.unitframes.gridvertical then
+	if C["unitframes"].gridpets and not C["unitframes"].gridvertical then
 		local pets = {} 
 			pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
 			pets[1]:Point('BOTTOMLEFT', raid, 'TOPLEFT', 0, 8)

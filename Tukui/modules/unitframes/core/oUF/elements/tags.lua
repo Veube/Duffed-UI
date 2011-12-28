@@ -263,7 +263,7 @@ local tagStrings = {
 			return math.abs(UnitPower('player', SPELL_POWER_ECLIPSE)/m*100)
 		end
 	end]],
-	
+
 	['curmana'] = [[function(unit)
 		return UnitPower(unit, SPELL_POWER_MANA)
 	end]],

@@ -1,5 +1,4 @@
 local T, C, L = unpack(select(2, ...))
-if not C["skins"].bskins == true then return end
 if T.toc < 40300 then return end
 
 ----------------------------------------------------------------------------------------
@@ -8,7 +7,7 @@ if T.toc < 40300 then return end
 
 local function LoadSkin()
 	TransmogrifyArtFrame:StripTextures()
-	TransmogrifyArtFrame:SetTemplate("Default")
+	TransmogrifyArtFrame:SetTemplate("Transparent")
 	TransmogrifyModelFrame:SetFrameLevel(TransmogrifyArtFrame:GetFrameLevel() + 2)
 
 	local KillTextures = {
@@ -38,7 +37,7 @@ local function LoadSkin()
 	for _, slot in pairs(slots) do
 		local icon = _G["TransmogrifyFrame"..slot.."SlotIconTexture"]
 		local slot = _G["TransmogrifyFrame"..slot.."Slot"]
-
+		
 		if slot then
 			slot:StripTextures()
 			slot:StyleButton(false)

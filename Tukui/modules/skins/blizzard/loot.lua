@@ -1,12 +1,11 @@
 local T, C, L = unpack(select(2, ...))
-if not C["skins"].bskins == true then return end
 
 local function LoadSkin()
 	local frame = MissingLootFrame
 	local close = MissingLootFramePassButton
 
 	frame:StripTextures()
-	frame:SetTemplate("Default")
+	frame:SetTemplate("Transparent")
 
 	T.SkinCloseButton(MissingLootFramePassButton)
 	

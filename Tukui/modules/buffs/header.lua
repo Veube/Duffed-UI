@@ -16,7 +16,7 @@ for _, frame in next, {
 	if T.lowversion then
 		wrap = 8
 	else
-		wrap = 12
+		wrap = 20
 	end
 	
 	if(frame == "TukuiAurasPlayerConsolidate") then
@@ -29,7 +29,7 @@ for _, frame in next, {
 		header:SetMovable(true)
 		header:SetAttribute("minHeight", 30)
 		header:SetAttribute("wrapAfter", wrap)
-		header:SetAttribute("wrapYOffset", -67.5)
+		header:SetAttribute("wrapYOffset", -50)
 		header:SetAttribute("xOffset", -35)
 	end
 	header:SetAttribute("minWidth", wrap * 35)
@@ -48,7 +48,7 @@ local debuffs = TukuiAurasPlayerDebuffs
 local consolidate = TukuiAurasPlayerConsolidate
 local filter = 0
 
-if C.auras.consolidate then
+if C["auras"].consolidate then
 	filter = 1
 end
 
@@ -109,6 +109,6 @@ consolidate:Hide()
 SecureHandlerSetFrameRef(proxy, "header", consolidate)
 
 -- set our debuff header
-debuffs:SetPoint("TOP", buffs, "BOTTOM", 0, -38)
+debuffs:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6, -1)
 debuffs:SetAttribute("filter", "HARMFUL")
 debuffs:Show()

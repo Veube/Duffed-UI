@@ -1,12 +1,13 @@
+local T, C, L = unpack(select(2, ...))
+
 --------------------------------------------------------------------
 -- FRIEND
 --------------------------------------------------------------------
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
 
 if not C["datatext"].friends or C["datatext"].friends == 0 then return end
 
 -- create a popup
-StaticPopupDialogs.SET_BN_BROADCAST = {
+StaticPopupDialogs.TUKUI_SET_BN_BROADCAST = {
 	text = BN_BROADCAST_TOOLTIP,
 	button1 = ACCEPT,
 	button2 = CANCEL,
@@ -25,13 +26,16 @@ StaticPopupDialogs.SET_BN_BROADCAST = {
 	preferredIndex = 3,
 }
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "TukuiStatFriends")
 Stat:EnableMouse(true)
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
+Stat.Option = C.datatext.friends
+Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+local Text  = Stat:CreateFontString("TukuiStatFriendsText", "OVERLAY")
+Text:SetFont(T.SetUserFont())
 Text:SetShadowOffset(T.mult, -T.mult)
 T.PP(C["datatext"].friends, Text)
 
@@ -39,7 +43,7 @@ local menuFrame = CreateFrame("Frame", "TukuiFriendRightClickMenu", UIParent, "U
 local menuList = {
 	{ text = OPTIONS_MENU, isTitle = true,notCheckable=true},
 	{ text = INVITE, hasArrow = true,notCheckable=true, },
-	{ text = CHAT_MSG_WHISPER_INFORM, hasArrow = true,notCheckable=true, },
+	{ text = CHAT_MSG_WHISPER_INFORM, hasArrow = true,notCheckable=true, },			
 	{ text = PLAYER_STATUS, hasArrow = true, notCheckable=true,
 		menuList = {
 			{ text = "|cff2BC226"..AVAILABLE.."|r", notCheckable=true, func = function() if IsChatAFK() then SendChatMessage("", "AFK") elseif IsChatDND() then SendChatMessage("", "DND") end end },
@@ -47,7 +51,7 @@ local menuList = {
 			{ text = "|cffFF0000"..AFK.."|r", notCheckable=true, func = function() if not IsChatAFK() then SendChatMessage("", "AFK") end end },
 		},
 	},
-	{ text = BN_BROADCAST_TOOLTIP, notCheckable=true, func = function() StaticPopup_Show("SET_BN_BROADCAST") end },
+	{ text = BN_BROADCAST_TOOLTIP, notCheckable=true, func = function() StaticPopup_Show("TUKUI_SET_BN_BROADCAST") end },
 }
 
 local function GetTableIndex(table, fieldIndex, value)
@@ -76,7 +80,7 @@ local wowString = "WoW"
 local totalOnlineString = L.datatext_online .. "%s/%s"
 local tthead, ttsubh, ttoff = {r=0.4, g=0.78, b=1}, {r=0.75, g=0.9, b=1}, {r=.3,g=1,b=.3}
 local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
-local displayString = string.join("", "%s: ", T.panelcolor, "%d|r")
+local displayString = string.join("", Stat.Color1.."%s:|r ", Stat.Color2, "%d|r")
 local statusTable = { "[AFK]", "[DND]", "" }
 local groupedTable = { "|cffaaaaaa*|r", "" } 
 local friendTable, BNTable = {}, {}
@@ -108,7 +112,7 @@ local function UpdateFriendTable(total)
 		for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
 		
 		-- get the correct index in our table		
-		index = GetTableIndex(friendTable, 1, name)
+		local index = GetTableIndex(friendTable, 1, name)
 		-- we cannot find a friend in our table, so rebuild it
 		if index == -1 then
 			BuildFriendTable(total)
@@ -134,7 +138,11 @@ local function BuildBNTable(total)
 	local _, presenceID, givenName, surname, toonName, toonID, client, isOnline, isAFK, isDND, noteText, realmName, faction, race, class, zoneName, level
 	for i = 1, total do
 		presenceID, givenName, surname, toonName, toonID, client, isOnline, _, isAFK, isDND, _, noteText = BNGetFriendInfo(i)
-		_, _, _, realmName, _, faction, race, class, _, zoneName, level = BNGetToonInfo(presenceID)
+		if T.toc < 40200 then
+			_, _, _, realmName, faction, race, class, _, zoneName, level = BNGetToonInfo(presenceID)
+		else
+			_, _, _, realmName, _, faction, race, class, _, zoneName, level = BNGetToonInfo(presenceID)
+		end
 		for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
 		
 		BNTable[i] = { presenceID, givenName, surname, toonName, toonID, client, isOnline, isAFK, isDND, noteText, realmName, faction, race, class, zoneName, level }
@@ -155,11 +163,15 @@ local function UpdateBNTable(total)
 	for i = 1, #BNTable do
 		-- get guild roster information
 		presenceID, givenName, surname, toonName, toonID, client, isOnline, _, isAFK, isDND, _, noteText = BNGetFriendInfo(i)
-		_, _, _, realmName, _, faction, race, class, _, zoneName, level = BNGetToonInfo(presenceID)
+		if T.toc < 40200 then
+			_, _, _, realmName, faction, race, class, _, zoneName, level = BNGetToonInfo(presenceID)
+		else
+			_, _, _, realmName, _, faction, race, class, _, zoneName, level = BNGetToonInfo(presenceID)
+		end
 		for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
 		
 		-- get the correct index in our table		
-		index = GetTableIndex(BNTable, 1, presenceID)
+		local index = GetTableIndex(BNTable, 1, presenceID)
 		-- we cannot find a BN member in our table, so rebuild it
 		if index == -1 then
 			BuildBNTable(total)
@@ -266,18 +278,14 @@ end
 
 Stat:SetScript("OnMouseDown", function(self, btn) if btn == "LeftButton" then ToggleFriendsFrame(1) end end)
 Stat:SetScript("OnEnter", function(self)
-	-- if InCombatLockdown() then return end
+	if InCombatLockdown() then return end
 		
 	local totalonline = totalOnline + BNTotalOnline
 	local totalfriends = #friendTable + #BNTable
 	local zonec, classc, levelc, realmc, grouped
 	if totalonline > 0 then
 		local anchor, panel, xoff, yoff = T.DataTextTooltipAnchor(Text)
-		if panel == TukuiMinimapStatsLeft or panel == TukuiMinimapStatsRight then
-			GameTooltip:SetOwner(panel, anchor, xoff, yoff)
-		else
-			GameTooltip:SetOwner(self, anchor, xoff, yoff)
-		end
+		GameTooltip:SetOwner(panel, anchor, xoff, yoff)
 		GameTooltip:ClearLines()
 		GameTooltip:AddDoubleLine(L.datatext_friendlist, format(totalOnlineString, totalonline, totalfriends),tthead.r,tthead.g,tthead.b,tthead.r,tthead.g,tthead.b)
 		if totalOnline > 0 then

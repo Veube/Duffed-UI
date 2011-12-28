@@ -2,8 +2,8 @@
 	thx to Gsuz for the script
 ]]--
 
-local T, C, L = unpack(Tukui)
-if C.tooltip.enable ~= true then return end
+local T, C, L = unpack(select(2, ...))
+if C["tooltip"].enable ~= true then return end
 
 local SlotName = {
         "Head","Neck","Shoulder","Back","Chest","Wrist",

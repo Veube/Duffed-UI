@@ -5,43 +5,48 @@ if C["chat"].enable ~= true then return end
 -- SETUP TUKUI CHATS
 -----------------------------------------------------------------------
 
-local TukuiChat = CreateFrame("Frame")
+local TukuiChat = CreateFrame("Frame", "TukuiChat")
 local tabalpha = 1
 local tabnoalpha = 0
 local _G = _G
 local origs = {}
 local type = type
+local strings = {
+	BATTLEGROUND = L.chat_BATTLEGROUND_GET,
+	GUILD = L.chat_GUILD_GET,
+	PARTY = L.chat_PARTY_GET,
+	RAID = L.chat_RAID_GET,
+	OFFICER = L.chat_OFFICER_GET,
+	BATTLEGROUND_LEADER = L.chat_BATTLEGROUND_LEADER_GET,
+	PARTY_LEADER = L.chat_PARTY_LEADER_GET,
+	RAID_LEADER = L.chat_RAID_LEADER_GET,
+	
+	-- zhCN
+	Battleground = L.chat_BATTLEGROUND_GET,
+	Guild = L.chat_GUILD_GET,
+	raid = L.chat_RAID_GET,
+}
 
 -- function to rename channel and other stuff
-local AddMessage = function(self, text, ...)
-	if(type(text) == "string") then
-		text = text:gsub('|h%[(%d+)%. .-%]|h', '|h[%1]|h')
-	end
-	return origs[self](self, text, ...)
+local function ShortChannel(channel)
+	return string.format("|Hchannel:%s|h[%s]|h", channel, strings[channel] or channel:gsub("channel:", ""))
 end
 
--- localize this later k tukz? DON'T FORGET!
-_G.CHAT_BATTLEGROUND_GET = "|Hchannel:Battleground|h"..L.chat_BATTLEGROUND_GET.."|h %s:\32"
-_G.CHAT_BATTLEGROUND_LEADER_GET = "|Hchannel:Battleground|h"..L.chat_BATTLEGROUND_LEADER_GET.."|h %s:\32"
-_G.CHAT_BN_WHISPER_GET = L.chat_BN_WHISPER_GET.." %s:\32"
-_G.CHAT_GUILD_GET = "|Hchannel:Guild|h"..L.chat_GUILD_GET.."|h %s:\32"
-_G.CHAT_OFFICER_GET = "|Hchannel:o|h"..L.chat_OFFICER_GET.."|h %s:\32"
-_G.CHAT_PARTY_GET = "|Hchannel:Party|h"..L.chat_PARTY_GET.."|h %s:\32"
-_G.CHAT_PARTY_GUIDE_GET = "|Hchannel:party|h"..L.chat_PARTY_GUIDE_GET.."|h %s:\32"
-_G.CHAT_PARTY_LEADER_GET = "|Hchannel:party|h"..L.chat_PARTY_LEADER_GET.."|h %s:\32"
-_G.CHAT_RAID_GET = "|Hchannel:raid|h"..L.chat_RAID_GET.."|h %s:\32"
-_G.CHAT_RAID_LEADER_GET = "|Hchannel:raid|h"..L.chat_RAID_LEADER_GET.."|h %s:\32"
-_G.CHAT_RAID_WARNING_GET = L.chat_RAID_WARNING_GET.." %s:\32"
-_G.CHAT_SAY_GET = "%s:\32"
-_G.CHAT_WHISPER_GET = L.chat_WHISPER_GET.." %s:\32"
-_G.CHAT_YELL_GET = "%s:\32"
- 
-_G.CHAT_FLAG_AFK = "|cffFF0000"..L.chat_FLAG_AFK.."|r "
-_G.CHAT_FLAG_DND = "|cffE7E716"..L.chat_FLAG_DND.."|r "
-_G.CHAT_FLAG_GM = "|cff4154F5"..L.chat_FLAG_GM.."|r "
- 
-_G.ERR_FRIEND_ONLINE_SS = "|Hplayer:%s|h[%s]|h "..L.chat_ERR_FRIEND_ONLINE_SS.."!"
-_G.ERR_FRIEND_OFFLINE_S = "%s "..L.chat_ERR_FRIEND_OFFLINE_S.."!"
+local function AddMessage(frame, str, ...)
+	str = str:gsub("|Hplayer:(.-)|h%[(.-)%]|h", "|Hplayer:%1|h%2|h")
+	str = str:gsub("|HBNplayer:(.-)|h%[(.-)%]|h", "|HBNplayer:%1|h%2|h")
+	str = str:gsub("|Hchannel:(.-)|h%[(.-)%]|h", ShortChannel)
+
+	str = str:gsub("^To (.-|h)", "|cffad2424@|r%1")
+	str = str:gsub("^(.-|h) whispers", "%1")
+	str = str:gsub("^(.-|h) says", "%1")
+	str = str:gsub("^(.-|h) yells", "%1")
+	str = str:gsub("<"..AFK..">", "|cffFF0000"..L.chat_FLAG_AFK.."|r ")
+	str = str:gsub("<"..DND..">", "|cffE7E716"..L.chat_FLAG_DND.."|r ")
+	str = str:gsub("^%["..RAID_WARNING.."%]", L.chat_RAID_WARNING_GET)
+
+	return origs[frame](frame, str, ...)
+end
 
 -- Hide friends micro button (added in 3.3.5)
 FriendsMicroButton:Kill()
@@ -55,11 +60,11 @@ local function SetChatStyle(frame)
 	local chat = frame:GetName()
 	local tab = _G[chat.."Tab"]
 	
-	-- always set alpha to 1, don't fade it anymore
+	-- always set alpha to 1, don"t fade it anymore
 	tab:SetAlpha(1)
 	tab.SetAlpha = UIFrameFadeRemoveFrame
-	
-	if not C.chat.leftchatbackground and not frame.temp then
+
+	if not C.chat.background and not frame.temp then
 		-- hide text when setting chat
 		_G[chat.."TabText"]:Hide()
 		
@@ -68,26 +73,28 @@ local function SetChatStyle(frame)
 		tab:HookScript("OnLeave", function() _G[chat.."TabText"]:Hide() end)
 	end
 	
-	_G[chat.."TabText"]:SetTextColor(unpack(C["datatext"].color))
+	-- change tab font
+	_G[chat.."TabText"]:SetTextColor(unpack(C["media"].datatextcolor1))
 	_G[chat.."TabText"].SetTextColor = T.dummy
-	_G[chat.."TabText"]:SetFont(C.datatext.font,C.datatext.fontsize,"THINOUTLINE")
-	
-	-- fading
-	_G[chat]:SetFading(C.chat.fading)
+	_G[chat.."TabText"]:SetFont(T.SetUserFont())
 	
 	-- yeah baby
-	_G[chat]:SetClampRectInsets(0,0,0,0)
+	_G[chat]:SetClampRectInsets(0, 0, 0, 0)
 	
 	-- Removes crap from the bottom of the chatbox so it can go to the bottom of the screen.
 	_G[chat]:SetClampedToScreen(false)
+			
+	-- Stop the chat chat from fading out
+	_G[chat]:SetFading(C["chat"].fading)
 	
 	-- set min height/width to original tukui size
-	_G[chat]:SetMinResize(150, 70)
+	_G[chat]:SetMinResize(371, 111)
+	_G[chat]:SetMinResize(T.InfoLeftRightWidth + 1, 111)
 	
 	-- move the chat edit box
 	_G[chat.."EditBox"]:ClearAllPoints()
-	_G[chat.."EditBox"]:Point("TOPLEFT", ChatBG1Tabs or TukuiInfoLeft, 2, -2)
-	_G[chat.."EditBox"]:Point("BOTTOMRIGHT", ChatBG1Tabs or TukuiInfoLeft, -2, 0)	
+	_G[chat.."EditBox"]:Point("TOPLEFT", TukuiTabsLeftBackground or TukuiInfoLeft, 2, -2)
+	_G[chat.."EditBox"]:Point("BOTTOMRIGHT", TukuiTabsLeftBackground or TukuiInfoLeft, -2, 2)	
 	
 	-- Hide textures
 	for j = 1, #CHAT_FRAME_TEXTURES do
@@ -147,7 +154,7 @@ local function SetChatStyle(frame)
 	local EditBoxBackground = CreateFrame("frame", "TukuiChatchatEditBoxBackground", _G[chat.."EditBox"])
 	EditBoxBackground:CreatePanel("Default", 1, 1, "LEFT", _G[chat.."EditBox"], "LEFT", 0, 0)
 	EditBoxBackground:ClearAllPoints()
-	EditBoxBackground:SetAllPoints(ChatBG1Tabs or TukuiInfoLeft)
+	EditBoxBackground:SetAllPoints(TukuiTabsLeftBackground or TukuiInfoLeft)
 	EditBoxBackground:SetFrameStrata("LOW")
 	EditBoxBackground:SetFrameLevel(1)
 	
@@ -161,7 +168,7 @@ local function SetChatStyle(frame)
 		if ( type == "CHANNEL" ) then
 		local id = GetChannelName(_G[chat.."EditBox"]:GetAttribute("channelTarget"))
 			if id == 0 then
-				colorize(unpack(C.media.bordercolor))
+				colorize(unpack(C["media"].bordercolor))
 			else
 				colorize(ChatTypeInfo[type..id].r,ChatTypeInfo[type..id].g,ChatTypeInfo[type..id].b)
 			end
@@ -170,12 +177,23 @@ local function SetChatStyle(frame)
 		end
 	end)
 	
-	if _G[chat] ~= _G["ChatFrame2"] then
+	if _G[chat] ~= _G["ChatFrame2"] then	
 		origs[_G[chat]] = _G[chat].AddMessage
 		_G[chat].AddMessage = AddMessage
+	else
+		CombatLogQuickButtonFrame_Custom:StripTextures()
+		CombatLogQuickButtonFrame_Custom:SetTemplate("Default")
+		T.SkinCloseButton(CombatLogQuickButtonFrame_CustomAdditionalFilterButton)
+		CombatLogQuickButtonFrame_CustomAdditionalFilterButton.t:SetText("V")
+		CombatLogQuickButtonFrame_CustomAdditionalFilterButton.t:ClearAllPoints()
+		CombatLogQuickButtonFrame_CustomAdditionalFilterButton.t:Point("RIGHT", -8, 4)
+		CombatLogQuickButtonFrame_CustomProgressBar:ClearAllPoints()
+		CombatLogQuickButtonFrame_CustomProgressBar:SetPoint("TOPLEFT", CombatLogQuickButtonFrame_Custom, 2, -2)
+		CombatLogQuickButtonFrame_CustomProgressBar:SetPoint("BOTTOMRIGHT", CombatLogQuickButtonFrame_Custom, -2, 2)
+		CombatLogQuickButtonFrame_CustomProgressBar:SetStatusBarTexture(C["media"].normTex)
 	end
-	
-	frame.skinned = true
+
+	frame.isSkinned = true
 end
 
 -- Setup chatframes 1 to 10 on login.
@@ -185,7 +203,7 @@ local function SetupChat(self)
 		SetChatStyle(frame)
 		FCFTab_UpdateAlpha(frame)
 	end
-
+				
 	-- Remember last channel
 	ChatTypeInfo.WHISPER.sticky = 1
 	ChatTypeInfo.BN_WHISPER.sticky = 1
@@ -194,70 +212,72 @@ local function SetupChat(self)
 	ChatTypeInfo.CHANNEL.sticky = 1
 end
 
-local function SetupChatPosAndFont(self)	
-	for i = 1, NUM_CHAT_WINDOWS do
-		local chat = _G[format("ChatFrame%s", i)]
-		local tab = _G[format("ChatFrame%sTab", i)]
-		local id = chat:GetID()
-		local name = FCF_GetChatWindowInfo(id)
-		local point = GetChatWindowSavedPosition(id)
-		local _, fontSize = FCF_GetChatWindowInfo(id)
-		
-		-- well... tukui font under fontsize 12 is unreadable.
-		if fontSize < 12 then		
-			FCF_SetChatWindowFontSize(nil, chat, 12)
-		else
-			FCF_SetChatWindowFontSize(nil, chat, fontSize)
-		end
-				
-		--Check if chat exists in the bottomright corner
-		if C["chat"].rightchatalign == true then
-			if i == C.chat.rightchatnumber then
-				chat:SetJustifyH("RIGHT") 
-			end
-		else
-			if i == C.chat.rightchatnumber and not ChatBG2 then
-				chat:SetJustifyH("RIGHT") 
-			end
-		end
-	end
-			
-	-- reposition battle.net popup over chat #1
-	BNToastFrame:HookScript("OnShow", function(self)
-		self:ClearAllPoints()
-		if TukuiBnetHolder:GetPoint() == "RIGHT" or TukuiBnetHolder:GetPoint() == "BOTTOMRIGHT" then
-			self:Point("BOTTOMRIGHT", TukuiBnetHolder, "BOTTOMRIGHT", 0, 0)
-		elseif TukuiBnetHolder:GetPoint() == "TOPLEFT" then
-			self:Point("TOPLEFT", TukuiBnetHolder, "TOPLEFT", 0, 0)
-		else
-			self:Point("BOTTOMLEFT", TukuiBnetHolder, "BOTTOMLEFT", 0, 0)
-		end
-	end)
-end
-
 TukuiChat:RegisterEvent("ADDON_LOADED")
-TukuiChat:RegisterEvent("PLAYER_ENTERING_WORLD")
-TukuiChat:SetScript("OnEvent", function(self, event, ...)
-	local addon = ...
-	if event == "ADDON_LOADED" then
-		if addon == "Blizzard_CombatLog" then
-			self:UnregisterEvent("ADDON_LOADED")
-			SetupChat(self)
-		end
-	elseif event == "PLAYER_ENTERING_WORLD" then
-		SetupChatPosAndFont(self)
-		TukuiChat:UnregisterEvent("PLAYER_ENTERING_WORLD")
+TukuiChat:SetScript("OnEvent", function(self, event, addon)
+	if addon == "Blizzard_CombatLog" then
+		self:UnregisterEvent("ADDON_LOADED")
+		SetupChat(self)
 	end
 end)
 
 -- Setup temp chat (BN, WHISPER) when needed.
 local function SetupTempChat()
 	local frame = FCF_GetCurrentChatFrame()
-		
+
 	-- do a check if we already did a skinning earlier for this temp chat frame
-	if frame.skinned then return end
+	if frame.isSkinned then return end
 	
+	-- style it
 	frame.temp = true
 	SetChatStyle(frame)
 end
 hooksecurefunc("FCF_OpenTemporaryWindow", SetupTempChat)
+
+-- reposition battle.net popup over chat #1
+BNToastFrame:HookScript("OnShow", function(self)
+	self:ClearAllPoints()
+	self:Point("TOPLEFT", TukuiBnetHolder, "TOPLEFT", 3, -3)
+end)
+
+-- reskin Toast Frame Close Button
+T.SkinCloseButton(BNToastFrameCloseButton)
+
+-- kill the default reset button
+ChatConfigFrameDefaultButton:Kill()
+
+-- default position of chat #1 (left) and chat #4 (right)
+T.SetDefaultChatPosition = function(frame)
+	if frame then
+		local id = frame:GetID()
+		local name = FCF_GetChatWindowInfo(id)
+		local fontSize = select(2, frame:GetFont())
+
+		-- well... tukui font under fontsize 12 is unreadable. Just a small protection!
+		if fontSize < 12 then		
+			FCF_SetChatWindowFontSize(nil, frame, 12)
+		else
+			FCF_SetChatWindowFontSize(nil, frame, fontSize)
+		end
+		
+		frame:Size(T.InfoLeftRightWidth + 1, 115)
+		
+		if id == 1 then
+			frame:ClearAllPoints()
+			frame:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "BOTTOMLEFT", 3, 6)
+		elseif id == 4 and name == LOOT then
+			if not frame.isDocked then
+				frame:ClearAllPoints()
+				frame:Point("BOTTOMRIGHT", TukuiChatBackgroundRight, "BOTTOMRIGHT", -9, 6)
+				if C["chat"].textright then
+					frame:SetJustifyH("RIGHT")
+				else
+					frame:SetJustifyH("LEFT")
+				end
+			end
+		end
+		
+		-- lock them if unlocked
+		if not frame.isLocked then FCF_SetLocked(frame, 1) end
+	end
+end
+hooksecurefunc("FCF_RestorePositionAndDimensions", T.SetDefaultChatPosition)

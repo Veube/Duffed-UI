@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	local frames = {
@@ -9,7 +8,7 @@ local function LoadSkin()
 		"HelpFrameHeader",
 		"HelpFrameKnowledgebaseErrorFrame",
 	}
-	
+
 	local buttons = {
 		"HelpFrameAccountSecurityOpenTicket",
 		"HelpFrameReportLagLoot",
@@ -28,16 +27,16 @@ local function LoadSkin()
 		"HelpFrameTicketSubmit",
 		"HelpFrameTicketCancel",
 	}
-	
+
 	-- skin main frames
 	for i = 1, #frames do
 		_G[frames[i]]:StripTextures(true)
 		_G[frames[i]]:CreateBackdrop("Default")
 	end
-	
+
 	HelpFrameHeader:SetFrameLevel(HelpFrameHeader:GetFrameLevel() + 2)
 	HelpFrameKnowledgebaseErrorFrame:SetFrameLevel(HelpFrameKnowledgebaseErrorFrame:GetFrameLevel() + 2)
-	
+
 	HelpFrameTicketScrollFrame:StripTextures()
 	HelpFrameTicketScrollFrame:CreateBackdrop("Default")
 	HelpFrameTicketScrollFrame.backdrop:Point("TOPLEFT", -4, 4)
@@ -48,9 +47,9 @@ local function LoadSkin()
 			child:StripTextures()
 		end
 	end
-	
+
 	T.SkinScrollBar(HelpFrameKnowledgebaseScrollFrame2ScrollBar)
-	
+
 	-- skin sub buttons
 	for i = 1, #buttons do
 		_G[buttons[i]]:StripTextures(true)
@@ -62,7 +61,7 @@ local function LoadSkin()
 			_G[buttons[i]].text:SetJustifyH("CENTER")				
 		end
 	end
-	
+
 	-- skin main buttons
 	for i = 1, 6 do
 		local b = _G["HelpFrameButton"..i]
@@ -71,27 +70,32 @@ local function LoadSkin()
 		b.text:SetPoint("CENTER")
 		b.text:SetJustifyH("CENTER")
 	end	
-	
+
 	-- skin table options
 	for i = 1, HelpFrameKnowledgebaseScrollFrameScrollChild:GetNumChildren() do
 		local b = _G["HelpFrameKnowledgebaseScrollFrameButton"..i]
 		b:StripTextures(true)
 		T.SkinButton(b, true)
 	end
-	
+
 	-- skin misc items
 	HelpFrameKnowledgebaseSearchBox:ClearAllPoints()
 	HelpFrameKnowledgebaseSearchBox:Point("TOPLEFT", HelpFrameMainInset, "TOPLEFT", 13, -10)
 	HelpFrameKnowledgebaseNavBarOverlay:Kill()
-	
+
+	if T.toc >= 40200 then
+		HelpFrameKnowledgebaseNavBar:StripTextures()
+	end
+
 	HelpFrame:StripTextures(true)
-	HelpFrame:CreateBackdrop("Transparent")
+	HelpFrame:SetTemplate("Transparent")
+	HelpFrame:CreateBackdrop("Default")
 	T.SkinEditBox(HelpFrameKnowledgebaseSearchBox)
-	T.SkinScrollBar(HelpFrameKnowledgebaseScrollFrameScrollBar, 5)
-	T.SkinScrollBar(HelpFrameTicketScrollFrameScrollBar, 4)
+	T.SkinScrollBar(HelpFrameKnowledgebaseScrollFrameScrollBar)
+	T.SkinScrollBar(HelpFrameTicketScrollFrameScrollBar)
 	T.SkinCloseButton(HelpFrameCloseButton, HelpFrame.backdrop)	
 	T.SkinCloseButton(HelpFrameKnowledgebaseErrorFrameCloseButton, HelpFrameKnowledgebaseErrorFrame.backdrop)
-	
+
 	--Hearth Stone Button
 	HelpFrameCharacterStuckHearthstone:StyleButton()
 	HelpFrameCharacterStuckHearthstone:SetTemplate("Default", true)
@@ -99,7 +103,7 @@ local function LoadSkin()
 	HelpFrameCharacterStuckHearthstone.IconTexture:Point("TOPLEFT", 2, -2)
 	HelpFrameCharacterStuckHearthstone.IconTexture:Point("BOTTOMRIGHT", -2, 2)
 	HelpFrameCharacterStuckHearthstone.IconTexture:SetTexCoord(.08, .92, .08, .92)
-	
+
 	local function navButtonFrameLevel(self)
 		for i=1, #self.navList do
 			local navButton = self.navList[i]
@@ -109,7 +113,7 @@ local function LoadSkin()
 			end
 		end			
 	end
-	
+
 	hooksecurefunc("NavBar_AddButton", function(self, buttonData)
 		local navButton = self.navList[#self.navList]
 		

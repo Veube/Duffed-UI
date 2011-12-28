@@ -2,12 +2,12 @@ local T, C, L, DB = unpack(select(2, ...))
 
 if not C["datatext"].parry or C["datatext"].parry == 0 then return end
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "TukuiStatParry")
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
-local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+local Text  = Stat:CreateFontString("TukuiStatParryText", "OVERLAY")
+Text:SetFont(T.SetUserFont())
 T.PP(C["datatext"].parry, Text)
 
 local format = string.format

@@ -12,7 +12,7 @@ holder:SetBackdropBorderColor(0,0,0,0)
 holder:SetBackdropColor(0,0,0,0)	
 holder.text = T.SetFontString(holder, C.media.uffont, 12)
 holder.text:SetPoint("CENTER")
-holder.text:SetText("Move Extrabutton")
+holder.text:SetText(L.move_extrabutton)
 holder.text:Hide()
 
 -- We never use MainMenuBar, so we need to parent this frame outside of it else it will not work.

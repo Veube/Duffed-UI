@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	local frames = {
@@ -16,7 +15,6 @@ local function LoadSkin()
 	
 	T.SkinNextPrevButton(CalendarPrevMonthButton)
 	T.SkinNextPrevButton(CalendarNextMonthButton)
-	T.SkinScrollBar(CalendarCreateEventInviteListScrollFrameScrollBar)
 	
 	do --Handle drop down button, this one is differant than the others
 		local frame = CalendarFilterFrame
@@ -62,7 +60,7 @@ local function LoadSkin()
 	
 	--CreateEventFrame
 	CalendarCreateEventFrame:StripTextures()
-	CalendarCreateEventFrame:SetTemplate("Transparent")
+	CalendarCreateEventFrame:SetTemplate("Default")
 	CalendarCreateEventFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
 	CalendarCreateEventTitleFrame:StripTextures()
 	
@@ -83,6 +81,7 @@ local function LoadSkin()
 	CalendarCreateEventDescriptionContainer:SetTemplate("Default")
 	
 	T.SkinCloseButton(CalendarCreateEventCloseButton)
+	CalendarCreateEventCloseButton:StripTextures()
 	
 	T.SkinCheckBox(CalendarCreateEventLockEventCheck)
 	
@@ -117,10 +116,9 @@ local function LoadSkin()
 	CalendarTexturePickerFrame:StripTextures()
 	CalendarTexturePickerTitleFrame:StripTextures()
 	
-	CalendarTexturePickerFrame:SetTemplate("Transparent")
+	CalendarTexturePickerFrame:SetTemplate("Default")
 	
 	T.SkinScrollBar(CalendarTexturePickerScrollBar)
-	T.SkinScrollBar(CalendarCreateEventDescriptionScrollFrameScrollBar)
 	T.SkinButton(CalendarTexturePickerAcceptButton, true)
 	T.SkinButton(CalendarTexturePickerCancelButton, true)
 	T.SkinButton(CalendarCreateEventInviteButton, true)
@@ -128,7 +126,7 @@ local function LoadSkin()
 	
 	--Mass Invite Frame
 	CalendarMassInviteFrame:StripTextures()
-	CalendarMassInviteFrame:SetTemplate("Transparent")
+	CalendarMassInviteFrame:SetTemplate("Default")
 	CalendarMassInviteTitleFrame:StripTextures()
 	
 	T.SkinCloseButton(CalendarMassInviteCloseButton)
@@ -143,33 +141,35 @@ local function LoadSkin()
 	
 	--Raid View
 	CalendarViewRaidFrame:StripTextures()
-	CalendarViewRaidFrame:SetTemplate("Transparent")
+	CalendarViewRaidFrame:SetTemplate("Default")
 	CalendarViewRaidFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
 	CalendarViewRaidTitleFrame:StripTextures()
 	T.SkinCloseButton(CalendarViewRaidCloseButton)
+	CalendarViewRaidCloseButton:StripTextures()
 	
 	--Holiday View
 	CalendarViewHolidayFrame:StripTextures(true)
-	CalendarViewHolidayFrame:SetTemplate("Transparent")
+	CalendarViewHolidayFrame:SetTemplate("Default")
 	CalendarViewHolidayFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
 	CalendarViewHolidayTitleFrame:StripTextures()
 	T.SkinCloseButton(CalendarViewHolidayCloseButton)
+	CalendarViewHolidayCloseButton:StripTextures()
 	
 	-- Event View
 	CalendarViewEventFrame:StripTextures()
-	CalendarViewEventFrame:SetTemplate("Transparent")
+	CalendarViewEventFrame:SetTemplate("Default")
 	CalendarViewEventFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
 	CalendarViewEventTitleFrame:StripTextures()
 	CalendarViewEventDescriptionContainer:StripTextures()
-	CalendarViewEventDescriptionContainer:SetTemplate("Transparent")
+	CalendarViewEventDescriptionContainer:SetTemplate("Default")
 	CalendarViewEventInviteList:StripTextures()
-	CalendarViewEventInviteList:SetTemplate("Transparent")
+	CalendarViewEventInviteList:SetTemplate("Default")
 	CalendarViewEventInviteListSection:StripTextures()
 	T.SkinCloseButton(CalendarViewEventCloseButton)
-	T.SkinScrollBar(CalendarViewEventInviteListScrollFrameScrollBar)
-	T.SkinScrollBar(CalendarViewEventDescriptionScrollFrameScrollBar)
-	CalendarInviteStatusContextMenu:SetTemplate("Default")
+	CalendarViewEventCloseButton:StripTextures()
 	
+	T.SkinScrollBar(CalendarViewEventInviteListScrollFrameScrollBar)
+
 	local buttons = {
 		"CalendarViewEventAcceptButton",
 		"CalendarViewEventTentativeButton",
@@ -179,7 +179,7 @@ local function LoadSkin()
 
 	for _, button in pairs(buttons) do
 		T.SkinButton(_G[button])
-	end	
+	end		
 	
 	-- too many event same day box
     CalendarEventPickerFrame:StripTextures()
@@ -190,6 +190,7 @@ local function LoadSkin()
 
 	CalendarEventPickerCloseButton:StripTextures()
 	T.SkinButton(CalendarEventPickerCloseButton, true)
+	T.SkinScrollBar(CalendarCreateEventDescriptionScrollFrameScrollBar)
 end
 
 T.SkinFuncs["Blizzard_Calendar"] = LoadSkin

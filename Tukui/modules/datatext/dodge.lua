@@ -2,12 +2,12 @@ local T, C, L, DB = unpack(select(2, ...))
 
 if not C["datatext"].dodge or C["datatext"].dodge == 0 then return end
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "TukuiStatDodge")
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
-local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+local Text  = Stat:CreateFontString("TukuiStatRegenDodgeText", "OVERLAY")
+Text:SetFont(T.SetUserFont())
 T.PP(C["datatext"].dodge, Text)
 
 local format = string.format
@@ -20,7 +20,7 @@ local function Update(self, t)
 	int = int - t
 	if int > 0 then return end
 
-	Text:SetFormattedText(displayFloat, STAT_DODGE..": ", GetDodgeChance())
+	Text:SetFormattedText(displayFloat, T.panelcolor..STAT_DODGE..": ", GetDodgeChance())
 
 	self:SetAllPoints(Text)
 

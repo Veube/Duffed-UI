@@ -4,22 +4,25 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 --------------------------------------------------------------------
 
 if C["datatext"].avd and C["datatext"].avd > 0 then
+	local dodge, parry, block, MissChance, avoidance, targetlv, playerlv, basemisschance, leveldifference
 	local Stat = CreateFrame("Frame", "TukuiStatAvoidance")
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 	Stat.Option = C.datatext.avd
+	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
 	local Text  = Stat:CreateFontString("TukuiStatAvoidanceText", "OVERLAY")
-	Text:SetFont(C.media.font, C["datatext"].fontsize)
+	Text:SetFont(T.SetUserFont())
 	T.PP(C["datatext"].avd, Text)
 	
-	local targetlv
-	local playerlv
+	local targetlv, playerlv, dodge, parry, block, MissChance
 
 	local function Update(self)
 		local format = string.format
 		targetlv, playerlv = UnitLevel("target"), UnitLevel("player")
+		local basemisschance, leveldifference, avoidance
 		
 		if targetlv == -1 then
 			basemisschance = (5 - (3*.2))  --Boss Value
@@ -41,14 +44,14 @@ if C["datatext"].avd and C["datatext"].avd > 0 then
 			block = (GetBlockChance()-leveldifference*.2)
 			MissChance = (basemisschance + 1/(0.0625 + 0.956/(GetCombatRating(CR_DEFENSE_SKILL)/4.91850*0.04)))
 			avoidance = (dodge+parry+block+MissChance)
-			Text:SetText(T.panelcolor..L.datatext_playeravd.."|r"..format("%.2f", avoidance).."|r")
+			Text:SetText(Stat.Color1..L.datatext_playeravd.."|r"..Stat.Color2..format("%.2f", avoidance).."|r")
 		else
 			dodge = (GetDodgeChance()+abs(leveldifference*.2))
 			parry = (GetParryChance()+abs(leveldifference*.2))
 			block = (GetBlockChance()+abs(leveldifference*.2))
 			MissChance = (basemisschance + 1/(0.0625 + 0.956/(GetCombatRating(CR_DEFENSE_SKILL)/4.91850*0.04)))
 			avoidance = (dodge+parry+block+MissChance)
-			Text:SetText(T.panelcolor..L.datatext_playeravd.."|r"..format("%.2f", avoidance).."|r")
+			Text:SetText(Stat.Color1..L.datatext_playeravd.."|r"..Stat.Color2..format("%.2f", avoidance).."|r")
 		end
 
 		--Setup Avoidance Tooltip

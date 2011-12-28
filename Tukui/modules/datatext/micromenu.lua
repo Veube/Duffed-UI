@@ -13,28 +13,26 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 -----------------------------------------
 
 if C["datatext"].micromenu and C["datatext"].micromenu > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "TukuiStatMicroMenu")
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
+	Stat.Option = C.datatext.micromenu
+	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+	local Text  = Stat:CreateFontString("TukuiStatMicroMenuText", "OVERLAY")
+	Text:SetFont(T.SetUserFont())
 	T.PP(C["datatext"].micromenu, Text)
 
 	local function OnEvent(self, event, ...)
-		Text:SetText(T.panelcolor..MAINMENU_BUTTON)
+		Text:SetText(Stat.Color2..MAINMENU_BUTTON.."|r")
 		self:SetAllPoints(Text)
 	end
 
 	local function OpenMenu()
-		if not TukuiMicroMenu or not TukuiMinimap then return end
-    
-		local xoff = 0
-		local position = TukuiMinimap:GetPoint()
-		if position:match("RIGHT") then xoff = T.Scale(-14) end
-    
-		ToggleDropDownMenu(1, nil, TukuiMicroMenu, TukuiMinimap, xoff, T.Scale(-2))
+		if not TukuiMicroButtonsDropDown then return end
+		EasyMenu(T.MicroMenu, TukuiMicroButtonsDropDown, "cursor", 0, 0, "MENU", 2)
 	end
 
 	Stat:RegisterEvent("PLAYER_LOGIN")

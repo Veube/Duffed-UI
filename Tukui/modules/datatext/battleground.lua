@@ -20,12 +20,14 @@ bgframe:SetScript("OnEnter", function(self)
 		if ( name ) then
 			if ( name == UnitName("player") ) then
 				local curmapid = GetCurrentMapAreaID()
+				local color = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
+				local classcolor = ("|cff%.2x%.2x%.2x"):format(color.r * 255, color.g * 255, color.b * 255)
 				SetMapToCurrentZone()			
 				GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, T.Scale(4))
 				GameTooltip:ClearLines()
 				GameTooltip:Point("BOTTOM", self, "TOP", 0, 1)
 				GameTooltip:ClearLines()
-				GameTooltip:AddDoubleLine(L.datatext_ttstatsfor, T.panelcolor..name.."|r")
+				GameTooltip:AddDoubleLine(L.datatext_ttstatsfor, classcolor..name.."|r")
 				GameTooltip:AddLine' '
 				GameTooltip:AddDoubleLine(L.datatext_ttkillingblows, killingBlows,1,1,1)
 				GameTooltip:AddDoubleLine(L.datatext_tthonorkills, honorableKills,1,1,1)
@@ -58,22 +60,25 @@ bgframe:SetScript("OnEnter", function(self)
 end) 
 bgframe:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "TukuiStatBattleGround", UIParent)
 Stat:EnableMouse(true)
+Stat.Option = C.datatext.battleground
+Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-local Text1  = TukuiInfoLeftBattleGround:CreateFontString(nil, "OVERLAY")
-Text1:SetFont(C["datatext"].font, C["datatext"].fontsize)
-Text1:SetPoint("LEFT", TukuiInfoLeftBattleGround, 30, 0.5)
+local Text1  = TukuiInfoLeftBattleGround:CreateFontString("TukuiStatBattleGroundText1", "OVERLAY")
+Text1:SetFont(T.SetUserFont())
+Text1:SetPoint("LEFT", 30, 0.5)
 Text1:SetHeight(TukuiInfoLeft:GetHeight())
 
-local Text2  = TukuiInfoLeftBattleGround:CreateFontString(nil, "OVERLAY")
-Text2:SetFont(C["datatext"].font, C["datatext"].fontsize)
-Text2:SetPoint("CENTER", TukuiInfoLeftBattleGround, 0, 0.5)
+local Text2  = TukuiInfoLeftBattleGround:CreateFontString("TukuiStatBattleGroundText2", "OVERLAY")
+Text2:SetFont(T.SetUserFont())
+Text2:SetPoint("CENTER", 0, 0.5)
 Text2:SetHeight(TukuiInfoLeft:GetHeight())
 
-local Text3  = TukuiInfoLeftBattleGround:CreateFontString(nil, "OVERLAY")
-Text3:SetFont(C["datatext"].font, C["datatext"].fontsize)
-Text3:SetPoint("RIGHT", TukuiInfoLeftBattleGround, -30, 0.5)
+local Text3  = TukuiInfoLeftBattleGround:CreateFontString("TukuiStatBattleGroundText3", "OVERLAY")
+Text3:SetFont(T.SetUserFont())
+Text3:SetPoint("RIGHT", -30, 0.5)
 Text3:SetHeight(TukuiInfoLeft:GetHeight())
 
 local int = 2
@@ -86,15 +91,15 @@ local function Update(self, t)
 		for i=1, numScores do
 			local name, killingBlows, honorableKills, deaths, honorGained, faction, race, class, classToken, damageDone, healingDone, bgRating, ratingChange = GetBattlefieldScore(i)
 			if healingDone > damageDone then
-				dmgtxt = (L.datatext_healing..T.panelcolor..healingDone)
+				dmgtxt = (Stat.Color1..L.datatext_healing.."|r"..Stat.Color2..healingDone.."|r")
 			else
-				dmgtxt = (L.datatext_damage..T.panelcolor..damageDone)
+				dmgtxt = (Stat.Color1..L.datatext_damage.."|r"..Stat.Color2..damageDone.."|r")
 			end
 			if ( name ) then
 				if ( name == T.myname ) then
-					Text2:SetText(L.datatext_honor..T.panelcolor..format('%d', honorGained))
+					Text2:SetText(Stat.Color1..L.datatext_honor.."|r"..Stat.Color2..format('%d', honorGained).."|r")
 					Text1:SetText(dmgtxt)
-					Text3:SetText(L.datatext_killingblows..T.panelcolor..killingBlows)
+					Text3:SetText(Stat.Color1..L.datatext_killingblows.."|r"..Stat.Color2..killingBlows.."|r")
 				end   
 			end
 		end 
@@ -117,7 +122,6 @@ local function OnEvent(self, event)
 	end
 end
 
-bgframe:SetScript("OnMouseDown", function() ToggleFrame(WorldStateScoreFrame) end)
 Stat:RegisterEvent("PLAYER_ENTERING_WORLD")
 Stat:SetScript("OnEvent", OnEvent)
 Stat:SetScript("OnUpdate", Update)

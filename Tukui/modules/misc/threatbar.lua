@@ -1,38 +1,38 @@
-local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
--- Very simple threat bar for T.
+local T, C, L = unpack(select(2, ...))
+if not TukuiInfoRight then return end
 
-local aggroColors = {
+--[[local aggroColors = {
 	[1] = {12/255, 151/255,  15/255},
 	[2] = {166/255, 171/255,  26/255},
 	[3] = {163/255,  24/255,  24/255},
-}
+}]]
 
-if C["misc"].tbchattab == false or C["chat"].rightchatbackground == false then
+if not C["general"].threatbar then
 	local TukuiThreatBar = CreateFrame("StatusBar", "TukuiThreatBar", TukuiInfoRight)
 	TukuiThreatBar:Point("TOPLEFT", 2, -2)
 	TukuiThreatBar:Point("BOTTOMRIGHT", -2, 2)
 	TukuiThreatBar:SetFrameStrata("MEDIUM")
 	TukuiThreatBar:SetFrameLevel(2)
 else
-	local TukuiThreatBar = CreateFrame("StatusBar", "TukuiThreatBar", ChatBG2Tabs)
+	local TukuiThreatBar = CreateFrame("StatusBar", "TukuiThreatBar", TukuiTabsRightBackground)
 	TukuiThreatBar:Point("TOPLEFT", 2, -2)
 	TukuiThreatBar:Point("BOTTOMRIGHT", -2, 2)
 	TukuiThreatBar:SetFrameStrata("MEDIUM")
 	TukuiThreatBar:SetFrameLevel(2)
 end
 
-TukuiThreatBar:SetStatusBarTexture(C.media.normTex)
+TukuiThreatBar:SetStatusBarTexture(C["media"].normTex)
 TukuiThreatBar:GetStatusBarTexture():SetHorizTile(false)
-TukuiThreatBar:SetBackdrop({bgFile = C.media.blank})
+TukuiThreatBar:SetBackdrop({bgFile = C["media"].blank})
 TukuiThreatBar:SetBackdropColor(0, 0, 0, 0)
 TukuiThreatBar:SetMinMaxValues(0, 100)
 
-TukuiThreatBar.text = T.SetFontString(TukuiThreatBar, C.datatext.font, C.datatext.fontsize)
+TukuiThreatBar.text = T.SetFontString(TukuiThreatBar, T.SetUserFont())
 TukuiThreatBar.text:Point("RIGHT", TukuiThreatBar, "RIGHT", -30, 0)
 
-TukuiThreatBar.Title = T.SetFontString(TukuiThreatBar, C.datatext.font, C.datatext.fontsize)
+TukuiThreatBar.Title = T.SetFontString(TukuiThreatBar, T.SetUserFont())
 TukuiThreatBar.Title:SetText(L.unitframes_ouf_threattext)
-TukuiThreatBar.Title:Point("LEFT", TukuiThreatBar, "LEFT", 30, 0)
+TukuiThreatBar.Title:SetPoint("LEFT", TukuiThreatBar, "LEFT", T.Scale(30), 0)
 	  
 TukuiThreatBar.bg = TukuiThreatBar:CreateTexture(nil, 'BORDER')
 TukuiThreatBar.bg:SetAllPoints(TukuiThreatBar)

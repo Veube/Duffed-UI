@@ -31,10 +31,10 @@ anchor:SetFrameStrata("TOOLTIP")
 anchor:SetFrameLevel(20)
 anchor:SetClampedToScreen(true)
 anchor:SetAlpha(0)
-if ChatBG2 or AddonBGPanel then
-	anchor:SetPoint("BOTTOMRIGHT", ChatBG2 or AddonBGPanel, "TOPRIGHT", 0, -TukuiInfoRight:GetHeight())
+if C["chat"].background and TukuiChatBackgroundRight then
+	anchor:SetPoint("BOTTOMRIGHT", TukuiChatBackgroundRight, "TOPRIGHT", 0, -TukuiInfoRight:GetHeight())
 else
-	anchor:Point("BOTTOMRIGHT", ChatFrame4, "TOPRIGHT", 0, 10)
+	anchor:SetPoint("BOTTOMRIGHT", ChatFrame4, "TOPRIGHT", 0, 10)
 end
 anchor:SetTemplate("Default")
 anchor:SetBackdropBorderColor(1, 0, 0, 1)
@@ -96,8 +96,13 @@ local function UpdateTooltip(self)
 			self:ClearAllPoints()
 			self:SetPoint("BOTTOMLEFT", TukuiTooltipAnchor, "TOPLEFT", 0, x)		
 		elseif point == "BOTTOMRIGHT" or point == "RIGHT" then
-			self:ClearAllPoints()
-			self:SetPoint("BOTTOMRIGHT", TukuiTooltipAnchor, "TOPRIGHT", 0, x)
+			if TukuiBags and TukuiBags:IsShown() then
+				self:ClearAllPoints()
+				self:SetPoint("BOTTOMRIGHT", TukuiBags, "TOPRIGHT", 0, x)			
+			else
+				self:ClearAllPoints()
+				self:SetPoint("BOTTOMRIGHT", TukuiTooltipAnchor, "TOPRIGHT", 0, x)
+			end
 		else
 			self:ClearAllPoints()
 			self:SetPoint("BOTTOM", TukuiTooltipAnchor, "TOP", 0, x)		
@@ -325,13 +330,13 @@ local BorderColor = function(self)
 
 	if player then
 		local class = select(2, UnitClass(unit))
-		local c = T.oUF_colors.class[class]
+		local c = T.UnitColor.class[class]
 		r, g, b = c[1], c[2], c[3]
 		self:SetBackdropBorderColor(r, g, b)
 		healthBarBG:SetBackdropBorderColor(r, g, b)
 		healthBar:SetStatusBarColor(r, g, b)
 	elseif reaction then
-		local c = T.oUF_colors.reaction[reaction]
+		local c = T.UnitColor.reaction[reaction]
 		r, g, b = c[1], c[2], c[3]
 		self:SetBackdropBorderColor(r, g, b)
 		healthBarBG:SetBackdropBorderColor(r, g, b)
@@ -369,6 +374,7 @@ TukuiTooltip:SetScript("OnEvent", function(self, event, addon)
 		ItemRefTooltip:HookScript("OnTooltipSetItem", SetStyle)
 		ItemRefTooltip:HookScript("OnShow", SetStyle)	
 		FriendsTooltip:SetTemplate("Default")
+		T.SkinCloseButton(ItemRefCloseButton)
 			
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		

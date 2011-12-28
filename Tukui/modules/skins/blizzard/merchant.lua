@@ -1,27 +1,28 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	local frames = {
 		"MerchantBuyBackItem",
 		"MerchantFrame",
 	}
-	
+
 	-- skin main frames
 	for i = 1, #frames do
 		_G[frames[i]]:StripTextures(true)
-		_G[frames[i]]:CreateBackdrop("Transparent")
+		_G[frames[i]]:CreateBackdrop("Default")
 	end
+
 	MerchantBuyBackItem.backdrop:Point("TOPLEFT", -6, 6)
 	MerchantBuyBackItem.backdrop:Point("BOTTOMRIGHT", 6, -6)
 	MerchantFrame.backdrop:Point("TOPLEFT", 6, 0)
 	MerchantFrame.backdrop:Point("BOTTOMRIGHT", 0, 35)
 	MerchantFrame.backdrop:Point("BOTTOMRIGHT", 0, 60)
+
 	-- skin tabs
 	for i= 1, 2 do
 		T.SkinTab(_G["MerchantFrameTab"..i])
 	end
-	
+
 	-- skin icons / merchant slots
 	for i = 1, 12 do
 		local b = _G["MerchantItem"..i.."ItemButton"]
@@ -43,7 +44,7 @@ local function LoadSkin()
 		_G["MerchantItem"..i.."MoneyFrame"]:Point("BOTTOMLEFT", b, "BOTTOMRIGHT", 3, 0)
 		
 	end
-	
+
 	-- Skin buyback item frame + icon
 	MerchantBuyBackItemItemButton:StripTextures()
 	MerchantBuyBackItemItemButton:StyleButton(false)
@@ -53,7 +54,7 @@ local function LoadSkin()
 	MerchantBuyBackItemItemButtonIconTexture:Point("TOPLEFT", 2, -2)
 	MerchantBuyBackItemItemButtonIconTexture:Point("BOTTOMRIGHT", -2, 2)
 
-	
+
 	MerchantRepairItemButton:StyleButton(false)
 	MerchantRepairItemButton:SetTemplate("Default", true)
 	for i=1, MerchantRepairItemButton:GetNumRegions() do
@@ -65,52 +66,26 @@ local function LoadSkin()
 			region:Point("BOTTOMRIGHT", -2, 2)
 		end
 	end
-	
+
 	MerchantGuildBankRepairButton:StyleButton()
 	MerchantGuildBankRepairButton:SetTemplate("Default", true)
 	MerchantGuildBankRepairButtonIcon:SetTexCoord(0.61, 0.82, 0.1, 0.52)
 	MerchantGuildBankRepairButtonIcon:ClearAllPoints()
 	MerchantGuildBankRepairButtonIcon:Point("TOPLEFT", 2, -2)
 	MerchantGuildBankRepairButtonIcon:Point("BOTTOMRIGHT", -2, 2)
-	
+
 	MerchantRepairAllButton:StyleButton(false)
 	MerchantRepairAllButton:SetTemplate("Default", true)
 	MerchantRepairAllIcon:SetTexCoord(0.34, 0.1, 0.34, 0.535, 0.535, 0.1, 0.535, 0.535)
 	MerchantRepairAllIcon:ClearAllPoints()
 	MerchantRepairAllIcon:Point("TOPLEFT", 2, -2)
 	MerchantRepairAllIcon:Point("BOTTOMRIGHT", -2, 2)
-	
+
 	-- Skin misc frames
 	MerchantFrame:Width(360)
 	T.SkinCloseButton(MerchantFrameCloseButton, MerchantFrame.backdrop)
-	
-	MerchantPrevPageButton:StripTextures()
-	MerchantPrevPageButton:FontString("text", C.media.font, 20)
-	MerchantPrevPageButton.text:SetText("<")
-	MerchantPrevPageButton.text:SetPoint("CENTER", 0, 0)
-	MerchantPrevPageButton.text:SetTextColor(1, 1, 0)
-	MerchantPrevPageButton:SetScript("OnEnter", function()
-		MerchantPrevPageButton.text:SetPoint("CENTER", 0, 0)
-		MerchantPrevPageButton.text:SetTextColor(1, 1, 1)
-	end)
-	MerchantPrevPageButton:SetScript("OnLeave", function()
-		MerchantPrevPageButton.text:SetPoint("CENTER", 0, 0)
-		MerchantPrevPageButton.text:SetTextColor(1, 1, 0)
-	end)
-
-	MerchantNextPageButton:StripTextures()
-	MerchantNextPageButton:FontString("text", C.media.font, 20)
-	MerchantNextPageButton.text:SetText(">")
-	MerchantNextPageButton.text:SetPoint("CENTER", 0, 0)
-	MerchantNextPageButton.text:SetTextColor(1, 1, 0)
-	MerchantNextPageButton:SetScript("OnEnter", function()
-		MerchantNextPageButton.text:SetPoint("CENTER", 0, 0)
-		MerchantNextPageButton.text:SetTextColor(1, 1, 1)
-	end)
-	MerchantNextPageButton:SetScript("OnLeave", function()
-		MerchantNextPageButton.text:SetPoint("CENTER", 0, 0)
-		MerchantNextPageButton.text:SetTextColor(1, 1, 0)
-	end)
+	T.SkinNextPrevButton(MerchantNextPageButton)
+	T.SkinNextPrevButton(MerchantPrevPageButton)
 end
 
 tinsert(T.SkinFuncs["Tukui"], LoadSkin)

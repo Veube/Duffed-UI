@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	--GLYPHS TAB
@@ -54,7 +53,7 @@ local function LoadSkin()
 	GlyphFrame.levelOverlay2:SetParent(GlyphFrameSparkleFrame)
 	GlyphFrame.levelOverlayText2:SetParent(GlyphFrameSparkleFrame)
 	
-	T.SkinScrollBar(GlyphFrameScrollFrameScrollBar, 5)
+	T.SkinScrollBar(GlyphFrameScrollFrameScrollBar)
 
 	local StripAllTextures = {
 		"GlyphFrameScrollFrame",

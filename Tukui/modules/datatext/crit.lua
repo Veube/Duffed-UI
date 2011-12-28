@@ -4,21 +4,25 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 --------------------------------------------------------------------
 
 if C["datatext"].crit and C["datatext"].crit > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "TukuiStatCrit")
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
+	Stat.Option = C.datatext.crit
+	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+	local Text  = Stat:CreateFontString("TukuiStatCritText", "OVERLAY")
+	Text:SetFont(T.SetUserFont())
 	T.PP(C["datatext"].crit, Text)
 
 	local int = 1
 
 	local function Update(self, t)
 		int = int - t
-		meleecrit = GetCritChance()
-		spellcrit = GetSpellCritChance(1)
-		rangedcrit = GetRangedCritChance()
+		local meleecrit = GetCritChance()
+		local spellcrit = GetSpellCritChance(1)
+		local rangedcrit = GetRangedCritChance()
+		local CritChance
 		if spellcrit > meleecrit then
 			CritChance = spellcrit
 		elseif select(2, UnitClass("Player")) == "HUNTER" then    
@@ -27,7 +31,7 @@ if C["datatext"].crit and C["datatext"].crit > 0 then
 			CritChance = meleecrit
 		end
 		if int < 0 then
-			Text:SetText(format("%.2f", CritChance) .. "% "..T.panelcolor..L.datatext_playercrit)
+			Text:SetText(Stat.Color2..format("%.2f", CritChance) .. "%|r"..Stat.Color1..L.datatext_playercrit.."|r")
 			int = 1
 		end     
 	end

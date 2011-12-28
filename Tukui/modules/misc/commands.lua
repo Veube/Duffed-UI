@@ -26,80 +26,19 @@ end
 SLASH_CLFIX1 = "/clfix"
 SlashCmdList.CLFIX = CombatLogClearEntries
 
--- disband raid slash command
-SLASH_RAIDDISBAND1 = "/rd"
-SlashCmdList["RAIDDISBAND"] = function()
-	SendChatMessage(L.disband, "RAID" or "PARTY")
-	if UnitInRaid("player") then
-		for i=1, GetNumRaidMembers() do
-			local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i)
-			if online and name ~= T.myname then
-				UninviteUnit(name)
-			end
-		end
-	else
-		for i=MAX_PARTY_MEMBERS, 1, -1 do
-			if GetPartyMember(i) then
-				UninviteUnit(UnitName("party"..i))
-			end
-		end
-	end
-	LeaveParty()
-end
-
--- layout via slash command
-SLASH_DUFFEDLAYOUT1 = "/layout"
-SlashCmdList["DUFFEDLAYOUT"] = function(msg) 
-	if not IsAddOnLoaded("Tukui_ConfigUI") then print("|cffff0000Required: Tukui Config UI.") return end
-	if TukuiConfigSettings.unitframes == nil then TukuiConfigSettings.unitframes = {} end
-	if msg == "1" then
-		TukuiConfigSettings.unitframes.layout = 1
-		ReloadUI()
-	elseif msg == "2" then
-		TukuiConfigSettings.unitframes.layout = 2
-		ReloadUI()
-	else
-		print("|cffff0000/layout|r 1 or 2")
-	end
-end
-
 -- ready check shortcut
 SlashCmdList.RCSLASH = DoReadyCheck
 SLASH_RCSLASH1 = "/rc"
+
+SlashCmdList["GROUPDISBAND"] = function()
+	if UnitIsRaidOfficer("player") then
+		StaticPopup_Show("TUKUIDISBAND_RAID")
+	end
+end
+SLASH_GROUPDISBAND1 = '/rd'
 
 -- Leave party chat command
 SlashCmdList["LEAVEPARTY"] = function()
 	LeaveParty()
 end
 SLASH_LEAVEPARTY1 = '/leaveparty'
-
--- Farm mode
-local farm = false
-local minisize = 144
-local farmsize = 300
-function SlashCmdList.FARMMODE(msg, editbox)
-    if farm == false then
-        TukuiMinimap:SetSize(farmsize, farmsize)
-		Minimap:SetSize(farmsize, farmsize)
-        farm = true
-        print("Farm Mode : On")
-    else
-        TukuiMinimap:SetSize(minisize, minisize)
-		Minimap:SetSize(minisize, minisize)
-        farm = false
-        print("Farm Mode : Off")
-    end
-	
-	local defaultBlip, largeBlip = "Interface\\Minimap\\ObjectIcons", C["media"].largenodes
-	Minimap:SetBlipTexture(farm == false and defaultBlip or largeBlip)
-end
-SLASH_FARMMODE1 = '/farmmode'
-
--- dunno where to place this
-COPPER_AMOUNT = "%d|cFF954F28"..COPPER_AMOUNT_SYMBOL.."|r"
-SILVER_AMOUNT = "%d|cFFC0C0C0"..SILVER_AMOUNT_SYMBOL.."|r"
-GOLD_AMOUNT = "%d|cFFF0D440"..GOLD_AMOUNT_SYMBOL.."|r"
-YOU_LOOT_MONEY = "+ %s"
-YOU_LOOT_MONEY_GUILD = "+ %s (%s)"
-LOOT_MONEY_SPLIT = "+ %s"
-LOOT_MONEY_SPLIT_GUILD = "+ %s (%s)"

@@ -53,8 +53,13 @@ end
 local Update = function(self, event, ...)
 	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local timestamp, eventType, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellName
-		timestamp, eventType, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellName = ...
-
+		
+		if T.toc < 40200 then
+			timestamp, eventType, _, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellID, spellName = ...
+		else
+			timestamp, eventType, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellName = ...
+		end
+		
 		if eventType == "SPELL_CAST_SUCCESS" then
 			-- enemy trinket usage
 			if spellID == 59752 or spellID == 42292 then

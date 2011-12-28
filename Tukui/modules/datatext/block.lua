@@ -2,12 +2,12 @@ local T, C, L, DB = unpack(select(2, ...))
 
 if not C["datatext"].block or C["datatext"].block == 0 then return end
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "TukuiStatBlock")
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 
-local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+local Text  = Stat:CreateFontString("TukuiStatBlockText", "OVERLAY")
+Text:SetFont(T.SetUserFont())
 T.PP(C["datatext"].block, Text)
 
 local format = string.format

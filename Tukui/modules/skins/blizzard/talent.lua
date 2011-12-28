@@ -1,12 +1,15 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
+	--PLAYER TALENTS
 	local buttons = {
 		"PlayerTalentFrameToggleSummariesButton",
 		"PlayerTalentFrameActivateButton",
 	}
 	PlayerTalentFrameToggleSummariesButton:Point("BOTTOM", PlayerTalentFrame, "BOTTOM",0,5)
+	
+	-- fix button frame level
+	PlayerTalentFrameActivateButton:SetFrameLevel(6)
 
 	for i = 1, #buttons do
 		_G[buttons[i]]:StripTextures()
@@ -26,7 +29,7 @@ local function LoadSkin()
 	for _, object in pairs(StripAllTextures) do
 		_G[object]:StripTextures()
 	end
-
+	
 	local function StripTalentFramePanelTextures(object)
 		for i=1, object:GetNumRegions() do
 			local region = select(i, object:GetRegions())
@@ -39,12 +42,12 @@ local function LoadSkin()
 			end
 		end
 	end
-
+	
 	StripTalentFramePanelTextures(PlayerTalentFramePanel1)
 	StripTalentFramePanelTextures(PlayerTalentFramePanel2)
 	StripTalentFramePanelTextures(PlayerTalentFramePanel3)
 	StripTalentFramePanelTextures(PlayerTalentFramePetPanel)
-
+	
 	for i=1, 3 do
 		_G["PlayerTalentFramePanel"..i.."SelectTreeButton"]:SetFrameLevel(_G["PlayerTalentFramePanel"..i.."SelectTreeButton"]:GetFrameLevel() + 5)
 		_G["PlayerTalentFramePanel"..i.."SelectTreeButton"]:StripTextures(true)
@@ -65,21 +68,21 @@ local function LoadSkin()
 	for _, texture in pairs(KillTextures) do
 		_G[texture]:Kill()
 	end
-
+	
 	for i=1, 3 do
 		_G["PlayerTalentFramePanel"..i.."Arrow"]:SetFrameLevel(_G["PlayerTalentFramePanel"..i.."Arrow"]:GetFrameLevel() + 2)
 	end
 	PlayerTalentFramePetPanelArrow:SetFrameStrata("HIGH")
-
+	
 
 	PlayerTalentFrame:SetTemplate("Transparent")
-	PlayerTalentFramePanel1:CreateBackdrop("Transparent")
+	PlayerTalentFramePanel1:CreateBackdrop("Default")
 	PlayerTalentFramePanel1.backdrop:Point( "TOPLEFT", PlayerTalentFramePanel1, "TOPLEFT", 3, -3 )
 	PlayerTalentFramePanel1.backdrop:Point( "BOTTOMRIGHT", PlayerTalentFramePanel1, "BOTTOMRIGHT", -3, 3 )
-	PlayerTalentFramePanel2:CreateBackdrop("Transparent")
+	PlayerTalentFramePanel2:CreateBackdrop("Default")
 	PlayerTalentFramePanel2.backdrop:Point( "TOPLEFT", PlayerTalentFramePanel2, "TOPLEFT", 3, -3 )
 	PlayerTalentFramePanel2.backdrop:Point( "BOTTOMRIGHT", PlayerTalentFramePanel2, "BOTTOMRIGHT", -3, 3 )
-	PlayerTalentFramePanel3:CreateBackdrop("Transparent")
+	PlayerTalentFramePanel3:CreateBackdrop("Default")
 	PlayerTalentFramePanel3.backdrop:Point( "TOPLEFT", PlayerTalentFramePanel3, "TOPLEFT", 3, -3 )
 	PlayerTalentFramePanel3.backdrop:Point( "BOTTOMRIGHT", PlayerTalentFramePanel3, "BOTTOMRIGHT", -3, 3 )
 	PlayerTalentFrame:CreateShadow("Default")
@@ -109,7 +112,7 @@ local function LoadSkin()
 		end
 		
 		if button.Rank then
-			button.Rank:SetFont(C["media"].font, 12, C["media"].outline)
+			button.Rank:SetFont(C.media.font, 12, "THINOUTLINE")
 			button.Rank:ClearAllPoints()
 			button.Rank:SetPoint("BOTTOMRIGHT")
 		end
@@ -178,7 +181,7 @@ local function LoadSkin()
 	PlayerSpecTab1:ClearAllPoints()
 	PlayerSpecTab1:SetPoint("TOPLEFT", PlayerTalentFrame, "TOPRIGHT", 2, -32)
 	PlayerSpecTab1.SetPoint = T.dummy
-
+	
 	local function TalentSummaryClean(i)
 		local frame = _G["PlayerTalentFramePanel"..i.."Summary"]
 		frame:SetFrameLevel(frame:GetFrameLevel() + 2)
@@ -203,14 +206,14 @@ local function LoadSkin()
 			button:StripTextures()
 		end
 		
-		_G["PlayerTalentFramePanel"..i.."HeaderIconPointsSpent"]:SetFont(C["media"].font, 12, C["media"].outline)
+		_G["PlayerTalentFramePanel"..i.."HeaderIconPointsSpent"]:SetFont(C.media.font, 12, "THINOUTLINE")
 
 		if icon then
 			icon:SetTexCoord(.08, .92, .08, .92)
 			button:SetFrameLevel(button:GetFrameLevel() +1)
 			button:ClearAllPoints()
 			button:Point("TOPLEFT",panel,"TOPLEFT", 4, -4)
-			text:SetFont(C["media"].font, 12, C["media"].outline)
+			text:SetFont(C.media.font, 12, "THINOUTLINE")
 			text:Point("BOTTOMRIGHT",button, "BOTTOMRIGHT", -1, 2)
 			local frame = CreateFrame("Frame",nil, button)
 			frame:CreateBackdrop("Default", true)
@@ -243,15 +246,15 @@ local function LoadSkin()
 	T.SkinRotateButton(PlayerTalentFramePetModelRotateRightButton)
 	PlayerTalentFramePetModelRotateLeftButton:Point("BOTTOM", PlayerTalentFramePetModel, "BOTTOM", -4, 4)
 	PlayerTalentFramePetModelRotateRightButton:Point("TOPLEFT", PlayerTalentFramePetModelRotateLeftButton, "TOPRIGHT", 4, 0)
-	PlayerTalentFramePetPanel:CreateBackdrop("Transparent")
+	PlayerTalentFramePetPanel:CreateBackdrop("Default")
 	PlayerTalentFramePetPanel.backdrop:Point( "TOPLEFT", PlayerTalentFramePetPanel, "TOPLEFT", 3, -3 )
 	PlayerTalentFramePetPanel.backdrop:Point( "BOTTOMRIGHT", PlayerTalentFramePetPanel, "BOTTOMRIGHT", -3, 3 )
-	PlayerTalentFramePetModel:CreateBackdrop("Transparent")
+	PlayerTalentFramePetModel:CreateBackdrop("Default")
 	PlayerTalentFramePetModel.backdrop:Point( "TOPLEFT", PlayerTalentFramePetModel, "TOPLEFT")
 	PlayerTalentFramePetModel.backdrop:Point( "BOTTOMRIGHT", PlayerTalentFramePetModel, "BOTTOMRIGHT")
 	T.SkinButton(PlayerTalentFrameLearnButton, true)
 	T.SkinButton(PlayerTalentFrameResetButton, true)
-
+	
 	local function PetHeaderIcon(self, first)
 		local button = _G["PlayerTalentFramePetPanelHeaderIcon"]
 		local icon = _G["PlayerTalentFramePetPanelHeaderIconIcon"]
@@ -269,7 +272,7 @@ local function LoadSkin()
 			button:SetFrameLevel(button:GetFrameLevel() +1)
 			button:ClearAllPoints()
 			button:Point("TOPLEFT",panel,"TOPLEFT", 5, -5)
-			local text = button:FontString(nil, C["media"].font, 12, C["media"].outline)
+			local text = button:FontString(nil, C.media.font, 12, "THINOUTLINE")
 			text:Point("BOTTOMRIGHT",button, "BOTTOMRIGHT", -1, 2)
 			text:SetText(pointsSpent)
 			local frame = CreateFrame("Frame",nil, button)
@@ -304,7 +307,7 @@ local function LoadSkin()
 			button:SetFrameLevel(button:GetFrameLevel() +1)
 			button:ClearAllPoints()
 			button:Point("BOTTOMLEFT",panel,"TOPLEFT", 0, 10)
-			local text = button:FontString(nil, C["media"].font, 12, C["media"].outline)
+			local text = button:FontString(nil, C.media.font, 12, "THINOUTLINE")
 			text:Point("TOPRIGHT",button, "TOPRIGHT", 0, -10)
 			text:SetText(diet)
 			local frame = CreateFrame("Frame",nil, button)
@@ -325,7 +328,7 @@ local function LoadSkin()
 		end
 		
 		if button.Rank then
-			button.Rank:SetFont(C["media"].font, 12, C["media"].outline)
+			button.Rank:SetFont(C.media.font, 12, "THINOUTLINE")
 			button.Rank:ClearAllPoints()
 			button.Rank:SetPoint("BOTTOMRIGHT")
 		end

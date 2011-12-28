@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	TabardFrame:StripTextures(true)
@@ -12,7 +11,7 @@ local function LoadSkin()
 	T.SkinRotateButton(TabardCharacterModelRotateRightButton)
 	TabardFrameCostFrame:StripTextures()
 	TabardFrameCustomizationFrame:StripTextures()
-	
+
 	for i=1, 5 do
 		local custom = "TabardFrameCustomization"..i
 		_G[custom]:StripTextures()
@@ -28,7 +27,7 @@ local function LoadSkin()
 			_G[custom]:Point(point, anchor, point2, x, y+4)
 		end
 	end
-	
+
 	TabardCharacterModelRotateLeftButton:Point("BOTTOMLEFT", 4, 4)
 	TabardCharacterModelRotateRightButton:Point("TOPLEFT", TabardCharacterModelRotateLeftButton, "TOPRIGHT", 4, 0)
 	TabardCharacterModelRotateLeftButton.SetPoint = T.dummy

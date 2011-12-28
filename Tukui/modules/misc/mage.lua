@@ -30,7 +30,7 @@ f:CreateShadow("Default")
 local r = CreateFrame("Frame", nil, f)
 r:CreatePanel("Default",TukuiMinimap:GetWidth()-4,20,"TOPLEFT",f,"TOPLEFT",2,-2)
 local l = r:CreateFontString("TeleportMenuReagentText","OVERLAY")
-l:SetFont(C.datatext.font, C.datatext.fontsize, "THINOUTLINE")
+l:SetFont(T.SetUserFont())
 l:SetPoint("CENTER",r,"CENTER")
 r:SetFrameStrata("HIGH") 
  
@@ -42,7 +42,7 @@ for i,spell in pairs(spells) do
 	b:SetFrameStrata("HIGH") 
  
 	local l = b:CreateFontString(nil,"OVERLAY")
-	l:SetFont(C.datatext.font, C.datatext.fontsize, "THINOUTLINE")
+	l:SetFont(T.SetUserFont())
 	l:SetText(string.sub(teleport, string.find(teleport,":")+1))
 	b:SetFontString(l)
  
@@ -53,7 +53,7 @@ for i,spell in pairs(spells) do
 	b:SetAttribute("spell2",GetSpellInfo(spell[2]))
 	
 	b:HookScript("OnEnter", function(self)
-		local r,g,b = unpack(C["datatext"].color)
+		local r,g,b = unpack(C["media"].datatextcolor1)
 		self:SetBackdropColor(r,g,b, 0.15)
 		self:SetBackdropBorderColor(r,g,b)
 	end)

@@ -68,51 +68,49 @@ end
 
 	
 local function SpecChangeCastbar(self)
-	if C["castbar"].enable == true then
-		local specbar = CreateFrame("StatusBar", nil, UIParent)
-		specbar:Point("TOPLEFT", self, "BOTTOMLEFT", 0, -2)
-		specbar:Point("TOPRIGHT", self, "BOTTOMRIGHT", 22, -2)
-		specbar:Height(19)
-		local border = CreateFrame("Frame", specbar:GetName() and specbar:GetName() .. "InnerBorder" or nil, specbar)
-		border:Point("TOPLEFT", -T.mult, T.mult)
-		border:Point("BOTTOMRIGHT", T.mult, -T.mult)
-		border:SetBackdrop({
-			edgeFile = C["media"].blank, 
-			edgeSize = T.mult, 
-			insets = { left = T.mult, right = T.mult, top = T.mult, bottom = T.mult }
-			})
-		border:SetBackdropBorderColor(unpack(C["media"].backdropcolor))
-		specbar.iborder = border
-		specbar:CreateShadow("Default")
+	local specbar = CreateFrame("StatusBar", nil, UIParent)
+	specbar:Point("TOPLEFT", self, "BOTTOMLEFT", 0, -2)
+	specbar:Point("TOPRIGHT", self, "BOTTOMRIGHT", 22, -2)
+	specbar:Height(19)
+	local border = CreateFrame("Frame", specbar:GetName() and specbar:GetName() .. "InnerBorder" or nil, specbar)
+	border:Point("TOPLEFT", -T.mult, T.mult)
+	border:Point("BOTTOMRIGHT", T.mult, -T.mult)
+	border:SetBackdrop({
+		edgeFile = C["media"].blank, 
+		edgeSize = T.mult, 
+		insets = { left = T.mult, right = T.mult, top = T.mult, bottom = T.mult }
+		})
+	border:SetBackdropBorderColor(unpack(C["media"].backdropcolor))
+	specbar.iborder = border
+	specbar:CreateShadow("Default")
 	
-		specbar:SetStatusBarTexture(C.media.normTex)
-		specbar:GetStatusBarTexture():SetHorizTile(false)
-		specbar:SetBackdrop({bgFile = C.media.blank})
-		specbar:SetBackdropColor(.2, .2, .2, 1)
-		specbar:SetMinMaxValues(0, 5)
+	specbar:SetStatusBarTexture(C.media.normTex)
+	specbar:GetStatusBarTexture():SetHorizTile(false)
+	specbar:SetBackdrop({bgFile = C.media.blank})
+	specbar:SetBackdropColor(.2, .2, .2, 1)
+	specbar:SetMinMaxValues(0, 5)
 	
-		specbar.t = specbar:CreateFontString(specbar, "OVERLAY")
-		specbar.t:Point("CENTER", specbar, "CENTER", 0, 0)  
-		specbar.t:SetFont(C["media"].uffont, C.datatext.fontsize)	
+	specbar.t = specbar:CreateFontString(specbar, "OVERLAY")
+	specbar.t:Point("CENTER", specbar, "CENTER", 0, 0)  
+	specbar.t:SetFont(T.SetUserFont())	
 	
-		specbar:RegisterEvent("UNIT_SPELLCAST_START")
-		specbar:RegisterEvent("UNIT_SPELLCAST_STOP")
-		specbar:SetScript("OnUpdate", function(self)
-			local spell, _, DisplayName, _, startTime, endTime, _, castID, _ = UnitCastingInfo("player")
-			local time = GetTime()
-			if (spell == "Activating Primary Spec") or (spell == "Activating Secondary Spec") then
-				local val = time-(startTime/1000) or 0
-				self:SetAlpha(1)
-				self:SetValue(val)
-				specbar.t:SetText(spell)
+	specbar:RegisterEvent("UNIT_SPELLCAST_START")
+	specbar:RegisterEvent("UNIT_SPELLCAST_STOP")
+	specbar:SetScript("OnUpdate", function(self)
+		local spell, _, DisplayName, _, startTime, endTime, _, castID, _ = UnitCastingInfo("player")
+		local time = GetTime()
+		if (spell == "Activating Primary Spec") or (spell == "Activating Secondary Spec") then
+			local val = time-(startTime/1000) or 0
+			self:SetAlpha(1)
+			self:SetValue(val)
+			specbar.t:SetText(spell)
 			
-				TukuiPlayerCastBar:SetAlpha(0)
-			else
-				TukuiPlayerCastBar:SetAlpha(1)
-				self:SetAlpha(0)
-			end
-		end)
-	end
+			TukuiPlayerCastBar:SetAlpha(0)
+		else
+			TukuiPlayerCastBar:SetAlpha(1)
+			self:SetAlpha(0)
+		end
+	end)
 end
 
 -----------
@@ -136,7 +134,7 @@ spec:CreateShadow("Default")
 	-- Text
 	spec.t = spec:CreateFontString(spec, "OVERLAY")
 	spec.t:SetPoint("CENTER")
-	spec.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+	spec.t:SetFont(T.SetUserFont())
 
 	local int = 1
 	local function Update(self, t)
@@ -190,10 +188,6 @@ spec:CreateShadow("Default")
 		SpecChangeCastbar(spec)
 	end
 	
-	if C.general.colorscheme == true then
-		spec:SetBackdropColor(unpack(C.general.color))
-	end
-	
 ------------
 --Move UI
 ------------
@@ -204,18 +198,14 @@ mui:CreateShadow("Default")
 mui:Hide()	
 mui.t = mui:CreateFontString(nil, "OVERLAY")
 mui.t:SetPoint("CENTER")
-mui.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+mui.t:SetFont(T.SetUserFont())
 mui.t:SetText("Move UI")
 
 mui:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-mui:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+mui:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 mui:SetAttribute("type", "macro")
 mui:SetAttribute("macrotext", "/moveui")
 
-	if C.general.colorscheme == true then
-		mui:SetBackdropColor(unpack(C.general.color))
-	end	
-	
 ------------
 --Key Binds
 ------------
@@ -225,18 +215,14 @@ binds:CreateShadow("Default")
 
 binds.t = binds:CreateFontString(nil, "OVERLAY")
 binds.t:SetPoint("CENTER")
-binds.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+binds.t:SetFont(T.SetUserFont())
 binds.t:SetText("Bind")
 
 binds:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-binds:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+binds:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 binds:SetAttribute("type", "macro")
 binds:SetAttribute("macrotext", "/bindkey")
 
-	if C.general.colorscheme == true then
-		binds:SetBackdropColor(unpack(C.general.color))
-	end	
-	
 ---------------	
 -- Heal layout
 ---------------
@@ -246,18 +232,14 @@ heal:CreateShadow("Default")
 		
 heal.t = heal:CreateFontString(nil, "OVERLAY")
 heal.t:SetPoint("CENTER")
-heal.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+heal.t:SetFont(T.SetUserFont())
 heal.t:SetText("HEAL")
 
 heal:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-heal:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+heal:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 heal:SetAttribute("type", "macro")
 heal:SetAttribute("macrotext", "/heal")
 
-	if C.general.colorscheme == true then
-		heal:SetBackdropColor(unpack(C.general.color))
-	end
-	
 --------------
 -- DPS layout
 --------------
@@ -267,18 +249,14 @@ dps:CreateShadow("Default")
 	
 dps.t = dps:CreateFontString(nil, "OVERLAY")
 dps.t:SetPoint("CENTER")
-dps.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+dps.t:SetFont(T.SetUserFont())
 dps.t:SetText("DPS")
 
 dps:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-dps:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+dps:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 dps:SetAttribute("type", "macro")
 dps:SetAttribute("macrotext", "/dps")
 
-	if C.general.colorscheme == true then
-		dps:SetBackdropColor(unpack(C.general.color))
-	end
-	
 ------------------
 -- Addonmanager
 ------------------
@@ -288,11 +266,11 @@ am:CreateShadow("Default")
 
 am.t = am:CreateFontString(nil, "OVERLAY")
 am.t:SetPoint("CENTER", 0, -1)
-am.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+am.t:SetFont(T.SetUserFont())
 am.t:SetText("AddOnManager")
 
 am:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-am:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+am:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 am:SetAttribute("type", "macro")
 am:SetAttribute("macrotext", "/am")
 
@@ -305,11 +283,11 @@ rl:CreateShadow("Default")
 
 rl.t = rl:CreateFontString(nil, "OVERLAY")
 rl.t:SetPoint("CENTER", 0, -1)
-rl.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+rl.t:SetFont(T.SetUserFont())
 rl.t:SetText("Reload UI")
 
 rl:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-rl:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+rl:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 rl:SetAttribute("type", "macro")
 rl:SetAttribute("macrotext", "/rl")
 
@@ -322,15 +300,14 @@ cui:CreateShadow("Default")
 
 cui.t = cui:CreateFontString(nil, "OVERLAY")
 cui.t:SetPoint("CENTER", 0, -1)
-cui.t:SetFont(C["media"].uffont, C.datatext.fontsize)
+cui.t:SetFont(T.SetUserFont())
 cui.t:SetText("Config UI")
 
 cui:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-cui:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+cui:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 cui:SetAttribute("type", "macro")
 cui:SetAttribute("macrotext", "/tc")
 
-	
 ------------------		
 -- Gear switching
 ------------------
@@ -413,23 +390,19 @@ local toggle = CreateFrame("Button", nil, spec)
 toggle:CreatePanel("Default", 20, 20, "TOPLEFT", spec, "TOPRIGHT", 2, 0)
 toggle:CreateShadow("Default")
 
-	toggle.t = toggle:CreateFontString(nil, "OVERLAY")
-	toggle.t:SetPoint("CENTER")
-	toggle.t:SetFont(C["media"].uffont, C.datatext.fontsize)
-	toggle.t:SetText(cp.."+|r")
-	toggle:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
-	toggle:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+toggle.t = toggle:CreateFontString(nil, "OVERLAY")
+toggle.t:SetPoint("CENTER")
+toggle.t:SetFont(C["media"].font, C["datatext"].fontsize)
+toggle.t:SetText(cp.."+|r")
+toggle:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
+toggle:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
 		
-	toggle:SetScript("OnClick", function(self) 
-		if mui:IsShown() then	
-			mui:Hide()
-			toggle.t:SetText(cp.."+")
-		else
-			mui:Show()
-			toggle.t:SetText(cm.."-")
-		end
-	end)
-		
-	if C.general.colorscheme == true then
-		toggle:SetBackdropColor(unpack(C.general.color))
+toggle:SetScript("OnClick", function(self) 
+	if mui:IsShown() then	
+		mui:Hide()
+		toggle.t:SetText(cp.."+")
+	else
+		mui:Show()
+		toggle.t:SetText(cm.."-")
 	end
+end)

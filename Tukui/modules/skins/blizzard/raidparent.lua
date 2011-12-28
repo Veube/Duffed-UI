@@ -1,5 +1,4 @@
 local T, C, L = unpack(select(2, ...))
-if not C["skins"].bskins == true then return end
 if T.toc < 40300 then return end
 
 local function LoadSkin()
@@ -25,20 +24,20 @@ local function LoadSkin()
 		_G[buttons[i]]:StripTextures()
 		T.SkinButton(_G[buttons[i]])
 	end
-
-	RaidParentFrame:SetTemplate("Default")
+	
+	RaidParentFrame:SetTemplate("Transparent")
 	T.SkinCloseButton(RaidParentFrameCloseButton)
 	T.SkinDropDownBox(RaidFinderQueueFrameSelectionDropDown)
 	RaidFinderQueueFrameSelectionDropDown:ClearAllPoints()
 	RaidFinderQueueFrameSelectionDropDown:SetPoint("TOPRIGHT", -4, -112)
-
+	
 	for i=1, 3 do
 		local tab = _G["RaidParentFrameTab"..i]
 		if tab then
-			T.SkinTab(tab)
+			T.SkinTab(tab)	
 		end
 	end
-
+	
 	local checkButtons = {
 		"RaidFinderQueueFrameRoleButtonTank",
 		"RaidFinderQueueFrameRoleButtonHealer",
@@ -68,13 +67,13 @@ local function LoadRaidSkin()
 	for _, object in pairs(groups) do
 		_G[object]:StripTextures()
 	end
-
+	
 	for i=1,8 do
 		for j=1,5 do
 			_G["RaidGroup"..i.."Slot"..j]:StripTextures()
 		end
 	end
-
+	
 	for i=1,40 do
 		_G["RaidGroupButton"..i]:StripTextures()
 		_G["RaidGroupButton"..i]:SetTemplate("Default")

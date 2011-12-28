@@ -9,8 +9,8 @@ local icon
 local faction = T.myfaction
 local alliance = [[Interface\Icons\Pvpcurrency-honor-alliance]]
 local horde = [[Interface\Icons\Pvpcurrency-honor-horde]]
-local flash = C.auras.flash
-local filter = C.auras.consolidate
+local flash = C["auras"].flash
+local filter = C["auras"].consolidate
 
 -- Set our proxy icon
 if faction == "Horde" then
@@ -173,8 +173,7 @@ local Skin = function(self)
 
 	if(not proxy) then
 		local Duration = self:CreateFontString(nil, "OVERLAY")
-		local font, size, flags = C.media.font, 12, "OUTLINE"
-		Duration:SetFont(font, size, flags)
+		Duration:SetFont(T.SetUserFont())
 		Duration:SetPoint("BOTTOM", 0, -17)
 		self.Duration = Duration
 		
@@ -207,6 +206,7 @@ local Skin = function(self)
 	
 	-- Set a template
 	self:SetTemplate("Default")
+	self:CreateShadow("Default")
 end
 
 frame:SetScript("OnEvent", function(self, event, ...)

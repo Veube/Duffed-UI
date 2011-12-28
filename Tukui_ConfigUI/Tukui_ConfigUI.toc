@@ -3,10 +3,10 @@
 ## Notes: Someday there is only pantesaur left.
 ## Author: Tohveli
 ## Editor: Tukz, Elv22
-## Version: 13.00
-## SavedVariables: TukuiConfigAll, TukuiConfigSettings
-## SavedVariablesPerCharacter: TukuiConfig
+## SavedVariables: TukuiConfigAll, TukuiConfigPublic
+## SavedVariablesPerCharacter: TukuiConfigPrivate
 ## RequiredDeps: Tukui
+## OptionalDeps: Tukui_EditedDefaultConfig
 
 local\english.lua
 local\french.lua
@@ -16,5 +16,6 @@ local\taiwan.lua
 local\spanish.lua
 local\korean.lua
 local\chinese.lua
+local\portuguese.lua
 
 core.lua

@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	TimeManagerFrame:StripTextures()
@@ -38,7 +37,7 @@ local function LoadSkin()
 	TimeManagerStopwatchCheck:SetHighlightTexture(hover)
 	
 	StopwatchFrame:StripTextures()
-	StopwatchFrame:CreateBackdrop("Transparent")
+	StopwatchFrame:CreateBackdrop("Default")
 	StopwatchFrame.backdrop:Point("TOPLEFT", 0, -17)
 	StopwatchFrame.backdrop:Point("BOTTOMRIGHT", 0, 2)
 	

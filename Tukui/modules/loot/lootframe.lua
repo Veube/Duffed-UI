@@ -18,18 +18,20 @@ local OnEnter = function(self)
 		GameTooltip:SetLootItem(slot)
 		CursorUpdate(self)
 	end
-
+	
 	LootFrame.selectedSlot = self:GetID()
 	self.drop:Show()
 	self.drop:SetVertexColor(1, 1, 0)
 end
 
 local OnLeave = function(self)
-	if(self.quality > 1) then
-		local color = ITEM_QUALITY_COLORS[self.quality]
-		self.drop:SetVertexColor(color.r, color.g, color.b)
-	else
-		self.drop:Hide()
+	if self.quality then
+		if(self.quality > 1) then
+			local color = ITEM_QUALITY_COLORS[self.quality]
+			self.drop:SetVertexColor(color.r, color.g, color.b)
+		else
+			self.drop:Hide()
+		end
 	end
 
 	GameTooltip:Hide()
@@ -234,7 +236,6 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 				slot:Enable()
 				slot:Show()
 			end
-
 		end
 	else
 		local slot = addon.slots[1] or createSlot(1)

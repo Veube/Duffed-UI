@@ -2,7 +2,7 @@
 	Basecode from Asphyxia, thanks a lot :)
 ]]--
 
-local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+local T, C, L = unpack(select(2, ...))
 local font, fontsize, fontstyle = C.media.font, C["datatext"].fontsize, C["unitframes"].outline
 local cm = "|cff9a1212"
 
@@ -16,6 +16,8 @@ end
 local function OriginalBackdrop(self)
 	self:SetTemplate("Default")
 end
+
+local fontColor = T.RGBToHex(unpack(C.media.datatextcolor1))
 
 -- Create BG
 local addonBG = CreateFrame("Frame", "addonBG", UIParent)
@@ -33,7 +35,7 @@ local addonHeader = CreateFrame("Frame", "addonHeader", addonBG)
 addonHeader:CreatePanel("Default", addonBG:GetWidth(), 20, "BOTTOM", addonBG, "TOP", 0, 3, true)
 addonHeader.Text = T.SetFontString(addonHeader, font, fontsize, fontstyle)
 addonHeader.Text:SetPoint("CENTER", 0, 1)
-addonHeader.Text:SetText(T.panelcolor.."AddOns List"..": "..T.panelcolor..T.myname)
+addonHeader.Text:SetText("AddOns List"..": "..fontColor..T.myname)
 
 -- Create scroll frame
 local scrollFrame = CreateFrame("ScrollFrame", "scrollFrame", addonBG, "UIPanelScrollFrameTemplate")
@@ -54,7 +56,7 @@ saveButton:CreatePanel("Default", 130, 20, "BOTTOMLEFT", addonBG, "BOTTOMLEFT", 
 saveButton:SetFrameStrata("TOOLTIP")
 saveButton.text = T.SetFontString(saveButton, font, fontsize, fontstyle)
 saveButton.text:SetPoint("CENTER", 0, 0)
-saveButton.text:SetText(T.panelcolor.."Save Changes")
+saveButton.text:SetText("Save Changes")
 saveButton:SetScript("OnClick", function() ReloadUI() end)
 saveButton:HookScript("OnEnter", ModifiedBackdrop)
 saveButton:HookScript("OnLeave", OriginalBackdrop)
@@ -64,7 +66,7 @@ closeButton:CreatePanel("Default", 130, 20, "BOTTOMRIGHT", addonBG, "BOTTOMRIGHT
 closeButton:SetFrameStrata("TOOLTIP")
 closeButton.text = T.SetFontString(closeButton, font, fontsize, fontstyle)
 closeButton.text:SetPoint("CENTER", 0, 0)
-closeButton.text:SetText(T.panelcolor.."Cancel")
+closeButton.text:SetText("Cancel")
 closeButton:SetScript("OnClick", function(self) addonBG:Hide() end)
 closeButton:HookScript("OnEnter", ModifiedBackdrop)
 closeButton:HookScript("OnLeave", OriginalBackdrop)

@@ -8,9 +8,6 @@ ns._Headers = {}
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 if not C["unitframes"].enable == true then return end
 
-local font2 = C["media"].uffont
-local font1 = C["media"].font
-local fontsize = C["unitframes"].fontsize
 local backdrop = {
 	bgFile = C["media"].blank,
 	insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult},
@@ -23,7 +20,7 @@ local function Shared(self, unit)
 	self:SetScript('OnLeave', UnitFrame_OnLeave)
 	
 	self:SetBackdrop({bgFile = C["media"].blank, insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult}})
-	self:SetBackdropColor(unpack(C.media.backdropcolor))
+	self:SetBackdropColor(unpack(C["media"].backdropcolor))
 	
 	self.menu = T.SpawnMenu
 	
@@ -42,13 +39,13 @@ local function Shared(self, unit)
 	health.PostUpdate = T.PostUpdatePetColor
 	health.frequentUpdates = true
 	
-	if C.unitframes.unicolor == true then
+	if C["unitframes"].unicolor == true then
 		health.colorDisconnected = false
 		health.colorClass = false
 		health:SetStatusBarColor(unpack(C["unitframes"].healthbarcolor))
 		health.bg:SetVertexColor(unpack(C["unitframes"].deficitcolor))	
 		health.bg:SetTexture(.6, .6, .6)
-		if C.unitframes.ColorGradient then
+		if C["unitframes"].ColorGradient then
 			health.colorSmooth = true
 			health.bg:SetTexture(.2, .2, .2)
 		end
@@ -60,7 +57,7 @@ local function Shared(self, unit)
 	end
 		
 	local name = health:CreateFontString(nil, 'OVERLAY')
-	name:SetFont(font2, fontsize, "THINOUTLINE")
+	name:SetFont(T.SetUserFont())
 	name:Point("LEFT", self, "RIGHT", 5, 0)
 	if C["unitframes"].unicolor == true then
 		self:Tag(name, '[Tukui:getnamecolor][Tukui:namemedium] [Tukui:dead][Tukui:afk]')
@@ -147,8 +144,8 @@ oUF:Factory(function(self)
 		"yOffset", T.Scale(8),
 		"point", "BOTTOM"
 	)
-	if ChatBG1 then
-		raid:Point("BOTTOMLEFT", ChatBG1, "TOPLEFT", 2, 6)
+	if TukuiChatBackgroundLeft then
+		raid:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "TOPLEFT", 2, 6)
 	else
 		raid:Point("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 2, 23)
 	end

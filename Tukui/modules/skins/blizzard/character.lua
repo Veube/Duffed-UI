@@ -1,11 +1,8 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	T.SkinCloseButton(CharacterFrameCloseButton)
-	T.SkinScrollBar(CharacterStatsPaneScrollBar)
-	T.SkinScrollBar(ReputationListScrollFrameScrollBar)
-	
+
 	local slots = {
 		"HeadSlot",
 		"NeckSlot",
@@ -33,13 +30,16 @@ local function LoadSkin()
 		local slot = _G["Character"..slot]
 		slot:StripTextures()
 		slot:StyleButton(false)
-		slot:SetTemplate("Default", true)
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:ClearAllPoints()
 		icon:Point("TOPLEFT", 2, -2)
 		icon:Point("BOTTOMRIGHT", -2, 2)
+		
+		slot:SetFrameLevel(slot:GetFrameLevel() + 2)
+		slot:CreateBackdrop("Default")
+		slot.backdrop:SetAllPoints()
 	end
-	
+
 	--Strip Textures
 	local charframe = {
 		"CharacterFrame",
@@ -51,10 +51,10 @@ local function LoadSkin()
 		"PaperDollEquipmentManagerPane",
 		"PaperDollFrameItemFlyout",
 	}
-	
+
 	CharacterFrameExpandButton:Size(CharacterFrameExpandButton:GetWidth() - 7, CharacterFrameExpandButton:GetHeight() - 7)
 	T.SkinNextPrevButton(CharacterFrameExpandButton)
-	
+
 	if T.toc < 40300 then
 		T.SkinRotateButton(CharacterModelFrameRotateLeftButton)
 		T.SkinRotateButton(CharacterModelFrameRotateRightButton)
@@ -64,23 +64,23 @@ local function LoadSkin()
 		--Swap item flyout frame (shown when holding alt over a slot)
 		PaperDollFrameItemFlyout:HookScript("OnShow", function()
 			PaperDollFrameItemFlyoutButtons:StripTextures()
-
+			
 			for i=1, PDFITEMFLYOUT_MAXITEMS do
 				local button = _G["PaperDollFrameItemFlyoutButtons"..i]
 				local icon = _G["PaperDollFrameItemFlyoutButtons"..i.."IconTexture"]
 				if button then
 					button:StyleButton(false)
-
+					
 					icon:SetTexCoord(.08, .92, .08, .92)
 					button:GetNormalTexture():SetTexture(nil)
-
+					
 					icon:ClearAllPoints()
 					icon:Point("TOPLEFT", 2, -2)
-					icon:Point("BOTTOMRIGHT", -2, 2)
+					icon:Point("BOTTOMRIGHT", -2, 2)	
 					button:SetFrameLevel(button:GetFrameLevel() + 2)
 					if not button.backdrop then
 						button:CreateBackdrop("Default")
-						button.backdrop:SetAllPoints()
+						button.backdrop:SetAllPoints()			
 					end
 				end
 			end
@@ -116,7 +116,7 @@ local function LoadSkin()
 		EquipmentFlyoutFrame:HookScript("OnShow", SkinItemFlyouts)
 		hooksecurefunc("EquipmentFlyout_Show", SkinItemFlyouts)
 	end
-	
+
 	--Icon in upper right corner of character frame
 	CharacterFramePortrait:Kill()
 	CharacterModelFrame:CreateBackdrop("Default")
@@ -124,20 +124,20 @@ local function LoadSkin()
 	local scrollbars = {
 		"PaperDollTitlesPaneScrollBar",
 		"PaperDollEquipmentManagerPaneScrollBar",
+		"CharacterStatsPaneScrollBar",
+		"ReputationListScrollFrameScrollBar",
 	}
-	
+
 	for _, scrollbar in pairs(scrollbars) do
-		T.SkinScrollBar(_G[scrollbar], 5)
+		T.SkinScrollBar(_G[scrollbar])
 	end
-	
+
 	for _, object in pairs(charframe) do
 		if _G[object] then
 			_G[object]:StripTextures()
 		end
 	end
-	
-	CharacterFrame:SetTemplate("Transparent")
-	
+
 	--Titles
 	PaperDollTitlesPane:HookScript("OnShow", function(self)
 		for x, object in pairs(PaperDollTitlesPane.buttons) do
@@ -146,14 +146,15 @@ local function LoadSkin()
 			object.BgMiddle:SetTexture(nil)
 
 			object.Check:SetTexture(nil)
-			object.text:SetFont(C.datatext.font, C.datatext.fontsize)
+			object.text:SetFont(C["media"].font,12)
 			object.text.SetFont = T.dummy
 		end
 	end)
-	
+
 	--Equipement Manager
 	T.SkinButton(PaperDollEquipmentManagerPaneEquipSet)
 	T.SkinButton(PaperDollEquipmentManagerPaneSaveSet)
+	T.SkinScrollBar(GearManagerDialogPopupScrollFrameScrollBar)
 	PaperDollEquipmentManagerPaneEquipSet:Width(PaperDollEquipmentManagerPaneEquipSet:GetWidth() - 8)
 	PaperDollEquipmentManagerPaneSaveSet:Width(PaperDollEquipmentManagerPaneSaveSet:GetWidth() - 8)
 	PaperDollEquipmentManagerPaneEquipSet:Point("TOPLEFT", PaperDollEquipmentManagerPane, "TOPLEFT", 8, 0)
@@ -170,7 +171,7 @@ local function LoadSkin()
 			object:SetTemplate("Default")
 		end
 		GearManagerDialogPopup:StripTextures()
-		GearManagerDialogPopup:SetTemplate("Transparent")
+		GearManagerDialogPopup:SetTemplate("Default")
 		GearManagerDialogPopup:Point("LEFT", PaperDollFrame, "RIGHT", 4, 0)
 		GearManagerDialogPopupScrollFrame:StripTextures()
 		GearManagerDialogPopupEditBox:StripTextures()
@@ -200,12 +201,12 @@ local function LoadSkin()
 			end
 		end
 	end)
-	
+
 	--Handle Tabs at bottom of character frame
 	for i=1, 4 do
 		T.SkinTab(_G["CharacterFrameTab"..i])
 	end
-	
+
 	--Buttons used to toggle between equipment manager, titles, and character stats
 	local function FixSidebarTabCoords()
 		for i=1, #PAPERDOLL_SIDEBARS do
@@ -233,12 +234,12 @@ local function LoadSkin()
 		end
 	end
 	hooksecurefunc("PaperDollFrame_UpdateSidebarTabs", FixSidebarTabCoords)
-	
+
 	--Stat panels, atm it looks like 7 is the max
 	for i=1, 7 do
 		_G["CharacterStatsPaneCategory"..i]:StripTextures()
 	end
-	
+
 	--Reputation
 	local function UpdateFactionSkins()
 		ReputationListScrollFrame:StripTextures()
@@ -266,7 +267,7 @@ local function LoadSkin()
 			end		
 		end
 		ReputationDetailFrame:StripTextures()
-		ReputationDetailFrame:SetTemplate("Transparent")
+		ReputationDetailFrame:SetTemplate("Default")
 		ReputationDetailFrame:Point("TOPLEFT", ReputationFrame, "TOPRIGHT", 4, -28)			
 	end	
 	ReputationFrame:HookScript("OnShow", UpdateFactionSkins)
@@ -275,7 +276,7 @@ local function LoadSkin()
 	T.SkinCheckBox(ReputationDetailAtWarCheckBox)
 	T.SkinCheckBox(ReputationDetailInactiveCheckBox)
 	T.SkinCheckBox(ReputationDetailMainScreenCheckBox)
-	
+
 	--Currency
 	TokenFrame:HookScript("OnShow", function()
 		for i=1, GetCurrencyListSize() do
@@ -293,13 +294,11 @@ local function LoadSkin()
 			end
 		end
 		TokenFramePopup:StripTextures()
-		TokenFramePopup:SetTemplate("Transparent")
+		TokenFramePopup:SetTemplate("Default")
 		TokenFramePopup:Point("TOPLEFT", TokenFrame, "TOPRIGHT", 4, -28)				
 	end)
-	T.SkinCloseButton(TokenFramePopupCloseButton)
-	T.SkinCheckBox(TokenFramePopupBackpackCheckBox)
-	T.SkinCheckBox(TokenFramePopupInactiveCheckBox)
-	
+	T.SkinScrollBar(TokenFrameContainerScrollBar)
+
 	--Pet
 	PetModelFrame:CreateBackdrop("Default")
 	PetPaperDollFrameExpBar:StripTextures()
@@ -309,40 +308,38 @@ local function LoadSkin()
 	T.SkinRotateButton(PetModelFrameRotateLeftButton)
 	PetModelFrameRotateRightButton:ClearAllPoints()
 	PetModelFrameRotateRightButton:Point("LEFT", PetModelFrameRotateLeftButton, "RIGHT", 4, 0)
-	
+
 	local xtex = PetPaperDollPetInfo:GetRegions()
 	xtex:SetTexCoord(.12, .63, .15, .55)
 	PetPaperDollPetInfo:CreateBackdrop("Default")
 	PetPaperDollPetInfo:Size(24, 24)
 	
 	-- a request to color item by rarity on character frame.
-	if C["skins"].itemborder == true then
-		local function ColorItemBorder()
-			for _, slot in pairs(slots) do
-				-- Colour the equipment slots by rarity
-				local target = _G["Character"..slot]
-				local slotId, _, _ = GetInventorySlotInfo(slot)
-				local itemId = GetInventoryItemID("player", slotId)
-
-				if itemId then
-					local _, _, rarity, _, _, _, _, _, _, _, _ = GetItemInfo(itemId)
-					if rarity then				
-						target:SetBackdropBorderColor(GetItemQualityColor(rarity)) --target.backdrop:SetBackdropBorderColor(GetItemQualityColor(rarity))
-					end
-				else
-					target:SetBackdropBorderColor(unpack(C.media.bordercolor))
+	local function ColorItemBorder()
+		for _, slot in pairs(slots) do
+			-- Colour the equipment slots by rarity
+			local target = _G["Character"..slot]
+			local slotId, _, _ = GetInventorySlotInfo(slot)
+			local itemId = GetInventoryItemID("player", slotId)
+			
+			if itemId then
+				local _, _, rarity, _, _, _, _, _, _, _, _ = GetItemInfo(itemId)
+				if rarity then				
+					target.backdrop:SetBackdropBorderColor(GetItemQualityColor(rarity))
 				end
+			else
+				target.backdrop:SetBackdropBorderColor(unpack(C.media.bordercolor))
 			end
 		end
-	
-		-- execute item coloring everytime we open character frame
-		CharacterFrame:HookScript("OnShow", ColorItemBorder)
-
-		-- execute item coloring everytime an item is changed
-		local CheckItemBorderColor = CreateFrame("Frame")
-		CheckItemBorderColor:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-		CheckItemBorderColor:SetScript("OnEvent", ColorItemBorder)
 	end
+	
+	-- execute item coloring everytime we open character frame
+	CharacterFrame:HookScript("OnShow", ColorItemBorder)
+	
+	-- execute item coloring everytime an item is changed
+	local CheckItemBorderColor = CreateFrame("Frame")
+	CheckItemBorderColor:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+	CheckItemBorderColor:SetScript("OnEvent", ColorItemBorder)
 end
 
 tinsert(T.SkinFuncs["Tukui"], LoadSkin)

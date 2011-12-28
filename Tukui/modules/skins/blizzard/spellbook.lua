@@ -1,9 +1,7 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
-
+local T, C, L = unpack(select(2, ...))
 local function LoadSkin()
 	T.SkinCloseButton(SpellBookFrameCloseButton)
-	
+
 	local StripAllTextures = {
 		"SpellBookFrame",
 		"SpellBookFrameInset",
@@ -11,28 +9,29 @@ local function LoadSkin()
 		"SpellBookSideTabsFrame",
 		"SpellBookPageNavigationFrame",
 	}
-	
+
 	local KillTextures = {
 		"SpellBookPage1",
 		"SpellBookPage2",
 	}
-	
+
 	for _, object in pairs(StripAllTextures) do
 		_G[object]:StripTextures()
 	end
 	
+	SpellBookFrame:SetTemplate("Transparent")
+
 	for _, texture in pairs(KillTextures) do
 		_G[texture]:Kill()
 	end
-	
+
 	local pagebackdrop = CreateFrame("Frame", nil, SpellBookPage1:GetParent())
-	pagebackdrop:SetTemplate("Transparent")
 	pagebackdrop:Point("TOPLEFT", SpellBookFrame, "TOPLEFT", 50, -50)
 	pagebackdrop:Point("BOTTOMRIGHT", SpellBookPage1, "BOTTOMRIGHT", 15, 35)
 
 	T.SkinNextPrevButton(SpellBookPrevPageButton)
 	T.SkinNextPrevButton(SpellBookNextPageButton)
-	
+
 	--Skin SpellButtons
 	local function SpellButtons(self, first)
 		for i=1, SPELLS_PER_PAGE do
@@ -40,7 +39,6 @@ local function LoadSkin()
 			local icon = _G["SpellButton"..i.."IconTexture"]
 			
 			if first then
-				--button:StripTextures()
 				for i=1, button:GetNumRegions() do
 					local region = select(i, button:GetRegions())
 					if region:GetObjectType() == "Texture" then
@@ -61,7 +59,7 @@ local function LoadSkin()
 				icon:SetTexCoord(.08, .92, .08, .92)
 				icon:ClearAllPoints()
 				icon:SetAllPoints()
-
+				
 				if not button.backdrop then
 					button:CreateBackdrop("Default", true)	
 				end
@@ -78,9 +76,9 @@ local function LoadSkin()
 	end
 	SpellButtons(nil, true)
 	hooksecurefunc("SpellButton_UpdateButton", SpellButtons)
-	
+
 	SpellBookPageText:SetTextColor(0.6, 0.6, 0.6)
-	
+
 	--Skill Line Tabs
 	for i=1, MAX_SKILLLINE_TABS do
 		local tab = _G["SpellBookSkillLineTab"..i]
@@ -89,6 +87,7 @@ local function LoadSkin()
 			tab:StripTextures()
 			tab:GetNormalTexture():SetTexCoord(.08, .92, .08, .92)
 			tab:GetNormalTexture():ClearAllPoints()
+
 			tab:GetNormalTexture():Point("TOPLEFT", 2, -2)
 			tab:GetNormalTexture():Point("BOTTOMRIGHT", -2, 2)
 			
@@ -100,7 +99,7 @@ local function LoadSkin()
 			tab:Point(point, relatedTo, point2, 1, y)
 		end
 	end
-	
+
 	local function SkinSkillLine()
 		for i=1, MAX_SKILLLINE_TABS do
 			local tab = _G["SpellBookSkillLineTab"..i]
@@ -113,10 +112,10 @@ local function LoadSkin()
 			end
 		end
 	end
-	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs", SkinSkillLine)
-	SpellBookFrame:SetTemplate("Transparent")
+	hooksecurefunc("SpellBookFrame_UpdateSkillLineTabs", SkinSkillLine)			
+	SpellBookFrame:SetTemplate("Default")
 	SpellBookFrame:CreateShadow("Default")
-	
+
 	--Profession Tab
 	local professionbuttons = {
 		"PrimaryProfession1SpellButtonTop",
@@ -132,7 +131,7 @@ local function LoadSkin()
 		"SecondaryProfession4SpellButtonLeft",
 		"SecondaryProfession4SpellButtonRight",		
 	}
-	
+
 	local professionheaders = {
 		"PrimaryProfession1",
 		"PrimaryProfession2",
@@ -141,18 +140,18 @@ local function LoadSkin()
 		"SecondaryProfession3",
 		"SecondaryProfession4",
 	}
-	
+
 	for _, header in pairs(professionheaders) do
 		_G[header.."Missing"]:SetTextColor(1, 1, 0)
 		_G[header].missingText:SetTextColor(0.6, 0.6, 0.6)
 	end
-	
+
 	for _, button in pairs(professionbuttons) do
 		local icon = _G[button.."IconTexture"]
 		local rank = _G[button.."SubSpellName"]
 		local button = _G[button]
 		button:StripTextures()
-		
+
 		if rank then rank:SetTextColor(1, 1, 1) end
 		if icon then
 			icon:SetTexCoord(.08, .92, .08, .92)
@@ -166,7 +165,7 @@ local function LoadSkin()
 			end
 		end					
 	end
-	
+
 	local professionstatusbars = {
 		"PrimaryProfession1StatusBar",	
 		"PrimaryProfession2StatusBar",	
@@ -175,7 +174,7 @@ local function LoadSkin()
 		"SecondaryProfession3StatusBar",	
 		"SecondaryProfession4StatusBar",
 	}
-	
+
 	for _, statusbar in pairs(professionstatusbars) do
 		local statusbar = _G[statusbar]
 		statusbar:StripTextures()
@@ -186,7 +185,7 @@ local function LoadSkin()
 		statusbar.rankText:ClearAllPoints()
 		statusbar.rankText:SetPoint("CENTER")
 	end
-	
+
 	--Mounts/Companions
 	for i = 1, NUM_COMPANIONS_PER_PAGE do
 		local button = _G["SpellBookCompanionButton"..i]
@@ -206,18 +205,18 @@ local function LoadSkin()
 			end
 		end					
 	end
-	
+
 	T.SkinButton(SpellBookCompanionSummonButton)
 	SpellBookCompanionModelFrame:StripTextures()
 	SpellBookCompanionModelFrameShadowOverlay:StripTextures()
 	SpellBookCompanionsModelFrame:Kill()
 	SpellBookCompanionModelFrame:SetTemplate("Default")
-	
+
 	T.SkinRotateButton(SpellBookCompanionModelFrameRotateRightButton)
 	T.SkinRotateButton(SpellBookCompanionModelFrameRotateLeftButton)
 	SpellBookCompanionModelFrameRotateRightButton:Point("TOPLEFT", SpellBookCompanionModelFrameRotateLeftButton, "TOPRIGHT", 3, 0)
-	
-	
+
+
 	--Bottom Tabs
 	for i=1, 5 do
 		T.SkinTab(_G["SpellBookFrameTabButton"..i])

@@ -4,18 +4,23 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 --------------------------------------------------------------------
 
 if C["datatext"].armor and C["datatext"].armor > 0 then
-	local Stat = CreateFrame("Frame")
+	local effectiveArmor
+	
+	local Stat = CreateFrame("Frame", "TukuiStatArmor")
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
+	Stat.Option = C.datatext.armor
+	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+	local Text  = Stat:CreateFontString("TukuiStatArmorText", "OVERLAY")
+	Text:SetFont(T.SetUserFont())
 	T.PP(C["datatext"].armor, Text)
 
 	local function Update(self)
-		baseArmor , effectiveArmor, armor, posBuff, negBuff = UnitArmor("player");
-		Text:SetText((T.panelcolor..effectiveArmor).."|r "..L.datatext_armor)
+		effectiveArmor = select(2, UnitArmor("player"))
+		Text:SetText(Stat.Color2..(effectiveArmor).."|r "..Stat.Color1..L.datatext_armor.."|r")
 		--Setup Armor Tooltip
 		self:SetAllPoints(Text)
 	end
@@ -26,19 +31,15 @@ if C["datatext"].armor and C["datatext"].armor > 0 then
 	Stat:SetScript("OnMouseDown", function() ToggleCharacter("PaperDollFrame") end)
 	Stat:SetScript("OnEvent", Update)
 	Stat:SetScript("OnEnter", function(self)
-		-- if not InCombatLockdown() then
+		if not InCombatLockdown() then
 			local anchor, panel, xoff, yoff = T.DataTextTooltipAnchor(Text)	
-			if panel == TukuiMinimapStatsLeft or panel == TukuiMinimapStatsRight then
-				GameTooltip:SetOwner(panel, anchor, xoff, yoff)
-			else
-				GameTooltip:SetOwner(self, anchor, xoff, yoff)
-			end
+			GameTooltip:SetOwner(panel, anchor, xoff, yoff)
 			GameTooltip:ClearLines()
 			GameTooltip:AddLine(L.datatext_mitigation)
 			local lv = 83
+			local mitigation = (effectiveArmor/(effectiveArmor+(467.5*lv-22167.5)))
 			for i = 1, 4 do
 				local format = string.format
-				local mitigation = (effectiveArmor/(effectiveArmor+(467.5*lv-22167.5)));
 				if mitigation > .75 then
 					mitigation = .75
 				end
@@ -46,14 +47,13 @@ if C["datatext"].armor and C["datatext"].armor > 0 then
 				lv = lv - 1
 			end
 			if UnitLevel("target") > 0 and UnitLevel("target") < UnitLevel("player") then
-				mitigation = (effectiveArmor/(effectiveArmor+(467.5*(UnitLevel("target"))-22167.5)));
 				if mitigation > .75 then
 					mitigation = .75
 				end
 				GameTooltip:AddDoubleLine(UnitLevel("target"),format("%.2f", mitigation*100) .. "%",1,1,1)
 			end
 			GameTooltip:Show()
-		-- end
+		end
 	end)
 	Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
 end

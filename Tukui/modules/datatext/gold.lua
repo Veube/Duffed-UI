@@ -4,13 +4,16 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 --------------------------------------------------------------------
 
 if C["datatext"].gold and C["datatext"].gold > 0 then
-	local Stat = CreateFrame("Frame")
+	local Stat = CreateFrame("Frame", "TukuiStatGold")
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
+	Stat.Option = C.datatext.gold
+	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
+	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
-	local Text  = TukuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C["datatext"].font, C["datatext"].fontsize)
+	local Text  = Stat:CreateFontString("TukuiStatGoldText", "OVERLAY")
+	Text:SetFont(T.SetUserFont())
 	T.PP(C["datatext"].gold, Text)
 
 	local Profit	= 0
@@ -23,11 +26,11 @@ if C["datatext"].gold and C["datatext"].gold > 0 then
 		local silver = mod(floor(math.abs(money) / 100), 100)
 		local copper = mod(floor(math.abs(money)), 100)
 		if gold ~= 0 then
-			return format("%s"..L.goldabbrev.." %s"..L.silverabbrev.." %s"..L.copperabbrev, gold, silver, copper)
+			return format(Stat.Color2.."%s|r"..L.goldabbrev..Stat.Color2.." %s|r"..L.silverabbrev..Stat.Color2.." %s|r"..L.copperabbrev, gold, silver, copper)
 		elseif silver ~= 0 then
-			return format("%s"..L.silverabbrev.." %s"..L.copperabbrev, silver, copper)
+			return format(Stat.Color2.."%s|r"..L.silverabbrev..Stat.Color2.." %s|r"..L.copperabbrev, silver, copper)
 		else
-			return format("%s"..L.copperabbrev, copper)
+			return format(Stat.Color2.."%s|r"..L.copperabbrev, copper)
 		end
 	end
 
@@ -74,13 +77,9 @@ if C["datatext"].gold and C["datatext"].gold > 0 then
 	Stat:SetScript("OnMouseDown", function() ToggleAllBags() end)
 	Stat:SetScript("OnEvent", OnEvent)
 	Stat:SetScript("OnEnter", function(self)
-		-- if not InCombatLockdown() then
+		if not InCombatLockdown() then
 			local anchor, panel, xoff, yoff = T.DataTextTooltipAnchor(Text)
-			if panel == TukuiMinimapStatsLeft or panel == TukuiMinimapStatsRight then
-				GameTooltip:SetOwner(panel, anchor, xoff, yoff)
-			else
-				GameTooltip:SetOwner(self, anchor, xoff, yoff)
-			end
+			GameTooltip:SetOwner(panel, anchor, xoff, yoff)
 			GameTooltip:ClearLines()
 			GameTooltip:AddLine(L.datatext_session)
 			GameTooltip:AddDoubleLine(L.datatext_earned, formatMoney(Profit), 1, 1, 1, 1, 1, 1)
@@ -114,7 +113,7 @@ if C["datatext"].gold and C["datatext"].gold > 0 then
 				if name and count then GameTooltip:AddDoubleLine(name, count, r, g, b, 1, 1, 1) end
 			end
 			GameTooltip:Show()
-		-- end
+		end
 	end)
 	Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)	
 	-- reset gold data

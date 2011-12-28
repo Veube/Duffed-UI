@@ -1,5 +1,4 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	--Class Trainer Frame
@@ -50,11 +49,12 @@ local function LoadSkin()
 		_G[buttons[i]]:StripTextures()
 		T.SkinButton(_G[buttons[i]])
 	end
-
+	
 	T.SkinDropDownBox(ClassTrainerFrameFilterDropDown, 155)
 	T.SkinScrollBar(ClassTrainerScrollFrameScrollBar)
 
-	ClassTrainerFrame:CreateBackdrop("Transparent")
+	ClassTrainerFrame:CreateBackdrop("Default")
+	ClassTrainerFrame:SetTemplate("Transparent")
 	ClassTrainerFrame.backdrop:Point("TOPLEFT", ClassTrainerFrame, "TOPLEFT")
 	ClassTrainerFrame.backdrop:Point("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT")
 	T.SkinCloseButton(ClassTrainerFrameCloseButton,ClassTrainerFrame)
@@ -69,8 +69,6 @@ local function LoadSkin()
 	ClassTrainerStatusBar:StripTextures()
 	ClassTrainerStatusBar:SetStatusBarTexture(C["media"].normTex)
 	ClassTrainerStatusBar:CreateBackdrop("Default")
-	ClassTrainerStatusBar.rankText:ClearAllPoints()
-	ClassTrainerStatusBar.rankText:SetPoint("CENTER", ClassTrainerStatusBar, "CENTER")
 end
 
 T.SkinFuncs["Blizzard_TrainerUI"] = LoadSkin

@@ -1,5 +1,4 @@
 local T, C, L = unpack(select(2, ...))
-if not C["skins"].bskins == true then return end
 if T.toc < 40300 then return end
 
 ----------------------------------------------------------------------------------------
@@ -21,7 +20,7 @@ local function LoadSkin()
 		_G[object]:StripTextures()
 	end
 
-	VoidStorageFrame:SetTemplate("Default")
+	VoidStorageFrame:SetTemplate("Transparent")
 	VoidStoragePurchaseFrame:SetTemplate("Default")
 	VoidStorageFrameMarbleBg:Kill()
 	VoidStorageFrameLines:Kill()

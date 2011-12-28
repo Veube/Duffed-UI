@@ -1,18 +1,17 @@
-local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
+local T, C, L = unpack(select(2, ...))
 
 if T.client == "deDE" then
-
-	L.chat_BATTLEGROUND_GET = "[B]"
-	L.chat_BATTLEGROUND_LEADER_GET = "[B]"
+	L.chat_BATTLEGROUND_GET = "B"
+	L.chat_BATTLEGROUND_LEADER_GET = "B"
 	L.chat_BN_WHISPER_GET = "Von"
-	L.chat_GUILD_GET = "[G]"
-	L.chat_OFFICER_GET = "[O]"
-	L.chat_PARTY_GET = "[P]"
-	L.chat_PARTY_GUIDE_GET = "[P]"
-	L.chat_PARTY_LEADER_GET = "[P]"
-	L.chat_RAID_GET = "[R]"
-	L.chat_RAID_LEADER_GET = "[R]"
-	L.chat_RAID_WARNING_GET = "[W]"
+	L.chat_GUILD_GET = "G"
+	L.chat_OFFICER_GET = "O"
+	L.chat_PARTY_GET = "P"
+	L.chat_PARTY_GUIDE_GET = "P"
+	L.chat_PARTY_LEADER_GET = "P"
+	L.chat_RAID_GET = "R"
+	L.chat_RAID_LEADER_GET = "R"
+	L.chat_RAID_WARNING_GET = "W"
 	L.chat_WHISPER_GET = "Von"
 	L.chat_FLAG_AFK = "[AFK]"
 	L.chat_FLAG_DND = "[DND]"
@@ -26,8 +25,9 @@ if T.client == "deDE" then
 	L.chat_recrutment = "Gildenrekrutierung"
 	L.chat_lfg = "SucheNachGruppe"
 	
-	L.disband = "Gruppe wird aufgelöst."  
- 
+	L.disband = "Gruppe wird aufgelöst ?"  
+
+	L.datatext_notalents ="Keine Spezalisierung"  --changed
 	L.datatext_download = "Download: "
 	L.datatext_bandwidth = "Bandbreite: "
 	L.datatext_guild = "Gilde"
@@ -115,6 +115,7 @@ if T.client == "deDE" then
 	L.popup_install_no = "Nein, das is echt großer Mist"
 	L.popup_reset_yes = "Yeah baby!"
 	L.popup_reset_no = "Nein!"
+	L.popup_fix_ab = "Etwas stimmt nicht mit der Aktionsleiste. Willst du UI neu laden um es zu beheben?"  --changed
  
 	L.merchant_repairnomoney = "Du hast nicht genügend Gold zum Reparieren!" 
 	L.merchant_repaircost = "Deine Rüstung wurde repariert für"
@@ -160,10 +161,10 @@ if T.client == "deDE" then
 	L.bags_nothingsort= "Nichts zu sortieren."
 	L.bags_bids = "Benutze Taschen: "
 	L.bags_stackend = "Neu stapeln abgeschlossen."  
-	L.bags_rightclick_search = "Rechtsklick, um zu suchen."
+	L.bags_rightclick_search = "Rechtsklick, um zu suchen." 
 	
-	L.loot_fish = "Fishy loot"
-	L.loot_empty = "Empty slot"
+	L.loot_fish = "Faule Beute" --changed
+	L.loot_empty = "Leerer slot" --changed
  
 	L.chat_invalidtarget = "Falsches Ziel"
  
@@ -221,6 +222,7 @@ if T.client == "deDE" then
 	L.move_achievements = "Erfolgsfenster bewegen"
 	L.move_roll = "Würfelfenster bewegen"
 	L.move_vehicle = "Fahrzeugausstieg bewegen"
+	L.move_extrabutton = "Extra Button"
 	
 	-- tuto/install
 	L.install_header_1 = "Willkommen"

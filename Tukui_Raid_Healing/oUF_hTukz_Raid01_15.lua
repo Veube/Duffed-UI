@@ -8,10 +8,7 @@ ns._Headers = {}
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 if not C["unitframes"].enable == true or C["unitframes"].gridonly == true then return end
 
-local font2 = C["media"].uffont
-local font1 = C["media"].font
 local normTex = C["media"].normTex
-local fontsize = C["unitframes"].fontsize
 local backdrop = {
 	bgFile = C["media"].blank,
 	insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult},
@@ -24,7 +21,7 @@ local function Shared(self, unit)
 	self:SetScript('OnLeave', UnitFrame_OnLeave)
 	
 	self:SetBackdrop({bgFile = C["media"].blank, insets = {top = -T.mult, left = -T.mult, bottom = -T.mult, right = -T.mult}})
-	self:SetBackdropColor(unpack(C.media.backdropcolor))
+	self:SetBackdropColor(unpack(C["media"].backdropcolor))
 	
 	self.menu = T.SpawnMenu
 	
@@ -43,7 +40,7 @@ local function Shared(self, unit)
 		
 	health.value = health:CreateFontString(nil, "OVERLAY")
 	health.value:Point("RIGHT", health, -3, 1)
-	health.value:SetFont(font2, fontsize, "THINOUTLINE")
+	health.value:SetFont(T.SetUserFont())
 	health.value:SetTextColor(1,1,1)
 	health.value:SetShadowOffset(1, -1)
 	self.Health.value = health.value
@@ -52,13 +49,13 @@ local function Shared(self, unit)
 	
 	health.frequentUpdates = true
 	
-	if C.unitframes.unicolor == true then
+	if C["unitframes"].unicolor == true then
 		health.colorDisconnected = false
 		health.colorClass = false
 		health:SetStatusBarColor(unpack(C["unitframes"].healthbarcolor))
 		health.bg:SetVertexColor(unpack(C["unitframes"].deficitcolor))	
 		health.bg:SetTexture(.6, .6, .6)
-		if C.unitframes.ColorGradient then
+		if C["unitframes"].ColorGradient then
 			health.colorSmooth = true
 			health.bg:SetTexture(.2, .2, .2)
 		end
@@ -86,7 +83,7 @@ local function Shared(self, unit)
 	power.bg.multiplier = 0.4
 	self.Power.bg = power.bg
 	
-	if C.unitframes.powerClasscolored then
+	if C["unitframes"].powerClasscolored then
 		power.colorClass = true
 		power.bg.multiplier = 0.1			
 	else
@@ -95,7 +92,7 @@ local function Shared(self, unit)
 	
 	local name = health:CreateFontString(nil, "OVERLAY")
     name:Point("LEFT", health, 3, 0)
-	name:SetFont(font2, fontsize, "THINOUTLINE")
+	name:SetFont(T.SetUserFont())
 	name:SetShadowOffset(1, -1)
 	self:Tag(name, "[Tukui:namemedium]")
 	self.Name = name
@@ -202,10 +199,10 @@ local function Shared(self, unit)
 	if T.myclass == "PRIEST" and C["unitframes"].weakenedsoulbar then
 		local ws = CreateFrame("StatusBar", self:GetName().."_WeakenedSoul", power)
 		ws:SetAllPoints(power)
-		ws:SetStatusBarTexture(C.media.normTex)
+		ws:SetStatusBarTexture(C["media"].normTex)
 		ws:GetStatusBarTexture():SetHorizTile(false)
 		ws:SetBackdrop(backdrop)
-		ws:SetBackdropColor(unpack(C.media.backdropcolor))
+		ws:SetBackdropColor(unpack(C["media"].backdropcolor))
 		ws:SetStatusBarColor(191/255, 10/255, 10/255)
     
 		self.WeakenedSoul = ws
@@ -241,8 +238,8 @@ oUF:Factory(function(self)
 	"groupBy", "GROUP", 
 	"yOffset", T.Scale(-8))
 	
-	if ChatBG1 then
-		raid:Point("BOTTOMLEFT", ChatBG1, "TOPLEFT", 2, 6)
+	if TukuiChatBackgroundLeft then
+		raid:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "TOPLEFT", 2, 6)
 	else
 		raid:Point("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 2, 23)
 	end

@@ -1,9 +1,8 @@
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if not C["skins"].bskins == true then return end
+local T, C, L = unpack(select(2, ...))
 
 local function LoadSkin()
 	MailFrame:StripTextures(true)
-	MailFrame:CreateBackdrop("Transparent")
+	MailFrame:CreateBackdrop("Default")
 	MailFrame.backdrop:Point("TOPLEFT", 4, 0)
 	MailFrame.backdrop:Point("BOTTOMRIGHT", 2, 74)
 	MailFrame.backdrop:CreateShadow("Default")
@@ -27,12 +26,10 @@ local function LoadSkin()
 		t:Point("TOPLEFT", 2, -2)
 		t:Point("BOTTOMRIGHT", -2, 2)
 	end
-	
+
 	T.SkinCloseButton(InboxCloseButton)
 	T.SkinNextPrevButton(InboxPrevPageButton)
 	T.SkinNextPrevButton(InboxNextPageButton)
-	T.SkinButton(OpenAllButton)
-	T.SkinButton(OpenAllButton2)
 
 	MailFrameTab1:StripTextures()
 	MailFrameTab2:StripTextures()
@@ -44,17 +41,17 @@ local function LoadSkin()
 	SendMailScrollFrame:SetTemplate("Default")
 
 	T.SkinScrollBar(SendMailScrollFrameScrollBar)
-	
+
 	T.SkinEditBox(SendMailNameEditBox)
 	T.SkinEditBox(SendMailSubjectEditBox)
 	T.SkinEditBox(SendMailMoneyGold)
 	T.SkinEditBox(SendMailMoneySilver)
 	T.SkinEditBox(SendMailMoneyCopper)
-	
+
 	SendMailNameEditBox.backdrop:Point("BOTTOMRIGHT", 2, 0)
 	SendMailSubjectEditBox.backdrop:Point("BOTTOMRIGHT", 2, 0)
 	SendMailFrame:StripTextures()
-	
+
 	local function MailFrameSkin()
 		for i = 1, ATTACHMENTS_MAX_SEND do				
 			local b = _G["SendMailAttachment"..i]
@@ -74,34 +71,34 @@ local function LoadSkin()
 		end
 	end
 	hooksecurefunc("SendMailFrame_Update", MailFrameSkin)
-	
+
 	T.SkinButton(SendMailMailButton)
 	T.SkinButton(SendMailCancelButton)
-	
+
 	-- open mail (cod)
 	OpenMailFrame:StripTextures(true)
-	OpenMailFrame:CreateBackdrop("Transparent")
+	OpenMailFrame:CreateBackdrop("Default")
 	OpenMailFrame.backdrop:Point("TOPLEFT", 4, 0)
 	OpenMailFrame.backdrop:Point("BOTTOMRIGHT", 2, 74)
 	OpenMailFrame.backdrop:CreateShadow("Default")
 	OpenMailFrame:SetWidth(360)
-	
+
 	T.SkinCloseButton(OpenMailCloseButton)
 	T.SkinButton(OpenMailReportSpamButton)
 	T.SkinButton(OpenMailReplyButton)
 	T.SkinButton(OpenMailDeleteButton)
 	T.SkinButton(OpenMailCancelButton)
-	
+
 	OpenMailScrollFrame:StripTextures(true)
 	OpenMailScrollFrame:SetTemplate("Default")
 
 	T.SkinScrollBar(OpenMailScrollFrameScrollBar)
-	
+
 	SendMailBodyEditBox:SetTextColor(1, 1, 1)
 	OpenMailBodyText:SetTextColor(1, 1, 1)
 	InvoiceTextFontNormal:SetTextColor(1, 1, 1)
 	OpenMailArithmeticLine:Kill()
-	
+
 	OpenMailLetterButton:StripTextures()
 	OpenMailLetterButton:SetTemplate("Default", true)
 	OpenMailLetterButton:StyleButton()
@@ -109,7 +106,7 @@ local function LoadSkin()
 	OpenMailLetterButtonIconTexture:ClearAllPoints()
 	OpenMailLetterButtonIconTexture:Point("TOPLEFT", 2, -2)
 	OpenMailLetterButtonIconTexture:Point("BOTTOMRIGHT", -2, 2)
-	
+
 	OpenMailMoneyButton:StripTextures()
 	OpenMailMoneyButton:SetTemplate("Default", true)
 	OpenMailMoneyButton:StyleButton()
@@ -117,7 +114,7 @@ local function LoadSkin()
 	OpenMailMoneyButtonIconTexture:ClearAllPoints()
 	OpenMailMoneyButtonIconTexture:Point("TOPLEFT", 2, -2)
 	OpenMailMoneyButtonIconTexture:Point("BOTTOMRIGHT", -2, 2)
-	
+
 	for i = 1, ATTACHMENTS_MAX_SEND do				
 		local b = _G["OpenMailAttachmentButton"..i]
 		b:StripTextures()
@@ -132,7 +129,7 @@ local function LoadSkin()
 			t:Point("BOTTOMRIGHT", -2, 2)
 		end				
 	end
-	
+
 	OpenMailReplyButton:Point("RIGHT", OpenMailDeleteButton, "LEFT", -2, 0)
 	OpenMailDeleteButton:Point("RIGHT", OpenMailCancelButton, "LEFT", -2, 0)
 	SendMailMailButton:Point("RIGHT", SendMailCancelButton, "LEFT", -2, 0)

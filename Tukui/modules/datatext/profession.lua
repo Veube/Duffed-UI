@@ -1,23 +1,21 @@
---------------------------------------------------------------------
--- Professions
---------------------------------------------------------------------
-local T, C, L = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
+local T, C, L = unpack(select(2, ...))
 
 if not C["datatext"].profession or C["datatext"].profession == 0 then return end
 
-local Stat = CreateFrame("Frame")
+local Stat = CreateFrame("Frame", "TukuiStatProfession")
 Stat:EnableMouse(true)
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
 	
-local Text = T.SetFontString(TukuiInfoLeft, C.datatext.font, C["datatext"].fontsize)
+local Text = Stat:CreateFontString("TukuiStatProfessionText", "OVERLAY")
+Text:SetFont(T.SetUserFont())
 T.PP(C["datatext"].profession, Text)
 
 local function Update(self)
 	for _, v in pairs({GetProfessions()}) do
 		if v ~= nil then
 			local name, texture, rank, maxRank = GetProfessionInfo(v)
-			Text:SetFormattedText("Profession")
+			Text:SetFormattedText(T.panelcolor.."Profession")
 		end
 	end
 	self:SetAllPoints(Text)
