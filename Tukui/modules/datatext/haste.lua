@@ -8,8 +8,6 @@ if C["datatext"].haste and C["datatext"].haste > 0 then
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
 	Stat.Option = C.datatext.haste
-	Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1))
-	Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
 
 	local Text  = Stat:CreateFontString("TukuiStatHasteText", "OVERLAY")
 	Text:SetFont(T.SetUserFont())
@@ -18,9 +16,9 @@ if C["datatext"].haste and C["datatext"].haste > 0 then
 	local int = 1
 
 	local function Update(self, t)
-		local spellhaste = GetCombatRating(20)
-		local rangedhaste = GetCombatRating(19)
-		local attackhaste = GetCombatRating(18)
+		spellhaste = UnitSpellHaste("player");
+		rangedhaste = GetRangedHaste();
+		attackhaste = GetMeleeHaste();
 		
 		if attackhaste > spellhaste and select(2, UnitClass("Player")) ~= "HUNTER" then
 			haste = attackhaste
@@ -32,7 +30,7 @@ if C["datatext"].haste and C["datatext"].haste > 0 then
 		
 		int = int - t
 		if int < 0 then
-			Text:SetText(format("%.2f", Stat.Color2..haste).."% "..Stat.Color1..L.datatext_playerhaste.."|r")
+			Text:SetText(format("%.2f", haste).."% "..T.panelcolor..L.datatext_playerhaste)
 			int = 1
 		end     
 	end

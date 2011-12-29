@@ -33,7 +33,7 @@ if C["actionbar"].layout ~= 1 then
 	end
 else
 	local bar = TukuiBar2
-	if C["actionbar"].swapbar1and3 then bar = TukuiBar1 end
+	if C["actionbar"].swapbar1and3 and C["actionbar"].layout == 1 then bar = TukuiBar1 end
 	MultiBarBottomRight:SetParent(bar)
 
 	for i= 1, 12 do

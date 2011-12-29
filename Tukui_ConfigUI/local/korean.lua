@@ -18,6 +18,7 @@
 	TukuiConfigUILocalization.datatextexperience = "Experience position (0 for disabled)"
 	TukuiConfigUILocalization.datatextdodge = "Dodge position (0 for disabled)"
 	TukuiConfigUILocalization.datatextreputation = "Reputation position (0 for disabled)"
+	TukuiConfigUILocalization.datatextmmenu = "Shows mMenu datatext (required: mMenu AddOn)"
 
 	TukuiConfigUILocalization.unitframeshealthbarcolor = "Set healthbarcolor"
 	TukuiConfigUILocalization.unitframesframewidth = "Set framewidth for player & target"
@@ -61,9 +62,7 @@
 	TukuiConfigUILocalization.castbarenable = "Enable castbar"
 	TukuiConfigUILocalization.castbarcblatency = "Show cast bar latency"
 	TukuiConfigUILocalization.castbarcbicons = "Show icons on cast bar"
-	TukuiConfigUILocalization.castbarclasscolored = "Set castbar to classcolor"
 	TukuiConfigUILocalization.castbarfocuswidth = "Set width of focuscastbar"
-	TukuiConfigUILocalization.castbarcolor = "Set color of castbar"
 
 	TukuiConfigUILocalization.classtimer = "Classtimer"
 	TukuiConfigUILocalization.classtimerenable = "Enable Classtimer"

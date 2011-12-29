@@ -18,13 +18,21 @@ for i=1, 12 do
 	b:SetFrameStrata("BACKGROUND")
 	b:SetFrameLevel(15)
 	
-	if i == 1 then
-		if T.lowversion or C["actionbar"].layout == 2 then
-			b:SetPoint("TOPLEFT", bar, "TOPLEFT", T.buttonspacing, -T.buttonspacing)
+	if C["actionbar"].layout == 2 and C["actionbar"].swapbar1and3 then
+		if i == 1 then
+			b:SetPoint("BOTTOMLEFT", bar, T.buttonspacing, T.buttonspacing)
 		else
-			b:SetPoint("BOTTOMLEFT", bar, "BOTTOM", T.buttonspacing/2, T.buttonspacing)
+			b:SetPoint("LEFT", b2, "RIGHT", T.buttonspacing, 0)
 		end
 	else
-		b:SetPoint("LEFT", b2, "RIGHT", T.buttonspacing, 0)
+		if i == 1 then
+			if T.lowversion or C["actionbar"].layout == 2 then
+				b:SetPoint("TOPLEFT", bar, "TOPLEFT", T.buttonspacing, -T.buttonspacing)
+			else
+				b:SetPoint("BOTTOMLEFT", bar, "BOTTOM", T.buttonspacing/2, T.buttonspacing)
+			end
+		else
+			b:SetPoint("LEFT", b2, "RIGHT", T.buttonspacing, 0)
+		end
 	end
 end

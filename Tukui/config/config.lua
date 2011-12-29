@@ -173,8 +173,6 @@ C["castbar"] = {
 	["enable"] = true,											-- enable castbar
 	["cbicons"] = true,											-- enable castbaricons
 	["cblatency"] = false,                              		-- enable castbar latency
-	["classcolored"] = true,									-- enable classcolor for castbar
-		["color"] = { 0.9, 0.9, 0.9, 0.9 },						-- Castbar color for everything except player (if classcolored = false)
 	["focuswidth"] = 240,										-- Focus Castbar width
 }
 
@@ -224,6 +222,7 @@ C["datatext"] = {
 	["reputation"] = 5,											-- show reputation
 	["honor"] = 0,												-- show honor
 	["honorablekills"] = 0,										-- show honorable kills
+	["mmenu"] = 0,												-- shows mMenu datatext (required: mMenu AddOn)
 
 	["battleground"] = true,                            		-- enable 3 stats in battleground only that replace stat1,stat2,stat3.
 	["time24"] = true,                                  		-- set time to 24h format.

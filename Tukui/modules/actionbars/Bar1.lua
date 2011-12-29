@@ -9,7 +9,7 @@ if not C["actionbar"].enable == true then return end
 ---------------------------------------------------------------------------
 
 local bar = TukuiBar1
-if C["actionbar"].swapbar1and3 then bar = TukuiBar2 end
+if C["actionbar"].swapbar1and3 and C["actionbar"].layout == 1 then bar = TukuiBar2 end
 --[[ 
 	Bonus bar classes id
 
@@ -82,11 +82,20 @@ bar:SetScript("OnEvent", function(self, event, ...)
 			button:SetParent(bar)
 			button:SetFrameStrata("BACKGROUND")
 			button:SetFrameLevel(15)
-			if i == 1 then
-				button:SetPoint("BOTTOMLEFT", T.buttonspacing, T.buttonspacing)
+			if C["actionbar"].layout == 2 and C["actionbar"].swapbar1and3 then
+				if i == 1 then
+					button:SetPoint("TOPLEFT", T.buttonspacing, -T.buttonspacing)
+				else
+					local previous = _G["ActionButton"..i-1]
+					button:SetPoint("LEFT", previous, "RIGHT", T.buttonspacing, 0)
+				end
 			else
-				local previous = _G["ActionButton"..i-1]
-				button:SetPoint("LEFT", previous, "RIGHT", T.buttonspacing, 0)
+				if i == 1 then
+					button:SetPoint("BOTTOMLEFT", T.buttonspacing, T.buttonspacing)
+				else
+					local previous = _G["ActionButton"..i-1]
+					button:SetPoint("LEFT", previous, "RIGHT", T.buttonspacing, 0)
+				end
 			end
 		end
 	elseif event == "ACTIVE_TALENT_GROUP_CHANGED" then
