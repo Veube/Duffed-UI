@@ -98,12 +98,13 @@ local function Shared(self, unit)
 		
 		if C["unitframes"].percent then
 			local percHP = T.SetFontString(health, C["media"].font, 20, "THINOUTLINE")
+			percHP:SetTextColor(unpack(C["media"].datatextcolor1))
 			if unit == "player" then
                 percHP:SetPoint("LEFT", health, "RIGHT", 5, 0)
 			elseif unit == "target" then
 				percHP:SetPoint("RIGHT", health, "LEFT", -5, 0)
 			end
-			self:Tag(percHP, "[Tukui:perchp]")
+			self:Tag(percHP, "[perhp]")
 			self.percHP = percHP
 		end
 		
