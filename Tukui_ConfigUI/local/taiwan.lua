@@ -21,6 +21,8 @@
 	TukuiConfigUILocalization.datatextdodge = "Dodge position (0 for disabled)"
 	TukuiConfigUILocalization.datatextreputation = "Reputation position (0 for disabled)"
 	TukuiConfigUILocalization.datatextmmenu = "Shows mMenu datatext (required: mMenu AddOn)"
+	TukuiConfigUILocalization.datatextcolor1 = "Set color for datatext title (is overwritten if classcolor = true)"
+	TukuiConfigUILocalization.datatextcolor2 = "Set color for datatext results"
 
 	TukuiConfigUILocalization.unitframeshealthbarcolor = "Set healthbarcolor"
 	TukuiConfigUILocalization.unitframesframewidth = "Set framewidth for player & target"

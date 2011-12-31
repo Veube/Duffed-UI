@@ -65,9 +65,9 @@ local function exec(self, enable)
 				self:SetAttribute("xOffset", -35)
 			end
 			if position:match( "BOTTOM" ) then
-				self:SetAttribute("wrapYOffset", 67.5)
+				self:SetAttribute("wrapYOffset", -52)
 			else
-				self:SetAttribute("wrapYOffset", -67.5)
+				self:SetAttribute("wrapYOffset", -52)
 			end
 			self:SetBackdropColor(0, 0, 0, 0)
 			self:SetBackdropBorderColor(0, 0, 0, 0)

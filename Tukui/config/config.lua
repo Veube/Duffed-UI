@@ -228,6 +228,8 @@ C["datatext"] = {
 	["time24"] = true,                                  		-- set time to 24h format.
 	["localtime"] = false,                              		-- set time to local time instead of server time.
 	["fontsize"] = 12,                                  		-- font size for panels.
+	["color1"] = { .4, .4, .4 },								-- color of datatext title
+	["color2"] = { 1, 1, 1 },									-- color of datatext result
 }
 
 C["chat"] = {

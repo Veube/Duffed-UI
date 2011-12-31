@@ -53,8 +53,8 @@ C["media"] = {
 	-- colors
 	["bordercolor"] = C["general"].bordercolor or { .15, .15, .15 }, 											-- border color of tukui panels
 	["backdropcolor"] = C["general"].backdropcolor or { .05,.05,.05 }, 											-- background color of tukui panels
-	["datatextcolor1"] = { .4, .4, .4 },																		-- color of datatext title
-	["datatextcolor2"] = { 1, 1, 1 }, 																			-- color of datatext result
+	["datatextcolor1"] = C["datatext"].color1 or { .4, .4, .4 },												-- color of datatext title
+	["datatextcolor2"] = C["datatext"].color2 or { 1, 1, 1 },													-- color of datatext result
 	
 	-- sound
 	["whisper"] = [[Interface\AddOns\Tukui\medias\sounds\whisper.mp3]],											-- soundnotification for incoming whisper
