@@ -69,6 +69,7 @@ C["unitframes"] = {
 	["showplayerinparty"] = false,                      		-- show my player frame in party
 	["gridscale"] = 1,                                  		-- set the healing grid scaling
 	["gridvertical"] = false,                           		-- grid group displayed vertically
+	["hidepp"] = false,											-- hide partypets @heallayout
 	
 	-- boss frames
 	["showboss"] = true,                                		-- enable boss unit frames for PVELOL encounters.
@@ -179,7 +180,7 @@ C["castbar"] = {
 C["bags"] = {
 	["enable"] = true,                                  		-- enable an all in one bag mod that fit tukui perfectly
 	["transparent"] = false,									-- enable transparent bags
-	["movable"] = false,										-- enable moveable bags
+	["moveable"] = false,										-- enable moveable bags
 }
 
 C["loot"] = {

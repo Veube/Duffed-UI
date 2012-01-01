@@ -9,7 +9,7 @@ if GetLocale() == "zhCN" then
 	TukuiConfigUILocalization.generalthreatbar = "Set threatbar to the right Chattabbackground"
 	TukuiConfigUILocalization.generaloverridehightolow = "Use Lowres-Layout on Highres"
 
-	TukuiConfigUILocalization.bagsmovable = "Enable moveable Bags"
+	TukuiConfigUILocalization.bagsmoveable = "Enable moveable Bags"
 	TukuiConfigUILocalization.bagstransparent = "Enable transparent Bagbackground"
 
 	TukuiConfigUILocalization.datatexthonor = "Honor position (0 for disabled)"
@@ -39,6 +39,7 @@ if GetLocale() == "zhCN" then
 	TukuiConfigUILocalization.unitframeslargefocus = "Enable large focusframe (layout 1 & 2)"
 	TukuiConfigUILocalization.unitframesfader = "Enable fader for unitframes (out of combat)"
 	TukuiConfigUILocalization.unitframesgridsolo = "Show Grid always"
+	TukuiConfigUILocalization.unitframeshidepp = "Hide Partypets on Heallayout"
 
 	TukuiConfigUILocalization.skins = "Skins"
 	TukuiConfigUILocalization.skinsdxe = "Enable DXE-Skin"

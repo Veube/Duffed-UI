@@ -244,14 +244,16 @@ oUF:Factory(function(self)
 		raid:Point("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 2, 23)
 	end
 	
-	local pets = {} 
-		pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
-		pets[1]:Point('BOTTOMLEFT', raid, 'TOPLEFT', 0, 24*T.raidscale)
-		pets[1]:Size(150*T.raidscale, 32*T.raidscale)
-	for i =2, 4 do 
-		pets[i] = oUF:Spawn('partypet'..i, 'oUF_TukuiPartyPet'..i) 
-		pets[i]:Point('BOTTOM', pets[i-1], 'TOP', 0, 8)
-		pets[i]:Size(150*T.raidscale, 32*T.raidscale)
+	if C["unitframes"].hidepp == false then
+		local pets = {} 
+			pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
+			pets[1]:Point('BOTTOMLEFT', raid, 'TOPLEFT', 0, 24*T.raidscale)
+			pets[1]:Size(150*T.raidscale, 32*T.raidscale)
+		for i =2, 4 do 
+			pets[i] = oUF:Spawn('partypet'..i, 'oUF_TukuiPartyPet'..i) 
+			pets[i]:Point('BOTTOM', pets[i-1], 'TOP', 0, 8)
+			pets[i]:Size(150*T.raidscale, 32*T.raidscale)
+		end
 	end
 		
 	local RaidMove = CreateFrame("Frame")

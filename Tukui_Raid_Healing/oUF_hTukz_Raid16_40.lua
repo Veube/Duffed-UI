@@ -305,7 +305,7 @@ oUF:Factory(function(self)
 		raid:Point("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 2, 23)
 	end
 	
-	if C["unitframes"].gridpets and not C["unitframes"].gridvertical then
+	if C["unitframes"].hidepp == false and not C["unitframes"].gridvertical then
 		local pets = {} 
 			pets[1] = oUF:Spawn('partypet1', 'oUF_TukuiPartyPet1') 
 			pets[1]:Point('BOTTOMLEFT', raid, 'TOPLEFT', 0, 8)

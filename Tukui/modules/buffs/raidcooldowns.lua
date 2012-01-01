@@ -51,7 +51,7 @@ local UpdatePositions = function()
 	for i = 1, #bars do
 		bars[i]:ClearAllPoints()
 		if i == 1 then
-			bars[i]:Point("BOTTOMRIGHT", rcda, "BOTTOMRIGHT", -2, 2)
+			bars[i]:Point("TOPLEFT", rcda, "BOTTOMLEFT", -2, -5)
 		else
 			bars[i]:Point("TOPLEFT", bars[i-1], "BOTTOMLEFT", 0, -8)
 		end
@@ -146,7 +146,7 @@ local StartTimer = function(name, spellId)
 	local spell, rank, icon = GetSpellInfo(spellId)
 	bar.endTime = GetTime() + spell_list[spellId]
 	bar.startTime = GetTime()
-	bar.left:SetText(name.." - "..spell)
+	bar.left:SetText(spell.." - "..name)
 	bar.right:SetText(T.FormatTime(spell_list[spellId]))
 	bar.icon:SetNormalTexture(icon)
 	bar.icon:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)
