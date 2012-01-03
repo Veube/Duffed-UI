@@ -92,6 +92,45 @@ local function SetTemplate(f, t, tex)
 	f:SetBackdropBorderColor(borderr, borderg, borderb)
 end
 
+local function Animate(self, x, y, duration)
+	self.anim = self:CreateAnimationGroup("Move_In")
+	self.anim.in1 = self.anim:CreateAnimation("Translation")
+	self.anim.in1:SetDuration(0)
+	self.anim.in1:SetOrder(1)
+	self.anim.in2 = self.anim:CreateAnimation("Translation")
+	self.anim.in2:SetDuration(duration)
+	self.anim.in2:SetOrder(2)
+	self.anim.in2:SetSmoothing("OUT")
+	self.anim.out1 = self:CreateAnimationGroup("Move_Out")
+	self.anim.out2 = self.anim.out1:CreateAnimation("Translation")
+	self.anim.out2:SetDuration(duration)
+	self.anim.out2:SetOrder(1)
+	self.anim.out2:SetSmoothing("IN")
+	self.anim.in1:SetOffset(Scale(x), Scale(y))
+	self.anim.in2:SetOffset(Scale(-x), Scale(-y))
+	self.anim.out2:SetOffset(Scale(x), Scale(y))
+	self.anim.out1:SetScript("OnFinished", function() self:Hide() end)
+end
+
+local function SlideIn(self)
+	if not self.anim then
+		Animate(self)
+	end
+
+	self.anim.out1:Stop()
+	self:Show()
+	self.anim:Play()
+end
+
+local function SlideOut(self)
+	if self.anim then
+		self.anim:Finish()
+	end
+
+	self.anim:Stop()
+	self.anim.out1:Play()
+end
+
 local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	UpdateColor(t)
 		
@@ -176,6 +215,18 @@ local function Kill(object)
 	end
 	object.Show = noop
 	object:Hide()
+end
+
+local function CreateOverlay(f)
+	if f.overlay then return end
+
+	local overlay = f:CreateTexture(f:GetName() and f:GetName() .. "Overlay" or nil, "BORDER", f)
+	overlay:ClearAllPoints()
+	overlay:Point("TOPLEFT", 2, -2)
+	overlay:Point("BOTTOMRIGHT", -2, 2)
+	overlay:SetTexture(C["media"].normTex)
+	overlay:SetVertexColor(.05, .05, .05)
+	f.overlay = overlay
 end
 
 -- styleButton function authors are Chiril & Karudon.
@@ -297,6 +348,10 @@ local function addapi(object)
 	if not object.CreateBackdrop then mt.CreateBackdrop = CreateBackdrop end
 	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
 	if not object.CreateLine then mt.CreateLine = CreateLine end
+	if not object.Animate then mt.Animate = Animate end
+	if not object.SlideIn then mt.SlideIn = SlideIn end
+	if not object.SlideOut then mt.SlideOut = SlideOut end
+	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
 end
 
 local handled = {["Frame"] = true}

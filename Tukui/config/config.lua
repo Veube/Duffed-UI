@@ -135,6 +135,7 @@ C["misc"] = {
 	["sComboenergybar"] = true,									-- enable energybar below combopoints
 	["bossicons"] = true,										-- enable alternativ bossicons
 	["ilvlcharacter"] = true,									-- enable itemlevel / durability display on characterscreen
+	["combatanimation"] = true,									-- enable the animation for entering or leaving combat
 }
 
 C["arena"] = {
@@ -168,6 +169,7 @@ C["actionbar"] = {
 	["shapeshiftborder"] = true,								-- enable border for shapeshiftbar
 	["macro"] = true,											-- enable macrohighlightning for procs
 	["layout"] = 1,												-- set layout for actionbars
+	["macrotext"] = true,										-- enable macrotext on actionbuttons
 }
 
 C["castbar"] = {
@@ -237,6 +239,8 @@ C["chat"] = {
 	["enable"] = true,                                  		-- blah
 	["whispersound"] = true,                            		-- play a sound when receiving whisper
 	["background"] = true,										-- enable chatbackground
+	["backgroundheight"] = 149,									-- set height of chabackground (one option for both backgrounds)
+	["backgroundwidth"] = 357,									-- set width of chatbackground (one option for both backgrounds)
 	["fading"] = true,											-- enable textfading
 	["textright"] = true,										-- set textalign to right for right chatframe
 }

@@ -8,7 +8,7 @@ if C["actionbar"].layout ~= 1 then
 	TukuiBar1:SetFrameStrata("BACKGROUND")
 	TukuiBar1:SetFrameLevel(1)
 else
-	TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 27)
+	TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 26)
 	TukuiBar1:SetFrameStrata("BACKGROUND")
 	TukuiBar1:SetFrameLevel(1)
 	if T.lowversion then
@@ -110,7 +110,7 @@ end
 if C["chat"].background then
 	-- CHAT BG LEFT
 	local chatleftbg = CreateFrame("Frame", "TukuiChatBackgroundLeft", UIParent)
-	chatleftbg:CreatePanel("Transparent", T.InfoLeftRightWidth + 12, 149, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5, 5)
+	chatleftbg:CreatePanel("Transparent", C["chat"].backgroundwidth, C["chat"].backgroundheight, "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5, 5)
 	if T.lowversion or C["actionbar"].layout == 2 then
 		chatleftbg:Point("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5, 24)
 	else
@@ -120,7 +120,7 @@ if C["chat"].background then
 
 	-- CHAT BG RIGHT
 	local chatrightbg = CreateFrame("Frame", "TukuiChatBackgroundRight", UIParent)
-	chatrightbg:CreatePanel("Transparent", T.InfoLeftRightWidth + 12, 149, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 5)
+	chatrightbg:CreatePanel("Transparent", C["chat"].backgroundwidth, C["chat"].backgroundheight, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 5)
 	if T.lowversion or C["actionbar"].layout == 2 then
 		chatrightbg:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 24)
 	else

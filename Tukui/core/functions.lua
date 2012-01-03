@@ -306,20 +306,20 @@ T.cbSize = function()
 			if TukuiPetBar:IsShown() then
 				TukuiPlayerCastBar:Width(TukuiPetBar:GetWidth() - x)
 			else
-				TukuiPlayerCastBar:Width(TukuiBar2:GetWidth() - x)
+				TukuiPlayerCastBar:Width((TukuiBar2:GetWidth() + 1) - x)
 			end
 		else
-			TukuiPlayerCastBar:Width(TukuiBar2:GetWidth() - x)
+			TukuiPlayerCastBar:Width((TukuiBar2:GetWidth() + 1) - x)
 		end
 	else
 		if C["actionbar"].petbarhorizontal == true then
 			if TukuiPetBar:IsShown() then
 				TukuiPlayerCastBar:Width(TukuiPetBar:GetWidth() - x)
 			else
-				TukuiPlayerCastBar:Width(TukuiBar1:GetWidth() - x)
+				TukuiPlayerCastBar:Width((TukuiBar1:GetWidth() + 1) - x)
 			end
 		else
-			TukuiPlayerCastBar:Width(TukuiBar1:GetWidth() - x)
+			TukuiPlayerCastBar:Width((TukuiBar1:GetWidth() + 1) - x)
 		end
 	end
 end

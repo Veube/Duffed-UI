@@ -39,9 +39,16 @@ function T.StyleActionBarButton(self)
 	Count:Point("BOTTOMRIGHT", 0, 2)
 	Count:SetFont(T.SetUserFont())
 
-	if Btname then
-		Btname:SetText("")
-		Btname:Kill()
+	if not C["actionbar"].macrotext == true then
+		if Btname then
+			Btname:SetText("")
+			Btname:Kill()
+		end
+	else
+		if Btname then
+			Btname:SetAlphaGradient(0,Button:GetWidth())
+			Btname:SetFont(T.SetUserFont())
+		end
 	end
  
 	if not _G[name.."Panel"] then

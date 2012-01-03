@@ -41,6 +41,7 @@
 	<Script file="core\protection.lua"/>
 	<Script file="core\popups.lua"/>
 	<Script file="core\install.lua"/>
+	<Script file="core\helpframe.lua"/>
 	
 	<Script file="modules\blizzard\watchframe.lua"/>
 	<Script file="modules\blizzard\durability.lua"/>

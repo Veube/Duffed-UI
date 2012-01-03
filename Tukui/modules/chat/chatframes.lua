@@ -263,11 +263,19 @@ T.SetDefaultChatPosition = function(frame)
 		
 		if id == 1 then
 			frame:ClearAllPoints()
-			frame:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "BOTTOMLEFT", 3, 6)
+			if T.lowversion or C["chat"].background == false then
+				frame:Point("BOTTOMLEFT", TukuiInfoLeft, "BOTTOMLEFT", 3, 24)
+			else
+				frame:Point("BOTTOMLEFT", TukuiChatBackgroundLeft, "BOTTOMLEFT", 3, 6)
+			end
 		elseif id == 4 and name == LOOT then
 			if not frame.isDocked then
 				frame:ClearAllPoints()
-				frame:Point("BOTTOMRIGHT", TukuiChatBackgroundRight, "BOTTOMRIGHT", -9, 6)
+				if T.lowversion or C["chat"].background == false then
+					frame:Point("BOTTOMRIGHT", TukuiInfoRight, "BOTTOMRIGHT", -9, 24)
+				else
+					frame:Point("BOTTOMRIGHT", TukuiChatBackgroundRight, "BOTTOMRIGHT", -9, 6)
+				end
 				if C["chat"].textright then
 					frame:SetJustifyH("RIGHT")
 				else

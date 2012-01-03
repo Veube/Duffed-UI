@@ -90,6 +90,7 @@
 	TukuiConfigUILocalization.miscsesset2 = "Set Set for second Spec"
 	TukuiConfigUILocalization.miscsescastbar = "Enable castbar on Specswitcher"
 	TukuiConfigUILocalization.miscilvlcharacter = "Enable display for itemlevel / durability on Characterscreen"
+	TukuiConfigUILocalization.misccombatanimation = "Enable animation for entering or leaving combat"
 
 	TukuiConfigUILocalization.aurasremindersound = "Enable sound for Selfbuffreminder"
 	TukuiConfigUILocalization.aurasselfbufs = "Enable Selfbuffreminder"
@@ -98,15 +99,18 @@
 	TukuiConfigUILocalization.actionbarshapeshiftborder = "Enable border for Shapeshiftbar"
 	TukuiConfigUILocalization.actionbarbutton2 = "Hide button between the Datatextpanels"
 	TukuiConfigUILocalization.actionbarrightbarsmouseover = "Set rightbars to mouseover"
-	TukuiConfigUILocalization.actionbarmacro = "Enable Highlightning for Provs in macros"
+	TukuiConfigUILocalization.actionbarmacro = "Enable Highlightning for Procs in macros"
 	TukuiConfigUILocalization.actionbarpetbaralwaysvisible = "Show always the petbar"
 	TukuiConfigUILocalization.actionbarverticalshapeshift = "Set Shapeshiftbar vertical"
 	TukuiConfigUILocalization.actionbarswapbar1and3 = "Swaps mainbar with bar3 on top"
 	TukuiConfigUILocalization.actionbarpetbarhorizontal = "Set Petbar horizontal"
 	TukuiConfigUILocalization.actionbarlayout = "Set Actionbarlayout"
+	TukuiConfigUILocalization.actionbarmacrotext = "Enable macrotext on actionbuttons"
 
 	TukuiConfigUILocalization.chatfading = "Enable Chatfading"
 	TukuiConfigUILocalization.chattextright = "Set text to right in the right chatframe"
+	TukuiConfigUILocalization.chatbackgroundwidth = "Set width for chatbackground (one option for both panels)"
+	TukuiConfigUILocalization.chatbackgroundheight = "Set height for chatbackground (one option for both panels)"
 
 	TukuiConfigUILocalization.duffed = "Duffed"
 	TukuiConfigUILocalization.duffedannouncechannel = "Set announcechannel (SAY, PARTY, RAID)"

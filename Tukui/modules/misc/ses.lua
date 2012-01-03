@@ -113,68 +113,66 @@ local function SpecChangeCastbar(self)
 	end)
 end
 
------------
 -- Spec
------------
 local spec = CreateFrame("Button", "Tukui_Spechelper", UIParent)
 spec:CreatePanel("Default", 1, 20, "TOPRIGHT", UIParent, "TOPRIGHT", -32, -212)
 spec:CreateShadow("Default")
 
-	-- Positioning EDIT HERE FOR ANCHORING!
-	if TukuiMinimap then
-		spec:SetPoint("TOPLEFT", TukuiMinimap, "BOTTOMLEFT", 0, -2)
-		spec:SetPoint("TOPRIGHT", TukuiMinimap, "BOTTOMRIGHT", -22, -2)
-	end
+-- Positioning EDIT HERE FOR ANCHORING!
+if TukuiMinimap then
+	spec:SetPoint("TOPLEFT", TukuiMinimap, "BOTTOMLEFT", 22, -2)
+	spec:SetPoint("TOPRIGHT", TukuiMinimap, "BOTTOMRIGHT", -22, -2)
+end
 	
-	if TukuiMinimapStatsLeft and TukuiMinimapStatsRight then
-		spec:SetPoint("TOPLEFT", TukuiMinimapStatsLeft, "BOTTOMLEFT", 0, -2)
-		spec:SetPoint("TOPRIGHT", TukuiMinimapStatsRight, "BOTTOMRIGHT", -22, -2)
-	end
+if TukuiMinimapStatsLeft and TukuiMinimapStatsRight then
+	spec:SetPoint("TOPLEFT", TukuiMinimapStatsLeft, "BOTTOMLEFT", 22, -2)
+	spec:SetPoint("TOPRIGHT", TukuiMinimapStatsRight, "BOTTOMRIGHT", -22, -2)
+end
 	
-	-- Text
-	spec.t = spec:CreateFontString(spec, "OVERLAY")
-	spec.t:SetPoint("CENTER")
-	spec.t:SetFont(T.SetUserFont())
+-- Text
+spec.t = spec:CreateFontString(spec, "OVERLAY")
+spec.t:SetPoint("CENTER")
+spec.t:SetFont(T.SetUserFont())
 
-	local int = 1
-	local function Update(self, t)
-	int = int - t
-	if int > 0 then return end
-		if not GetPrimaryTalentTree() then spec.t:SetText("No talents") return end
-		local tree1, tree2, tree3, Tree = ActiveTalents()
-		name = select(2, GetTalentTabInfo(Tree))
-		spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3)
+local int = 1
+local function Update(self, t)
+int = int - t
+if int > 0 then return end
+	if not GetPrimaryTalentTree() then spec.t:SetText("No talents") return end
+	local tree1, tree2, tree3, Tree = ActiveTalents()
+	name = select(2, GetTalentTabInfo(Tree))
+	spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3)
 		
-		if HasDualSpec() then
-			if HasUnactiveTalents() then 
-				local sTree1, sTree2, sTree3, sTree = UnactiveTalents()
-				sName = select(2, GetTalentTabInfo(sTree))
-				spec:SetScript("OnEnter", function() spec.t:SetText(cm..sName.." "..panelcolor..sTree1.."/"..sTree2.."/"..sTree3) end)
-				spec:SetScript("OnLeave", function() spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3) end)
-			else
-				spec:SetScript("OnEnter", function() spec.t:SetText(cm.."No talents") end)
-				spec:SetScript("OnLeave", function() spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3) end)
-			end
-		end
-		int = 1
-		self:SetScript("OnUpdate", nil)
-	end
-
-	local function OnEvent(self, event)
-		if event == "PLAYER_ENTERING_WORLD" then
-			self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	if HasDualSpec() then
+		if HasUnactiveTalents() then 
+			local sTree1, sTree2, sTree3, sTree = UnactiveTalents()
+			sName = select(2, GetTalentTabInfo(sTree))
+			spec:SetScript("OnEnter", function() spec.t:SetText(cm..sName.." "..panelcolor..sTree1.."/"..sTree2.."/"..sTree3) end)
+			spec:SetScript("OnLeave", function() spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3) end)
 		else
-			self:SetScript("OnUpdate", Update)
+			spec:SetScript("OnEnter", function() spec.t:SetText(cm.."No talents") end)
+			spec:SetScript("OnLeave", function() spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3) end)
 		end
-	end	
-	
-	spec:RegisterEvent("PLAYER_TALENT_UPDATE")
-	spec:RegisterEvent("PLAYER_ENTERING_WORLD")
-	spec:RegisterEvent("CHARACTER_POINTS_CHANGED")
-	spec:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-	spec:SetScript("OnEvent", OnEvent) 
+	end
+	int = 1
+	self:SetScript("OnUpdate", nil)
+end
 
-	spec:SetScript("OnClick", function(self) 
+local function OnEvent(self, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	else
+		self:SetScript("OnUpdate", Update)
+	end
+end	
+	
+spec:RegisterEvent("PLAYER_TALENT_UPDATE")
+spec:RegisterEvent("PLAYER_ENTERING_WORLD")
+spec:RegisterEvent("CHARACTER_POINTS_CHANGED")
+spec:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+spec:SetScript("OnEvent", OnEvent) 
+
+spec:SetScript("OnClick", function(self) 
 	local i = GetActiveTalentGroup()
 	if IsModifierKeyDown() then
 		ToggleTalentFrame()
@@ -182,17 +180,15 @@ spec:CreateShadow("Default")
 		if i == 1 then SetActiveTalentGroup(2) end
 		if i == 2 then SetActiveTalentGroup(1) end
 	end
-	end)
+end)
 	
-	if Specswitchcastbar == true then
-		SpecChangeCastbar(spec)
-	end
-	
-------------
+if Specswitchcastbar == true then
+	SpecChangeCastbar(spec)
+end
+
 --Move UI
-------------
 local mui = CreateFrame("Button", nil, spec, "SecureActionButtonTemplate")
-mui:CreatePanel("Default", 48, 19, "TOPLEFT", spec, "BOTTOMLEFT", 0, -2)
+mui:CreatePanel("Default", 48, 19, "TOPLEFT", spec, "BOTTOMLEFT", -22, -2)
 mui:CreateShadow("Default")
 
 mui:Hide()	
@@ -206,9 +202,7 @@ mui:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["me
 mui:SetAttribute("type", "macro")
 mui:SetAttribute("macrotext", "/moveui")
 
-------------
 --Key Binds
-------------
 local binds = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
 binds:CreatePanel("Default", 30, 19, "LEFT", mui, "RIGHT", 3, 0)
 binds:CreateShadow("Default")
@@ -223,9 +217,7 @@ binds:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["
 binds:SetAttribute("type", "macro")
 binds:SetAttribute("macrotext", "/bindkey")
 
----------------	
 -- Heal layout
----------------
 local heal = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
 heal:CreatePanel("Default", 29, 19, "LEFT", binds, "RIGHT", 3, 0)
 heal:CreateShadow("Default")
@@ -240,9 +232,7 @@ heal:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["m
 heal:SetAttribute("type", "macro")
 heal:SetAttribute("macrotext", "/heal")
 
---------------
 -- DPS layout
---------------
 local dps = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
 dps:CreatePanel("Default", 28, 19, "LEFT", heal, "RIGHT", 3, 0)	
 dps:CreateShadow("Default")
@@ -257,9 +247,7 @@ dps:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["me
 dps:SetAttribute("type", "macro")
 dps:SetAttribute("macrotext", "/dps")
 
-------------------
 -- Addonmanager
-------------------
 local am = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
 am:CreatePanel("Default", 144, 19, "TOPLEFT", mui, "BOTTOMLEFT", 0, -2)
 am:CreateShadow("Default")
@@ -274,9 +262,7 @@ am:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["med
 am:SetAttribute("type", "macro")
 am:SetAttribute("macrotext", "/am")
 
-------------------
 -- ReloadUI
-------------------
 local rl = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
 rl:CreatePanel("Default", 70, 19, "TOPLEFT", am, "BOTTOMLEFT", 0, -2)
 rl:CreateShadow("Default")
@@ -291,9 +277,7 @@ rl:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["med
 rl:SetAttribute("type", "macro")
 rl:SetAttribute("macrotext", "/rl")
 
-------------------
 -- ConfigUI
-------------------
 local cui = CreateFrame("Button", nil, mui, "SecureActionButtonTemplate")
 cui:CreatePanel("Default", 71, 19, "LEFT", rl, "RIGHT", 3, 0)
 cui:CreateShadow("Default")
@@ -308,9 +292,7 @@ cui:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["me
 cui:SetAttribute("type", "macro")
 cui:SetAttribute("macrotext", "/tc")
 
-------------------		
 -- Gear switching
-------------------
 if Enablegear == true then
 	local gearSets = CreateFrame("Frame", nil, dps)	
 	for i = 1, 10 do
@@ -383,9 +365,20 @@ if Enablegear == true then
 	end
 end
 
-----------------
+-- helpframebutton
+local DuffedUIMainFrameButton = CreateFrame("Button", "DuffedUIHelpButton", spec, "SecureActionButtonTemplate")
+DuffedUIMainFrameButton:CreatePanel("Default", 20, 20, "TOPRIGHT", spec, "TOPLEFT", -2, 0)
+DuffedUIMainFrameButton:CreateShadow("Default")
+DuffedUIMainFrameButton.t = DuffedUIMainFrameButton:CreateFontString(nil, "OVERLAY")
+DuffedUIMainFrameButton.t:SetPoint("CENTER", 1, -1)
+DuffedUIMainFrameButton.t:SetFont(T.SetUserFont())
+DuffedUIMainFrameButton.t:SetText(T.panelcolor.."H")
+DuffedUIMainFrameButton:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(C["media"].datatextcolor1)) end)
+DuffedUIMainFrameButton:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
+DuffedUIMainFrameButton:SetAttribute("type", "macro")
+DuffedUIMainFrameButton:SetAttribute("macrotext", "/dhelp")
+
 --Toggle Button
-----------------
 local toggle = CreateFrame("Button", nil, spec)
 toggle:CreatePanel("Default", 20, 20, "TOPLEFT", spec, "TOPRIGHT", 2, 0)
 toggle:CreateShadow("Default")

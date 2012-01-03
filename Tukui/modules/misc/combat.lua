@@ -1,4 +1,5 @@
 local T, C, L = unpack(select(2, ...))
+if not C["misc"].combatanimation then return end
 -------------------------------------------------------------------------------------
 -- Credit Alleykat 
 -- Entering combat and allertrun function (can be used in anther ways)

@@ -147,7 +147,7 @@ local OnLogon = CreateFrame("Frame")
 OnLogon:RegisterEvent("PLAYER_ENTERING_WORLD")
 OnLogon:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	print("Hello |cffc41f3b".. T.myname.."!|r".."\n".."Thank you for using |cffc41f3bDuffedUI|r (A heavily modified version of Tukui). For detailed Information visit |cffc41f3bhttp://www.tukui.org|r or |cffc41f3bhttps://github.com/liquidbase|r")
+	print("Hello |cffc41f3b".. T.myname.."!|r".."\n".."Thank you for using |cffc41f3bDuffedUI|r (A heavily modified version of Tukui). For detailed Information visit |cffc41f3bhttp://www.tukui.org|r or |cffc41f3bhttps://github.com/liquidbase|r. For further information and additional help use the H-Button or type /dhelp in chat.")
 end)
 
 local function positionsetup()

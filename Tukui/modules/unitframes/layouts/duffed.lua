@@ -448,7 +448,7 @@ local function Shared(self, unit)
 
 					local DruidManaBackground = CreateFrame("Frame", nil, self)
 					DruidManaBackground:Point("TOPLEFT", self, "BOTTOMLEFT", 0, -9)
-					DruidManaBackground:Size(218, 2)
+					DruidManaBackground:Size(playerwidth, 2)
 					DruidManaBackground:SetFrameStrata("MEDIUM")
 					DruidManaBackground:SetFrameLevel(8)
 					DruidManaBackground:SetTemplate("Default")

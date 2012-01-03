@@ -7,7 +7,7 @@ if not TukuiInfoRight then return end
 	[3] = {163/255,  24/255,  24/255},
 }]]
 
-if not C["general"].threatbar then
+if not C["general"].threatbar or C["chat"].background == false or not TukuiChatBackgroundRight then
 	local TukuiThreatBar = CreateFrame("StatusBar", "TukuiThreatBar", TukuiInfoRight)
 	TukuiThreatBar:Point("TOPLEFT", 2, -2)
 	TukuiThreatBar:Point("BOTTOMRIGHT", -2, 2)
