@@ -422,7 +422,7 @@ function Stuffing:CreateBagFrame(w)
 
 	if w == "Bank" then
 		if not C["chat"].background then
-			f:point("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 0, 3)
+			f:Point("BOTTOMRIGHT", ChatFrame1, "TOPRIGHT", 0, 3)
 		else
 			f:Point("BOTTOMRIGHT", TukuiChatBackgroundLeft, "TOPRIGHT", 0, 3)
 		end
