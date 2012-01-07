@@ -88,7 +88,7 @@ local function CreateRollButton(parent, ntex, ptex, htex, rolltype, tiptext, ...
 	f:SetMotionScriptsWhileDisabled(true)
 	local txt = f:CreateFontString(nil, nil)
 	txt:SetFont(T.SetUserFont())
-	txt:SetPoint("CENTER", 0, rolltype == 2 and 1 or rolltype == 0 and -1.2 or 0)
+	txt:SetPoint("CENTER", 1, rolltype == 2 and 1 or rolltype == 0 and -1.2 or 0)
 	return f, txt
 end
 
@@ -172,7 +172,7 @@ local function CreateRollFrame()
 	frame.fsbind = bind
 
 	local loot = frame:CreateFontString(nil, "ARTWORK")
-	loot:SetFont(C["media"].uffont, 12, "OUTLINE")
+	loot:SetFont(T.SetUserFont())
 	loot:Point("LEFT", bind, "RIGHT", 0, 0)
 	loot:Point("RIGHT", frame, "RIGHT", -5, 0)
 	loot:Height(10)

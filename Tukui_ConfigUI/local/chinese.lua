@@ -22,6 +22,7 @@ if GetLocale() == "zhCN" then
 	TukuiConfigUILocalization.datatextmmenu = "Shows mMenu datatext (required: mMenu AddOn)"
 	TukuiConfigUILocalization.datatextcolor1 = "Set color for datatext title (is overwritten if classcolor = true)"
 	TukuiConfigUILocalization.datatextcolor2 = "Set color for datatext results"
+	TukuiConfigUILocalization.datatextoutline = "Set outline for textelements"
 
 	TukuiConfigUILocalization.unitframeshealthbarcolor = "Set healthbarcolor"
 	TukuiConfigUILocalization.unitframesframewidth = "Set framewidth for player & target"

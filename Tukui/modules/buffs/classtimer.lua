@@ -140,6 +140,7 @@ local TRINKET_FILTER = {
 		
 		--Mage
 		CreateSpellEntry( 99063), -- Mirror Image T12
+		CreateSpellEntry( 105785 ), -- Stolen Time T13
 		
 		--Paladin
 		CreateSpellEntry( 90311 ), -- Holy T11

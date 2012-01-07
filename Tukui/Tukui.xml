@@ -19,10 +19,13 @@
 	<Script file="medias\medias.lua"/>
 	
 	<Include file="modules\unitframes\core\oUF\oUF.xml"/>
+	<Script file="modules\unitframes\plugins\oUF_AuraTracker\oUF_AuraTracker.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_AuraWatch\oUF_AuraWatch.lua"/>
+	<Script file="modules\unitframes\plugins\oUF_ClassIcons\oUF_ClassIcons.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_CombatFeedback\oUF_CombatFeedback.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_DebuffHighlight\oUF_DebuffHighlight.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_Experience\oUF_Experience.lua"/>
+	<Script file="modules\unitframes\plugins\oUF_Fader\oUF_Fader.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_MovableFrames\movable.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_Reputation\oUF_Reputation.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_Smooth\oUF_Smooth.lua"/>
@@ -30,7 +33,8 @@
 	<Script file="modules\unitframes\plugins\oUF_Trinkets\oUF_Trinkets.lua"/>
 	<Script file="modules\unitframes\plugins\oUF_RaidDebuffs\oUF_RaidDebuffs.lua"/>	
 	<Script file="modules\unitframes\plugins\oUF_WeakenedSoul\oUF_WeakenedSoul.lua"/>
-	<Script file="modules\unitframes\plugins\oUF_ClassIcons\oUF_ClassIcons.lua"/>
+	<Script file="modules\unitframes\plugins\oUF_Swing\oUF_Swing.lua"/>
+	<Script file="modules\unitframes\plugins\oUF_Vengeance\oUF_Vengeance.lua"/>
 	<Script file="modules\unitframes\templates\colors.lua"/>
 	
 	<Script file="core\video.lua"/>

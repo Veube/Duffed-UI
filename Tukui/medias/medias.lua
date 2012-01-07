@@ -48,13 +48,15 @@ C["media"] = {
 	["buttonhover"] = [[Interface\AddOns\Tukui\medias\textures\button_hover]],									-- texture for buttonhover
 	["largenodes"] = [[Interface\AddOns\Tukui\medias\textures\nodesLarge]],										-- bliptexture for farmmode
 	["duffed"] = [[Interface\AddOns\Tukui\medias\textures\duffed]],												-- duffedicon
-	["blankxct"] = [[Interface\AddOns\Tukui\medias\textures\blankxct]],											-- blanktexture for sct
 	
 	-- colors
 	["bordercolor"] = C["general"].bordercolor or { .15, .15, .15 }, 											-- border color of tukui panels
 	["backdropcolor"] = C["general"].backdropcolor or { .05,.05,.05 }, 											-- background color of tukui panels
 	["datatextcolor1"] = C["datatext"].color1 or { .4, .4, .4 },												-- color of datatext title
 	["datatextcolor2"] = C["datatext"].color2 or { 1, 1, 1 },													-- color of datatext result
+	
+	-- fontstyle
+	["outline"] = C["datatext"].outline or "THINOUTLINE",														-- set fontflag
 	
 	-- sound
 	["whisper"] = [[Interface\AddOns\Tukui\medias\sounds\whisper.mp3]],											-- soundnotification for incoming whisper

@@ -27,7 +27,7 @@ end
 
 T.SetUserFont = function()
 	if C["general"].normalfont then
-		return C["media"].font, C["datatext"].fontsize, "THINOUTLINE"
+		return C["media"].font, C["datatext"].fontsize, C["media"].outline
 	else
 		if T.client == "ruRU" then
 			return C["media"].pixelfont, 10, "MONOCHROMEOUTLINE"

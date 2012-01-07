@@ -233,6 +233,7 @@ C["datatext"] = {
 	["fontsize"] = 12,                                  		-- font size for panels.
 	["color1"] = { .4, .4, .4 },								-- color of datatext title
 	["color2"] = { 1, 1, 1 },									-- color of datatext result
+	["outline"] = "THINOUTLINE",								-- set fontflag
 }
 
 C["chat"] = {

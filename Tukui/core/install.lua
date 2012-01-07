@@ -27,10 +27,10 @@ T.ChatSetup = function()
 		FCF_SetChatWindowFontSize(nil, frame, 12)
 		
 		-- set the size of chat frames
-		frame:Size(T.InfoLeftRightWidth + 1, 111)
+		frame:Size(T.InfoLeftRightWidth + 1, 115)
 		
 		-- tell wow that we are using new size
-		SetChatWindowSavedDimensions(id, T.Scale(T.InfoLeftRightWidth + 1), T.Scale(111))
+		SetChatWindowSavedDimensions(id, T.Scale(T.InfoLeftRightWidth + 1), T.Scale(115))
 		
 		-- save new default position and dimension
 		FCF_SavePositionAndDimensions(frame)

@@ -103,7 +103,7 @@ end
 
 local CreateBar = function()
 	local bar = CreateFrame("Statusbar", nil, UIParent)
-	bar:SetFrameStrata("HIGH")
+	bar:SetFrameStrata("LOW")
 	bar:Size(200, 15)
 	bar:SetStatusBarTexture(C["media"].normTex)
 	bar:SetMinMaxValues(0, 100)
