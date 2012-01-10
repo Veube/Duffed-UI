@@ -127,6 +127,7 @@ if C["chat"].background then
 		chatrightbg:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 3)
 	end
 	chatrightbg:CreateShadow("Default")
+	chatrightbg:SetMovable(true)
 	
 	-- LEFT TAB PANEL
 	local tabsbgleft = CreateFrame("Frame", "TukuiTabsLeftBackground", TukuiBar1)
