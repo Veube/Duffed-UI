@@ -259,6 +259,8 @@ T.SetDefaultChatPosition = function(frame)
 			FCF_SetChatWindowFontSize(nil, frame, fontSize)
 		end
 		
+		frame:Size(C["chat"].backgroundwidth - 9, C["chat"].backgroundheight - 34)
+		
 		if id == 1 then
 			frame:ClearAllPoints()
 			if T.lowversion or C["chat"].background == false then
