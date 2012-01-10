@@ -2,7 +2,12 @@ local T, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, vari
 
 local TukuiBar1 = CreateFrame("Frame", "TukuiBar1", UIParent, "SecureHandlerStateTemplate")
 if C["actionbar"].layout ~= 1 then
-	TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 67)
+	if C["actionbar"].layout == 2 then
+		TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 67)
+	end
+	if C["actionbar"].layout == 3 then
+		TukuiBar1:CreatePanel("Default", 1, 1, "BOTTOM", UIParent, "BOTTOM", 0, 26)
+	end
 	TukuiBar1:SetWidth((T.buttonsize * 12) + (T.buttonspacing * 13))
 	TukuiBar1:SetHeight((T.buttonsize * 2) + (T.buttonspacing * 3))
 	TukuiBar1:SetFrameStrata("BACKGROUND")
@@ -45,7 +50,7 @@ TukuiBar3:SetFrameStrata("BACKGROUND")
 TukuiBar3:SetFrameLevel(2)
 TukuiBar3:CreateShadow("Default")
 
-if C["actionbar"].layout == 2 then
+if C["actionbar"].layout ~= 1 then
 	local TukuiBar4 = CreateFrame("Frame", "TukuiBar4", UIParent, "SecureHandlerStateTemplate")
 	TukuiBar4:CreatePanel("Default", 1, 1, "BOTTOMLEFT", TukuiBar1, "BOTTOMRIGHT", 6, 0)
 	TukuiBar4:SetWidth((T.buttonsize * 3) + (T.buttonspacing * 4))

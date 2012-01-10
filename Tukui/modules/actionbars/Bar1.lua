@@ -82,7 +82,7 @@ bar:SetScript("OnEvent", function(self, event, ...)
 			button:SetParent(bar)
 			button:SetFrameStrata("BACKGROUND")
 			button:SetFrameLevel(15)
-			if C["actionbar"].layout == 2 and C["actionbar"].swapbar1and3 then
+			if C["actionbar"].layout == 2 or C["actionbar"].layout == 3 and C["actionbar"].swapbar1and3 then
 				if i == 1 then
 					button:SetPoint("TOPLEFT", T.buttonspacing, -T.buttonspacing)
 				else

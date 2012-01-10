@@ -39,6 +39,6 @@ if UnitLevel("player") < MAX_PLAYER_LEVEL then
 	end
 end
 
-if C["actionbar"].layout == 2 then
+if C["actionbar"].layout == 2 or C["actionbar"].layout == 3 then
 	C["actionbar"].button2 = false
 end

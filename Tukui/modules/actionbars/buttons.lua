@@ -112,7 +112,7 @@ TukuiBar2Button:SetScript("OnClick", function(self, btn)
 		UpdateBar(self, TukuiBar2)
 	end
 end)
-if T.lowversion or C["actionbar"].layout == 2 then
+if T.lowversion or C["actionbar"].layout == 2 or C["actionbar"].layout == 3 then
 	TukuiBar2Button:Size(TukuiInfoLeft:GetHeight())
 	TukuiBar2Button:Point("LEFT", TukuiInfoLeft, "RIGHT", 2, 0)
 	TukuiBar2Button.text:Point("CENTER", 1, 0)
