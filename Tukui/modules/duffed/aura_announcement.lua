@@ -38,6 +38,7 @@ SpellsAN = {
 		--[GetSpellInfo( 33206 )]	= true,		-- Pain Suppression
 		[GetSpellInfo(86150)]  	= true,    	-- Guardian of Ancient Kings
 		[GetSpellInfo(31850)]  	= true,    	-- Ardent Defender
+		[GetSpellInfo(55233)]	= true,		-- Vampiric Blood
 	},
 	
 	-- casts that doesnt apply a buff or debuff (true/false doesnt do anything here)

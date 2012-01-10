@@ -69,7 +69,7 @@ end
 	
 local function SpecChangeCastbar(self)
 	local specbar = CreateFrame("StatusBar", nil, UIParent)
-	specbar:Point("TOPLEFT", self, "BOTTOMLEFT", 0, -2)
+	specbar:Point("TOPLEFT", self, "BOTTOMLEFT", -22, -2)
 	specbar:Point("TOPRIGHT", self, "BOTTOMRIGHT", 22, -2)
 	specbar:Height(19)
 	local border = CreateFrame("Frame", specbar:GetName() and specbar:GetName() .. "InnerBorder" or nil, specbar)
@@ -140,7 +140,7 @@ int = int - t
 if int > 0 then return end
 	if not GetPrimaryTalentTree() then spec.t:SetText("No talents") return end
 	local tree1, tree2, tree3, Tree = ActiveTalents()
-	name = select(2, GetTalentTabInfo(Tree))
+	local name = select(2, GetTalentTabInfo(Tree))
 	spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3)
 		
 	if HasDualSpec() then
