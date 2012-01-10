@@ -26,6 +26,9 @@ elseif (T.screenwidth >= 3840) or (UIParent:GetWidth() + 1 > T.screenwidth) then
 	
 	-- adding height condition here to be sure it work with bezel compensation because WSXGA+ and UXGA/HD+ got approx same width
 	if width >= 4800 and width < 5760 and height == 900 then width = 1600 end   -- UXGA & HD+
+		
+	-- rare PLP setup
+	if width >= 4960 and width < 5360 and height == 1600 then width = 2560 end
 	
 	-- low resolution screen
 	if width >= 4320 and width < 4800 then width = 1440 end 	                -- WSXGA
