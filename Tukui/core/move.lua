@@ -18,6 +18,7 @@ T.AllowFrameMoving = {
 	CDAnchor,
 	TCBanchor,
 	FCBanchor,
+	TukuiChatBackgroundRight,
 }
 
 -- used to exec various code if we enable or disable moving
@@ -104,6 +105,14 @@ local function exec(self, enable)
 		else
 			self:SetBackdropBorderColor(0, 0, 0, 0)
 			self:SetBackdropColor(0, 0, 0, 0)
+		end
+	end
+	
+	if self == TukuiChatBackgroundRight then
+		if enable then
+			self:SetBackdropBorderColor(1, 0, 0, 1)	
+		else
+			self:SetBackdropBorderColor(0, 0, 0, 0)
 		end
 	end
 	
