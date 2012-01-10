@@ -140,7 +140,7 @@ int = int - t
 if int > 0 then return end
 	if not GetPrimaryTalentTree() then spec.t:SetText("No talents") return end
 	local tree1, tree2, tree3, Tree = ActiveTalents()
-	name = select(2, GetTalentTabInfo(Tree))
+	local name = select(2, GetTalentTabInfo(Tree))
 	spec.t:SetText(name.." "..panelcolor..tree1.."/"..tree2.."/"..tree3)
 		
 	if HasDualSpec() then
