@@ -130,13 +130,13 @@ if C["chat"].background then
 	
 	-- LEFT TAB PANEL
 	local tabsbgleft = CreateFrame("Frame", "TukuiTabsLeftBackground", TukuiBar1)
-	tabsbgleft:CreatePanel("Default", T.InfoLeftRightWidth - 20, 20, "TOP", chatleftbg, "TOP", -11, -4)
+	tabsbgleft:CreatePanel("Default", C["chat"].backgroundwidth - 30, 20, "TOP", chatleftbg, "TOP", -11, -4)
 	tabsbgleft:SetFrameLevel(2)
 	tabsbgleft:SetFrameStrata("BACKGROUND")
 		
 	-- RIGHT TAB PANEL
 	local tabsbgright = CreateFrame("Frame", "TukuiTabsRightBackground", TukuiBar1)
-	tabsbgright:CreatePanel("Default", T.InfoLeftRightWidth - 20, 20, "TOP", chatrightbg, "TOP", -11, -4)
+	tabsbgright:CreatePanel("Default", C["chat"].backgroundwidth - 30, 20, "TOP", chatrightbg, "TOP", -11, -4)
 	tabsbgright:SetFrameLevel(2)
 	tabsbgright:SetFrameStrata("BACKGROUND")
 	
