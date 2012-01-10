@@ -111,7 +111,7 @@ local CreateBar = function()
 	bar.backdrop = CreateFrame("Frame", nil, bar)
 	bar.backdrop:Point("TOPLEFT", -2, 2)
 	bar.backdrop:Point("BOTTOMRIGHT", 2, -2)
-	bar.backdrop:SetTemplate("Default")
+	bar.backdrop:SetTemplate("Transparent")
 	bar.backdrop:SetFrameStrata("BACKGROUND")
 
 	bar.bg = bar:CreateTexture(nil, "BACKGROUND")

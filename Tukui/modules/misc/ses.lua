@@ -69,7 +69,7 @@ end
 	
 local function SpecChangeCastbar(self)
 	local specbar = CreateFrame("StatusBar", nil, UIParent)
-	specbar:Point("TOPLEFT", self, "BOTTOMLEFT", 0, -2)
+	specbar:Point("TOPLEFT", self, "BOTTOMLEFT", -22, -2)
 	specbar:Point("TOPRIGHT", self, "BOTTOMRIGHT", 22, -2)
 	specbar:Height(19)
 	local border = CreateFrame("Frame", specbar:GetName() and specbar:GetName() .. "InnerBorder" or nil, specbar)

@@ -279,47 +279,6 @@ local function Shared(self, unit)
 			self:RegisterEvent("PARTY_LEADER_CHANGED", T.MLAnchorUpdate)
 			self:RegisterEvent("PARTY_MEMBERS_CHANGED", T.MLAnchorUpdate)
 			
-			-- SwingTimer
-			if C["misc"].swingtimerenable then
-				local sh = CreateFrame("Frame", "TukuiSwingtimerHolder", UIParent)
-				sh:CreatePanel("", C["misc"].swingtimerwidth, 13, "CENTER", UIParent, "CENTER", 0, -50)
-				sh:SetMovable(true)
-				sh:Hide()
-				sh:SetBackdropBorderColor(1,0,0)
-				sh:SetScript("OnMouseDown", function(self) self:StartMoving() end)
-				sh:SetScript("OnMouseUp", function(self) self:StopMovingOrSizing() end)
-				sh.text = sh:CreateFontString(nil, "OVERLAY")
-				sh.text:SetFont(T.SetUserFont())
-				sh.text:SetPoint("CENTER")
-				sh.text:SetText("Move SwingTimer")
-				sh:CreateShadow("")
-
-				Swing = CreateFrame("Frame", "TukuiSwingtimer", self)
-				Swing:Point("TOPLEFT", sh, "BOTTOMLEFT", 0, -5)
-				Swing:Point("TOPRIGHT", sh, "BOTTOMRIGHT", 0, -5)
-				Swing:Height(C["misc"].swingtimerheight)
-				Swing.texture = C["media"].normTex 
-				Swing.color = C["misc"].swingtimercolor
-				Swing.textureBG = C["media"].blank
-				Swing.colorBG = {0, 0, 0, 0.8}
-				Swing.hideOoc = true
-
-				Swing:CreateBorder()
-				-- pretty sure there's a better way :/
-				Swing.border:Hide()
-				Swing.border:RegisterEvent("PLAYER_REGEN_ENABLED")
-				Swing.border:RegisterEvent("PLAYER_REGEN_DISABLED")
-				Swing.border:SetScript("OnEvent", function(self, event)
-					if event == "PLAYER_REGEN_ENABLED" then 
-						self:Hide()
-					else
-						self:Show()
-					end
-				end)
-
-				self.Swing = Swing
-			end
-
 			-- show druid mana when shapeshifted in bear, cat or whatever
 			if T.myclass == "DRUID" then
 				local DruidManaUpdate = CreateFrame("Frame")

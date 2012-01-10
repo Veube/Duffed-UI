@@ -330,37 +330,6 @@ local function Shared(self, unit)
 				self.Vengeance = vge
 			end
 			
-			-- SwingTimer
-			if C["misc"].swingtimerenable then
-				local sh = CreateFrame("Frame", "TukuiSwingtimerHolder", UIParent)
-				sh:CreatePanel("", C.misc.swingtimerwidth, 13, "CENTER", UIParent, "CENTER", 0, -50)
-				sh:SetMovable(true)
-				sh:Hide()
-				sh:SetBackdropBorderColor(1,0,0)
-				sh:SetScript("OnMouseDown", function(self) self:StartMoving() end)
-				sh:SetScript("OnMouseUp", function(self) self:StopMovingOrSizing() end)
-				sh.text = sh:CreateFontString(nil, "OVERLAY")
-				sh.text:SetFont(T.SetUserFont())
-				sh.text:SetPoint("CENTER")
-				sh.text:SetText("Move SwingTimer")
-				sh:CreateShadow("")
-
-				Swing = CreateFrame("Frame", "TukuiSwingtimer", self)
-				Swing:Point("TOPLEFT", sh, "BOTTOMLEFT", 0, -5)
-				Swing:Point("TOPRIGHT", sh, "BOTTOMRIGHT", 0, -5)
-				Swing:Height(C.misc.swingtimerheight)
-				Swing.texture = C["media"].normTex 
-				Swing.color = C["misc"].swingtimercolor
-				Swing.textureBG = C["media"].blank
-				Swing.colorBG = {0, 0, 0, 0.8}
-				Swing.hideOoc = true
-
-				Swing:CreateBorder()
-				Swing.border:Hide()
-
-				self.Swing = Swing
-			end
-
 			-- experience bar on player via mouseover for player currently levelling a character
 			if T.level ~= MAX_PLAYER_LEVEL and C["unitframes"].charportrait == true then
 				local Experience = CreateFrame("StatusBar", self:GetName().."_Experience", self)
